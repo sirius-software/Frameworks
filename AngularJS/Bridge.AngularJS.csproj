@@ -14,6 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -169,20 +171,25 @@
     <Compile Include="Directives\View.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App_Readme\Bridge.NET\LICENSE" />
+    <None Include="App_Readme\Bridge.NET\README.md" />
+    <None Include="Bridge\bridge.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Bridge, Version=1.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bridge.Dev.1.11.0\lib\net40\Bridge.dll</HintPath>
+      <HintPath>..\packages\Bridge.1.11.2\lib\net40\Bridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Bridge.Html5, Version=1.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bridge.Html5.Dev.1.11.0\lib\net40\Bridge.Html5.dll</HintPath>
+      <HintPath>..\packages\Bridge.1.11.2\lib\net40\Bridge.Html5.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\Bridge.NET\LICENSE.txt" />
+    <Content Include="Bridge\output\readme.txt" />
+    <Content Include="Bridge\www\demo.html" />
     <Content Include="build\package\README.AngularJS.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +205,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\packages\Bridge.1.11.2\build\Bridge.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Bridge.1.11.2\build\Bridge.targets'))" />
   </Target>
   <!-- NuGet packaging starts -->
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -216,6 +224,7 @@
     <Message Text="Cleaning NuGet packages in $(ProjectDir)$(OutDir)" Importance="high" />
     <Delete Files="@(FilesToDelete)" ContinueOnError="true" />
   </Target>
+  <Import Project="..\packages\Bridge.1.11.2\build\Bridge.targets" Condition="Exists('..\packages\Bridge.1.11.2\build\Bridge.targets')" />
   <!-- NuGet packaging finishes -->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

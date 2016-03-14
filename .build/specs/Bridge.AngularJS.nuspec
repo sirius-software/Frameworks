@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata minClientVersion="2.5">
-      <id>Bridge.AngularJS</id>
-      <version>0.0.0</version>
-      <title>Bridge.NET AngularJS</title>
-      <authors>Object.NET, Inc.</authors>
-      <iconUrl>http://speed.bridge.net/identity/bridgedotnet-100x100.png</iconUrl>
-      <owners />
-      <licenseUrl>https://github.com/bridgedotnet/Bridge/blob/master/LICENSE</licenseUrl>
-      <projectUrl>http://bridge.net</projectUrl>
-      <requireLicenseAcceptance>false</requireLicenseAcceptance>
-      <description>AngularJS installation into Bridge.NET projects.</description>
-      <summary>AngularJS installation into Bridge.NET projects</summary>
-      <copyright>Copyright (c) 2008-2016, Object.NET, Inc. (http://object.net/). All rights reserved.</copyright>
-      <tags>AngularJS jquery bridge bridge.net bridge js javascript C# csharp mobile ios asp.net aspnet mvc aspnetmvc web transpiler compiler object.net</tags>
-      <dependencies>
-        <dependency id="Bridge.jQuery" version="2.8.0" />
-      </dependencies>
-      <frameworkAssemblies>
-      </frameworkAssemblies>
+    <id>Bridge.AngularJS</id>
+    <version>0.0.0</version>
+    <title>Bridge.NET AngularJS</title>
+    <authors>Object.NET, Inc.</authors>
+    <iconUrl>http://speed.bridge.net/identity/bridgedotnet-100x100.png</iconUrl>
+    <owners />
+    <licenseUrl>https://github.com/bridgedotnet/Bridge/blob/master/LICENSE</licenseUrl>
+    <projectUrl>http://bridge.net</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>AngularJS installation into Bridge.NET projects.</description>
+    <summary>AngularJS installation into Bridge.NET projects</summary>
+    <copyright>Copyright (c) 2008-2016, Object.NET, Inc. (http://object.net/). All rights reserved.</copyright>
+    <tags>AngularJS jquery bridge bridge.net bridge js javascript C# csharp mobile ios asp.net aspnet mvc aspnetmvc web transpiler compiler object.net</tags>
+    <dependencies>
+      <dependency id="Bridge.jQuery" version="2.9.0" />
+    </dependencies>
+    <frameworkAssemblies>
+    </frameworkAssemblies>
   </metadata>
   <files>
     <!--content-->

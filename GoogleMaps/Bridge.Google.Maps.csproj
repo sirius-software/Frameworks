@@ -25,7 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591,0626,0824</NoWarn>
     <DocumentationFile>bin\Debug\Bridge.Google.Maps.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -36,7 +36,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Bridge.Google.Maps.xml</DocumentationFile>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591,0626,0824</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="$(OS) != Unix">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -49,6 +49,148 @@
   <ItemGroup>
     <Compile Include="Google\Maps\Animation.cs" />
     <Compile Include="Google\Maps\Attribution.cs" />
+    <Compile Include="Google\Maps\Circle.cs" />
+    <Compile Include="Google\Maps\CircleOptions.cs" />
+    <Compile Include="Google\Maps\ControlPosition.cs" />
+    <Compile Include="Google\Maps\Data.cs" />
+    <Compile Include="Google\Maps\DirectionsGeocodedWaypoint.cs" />
+    <Compile Include="Google\Maps\DirectionsLeg.cs" />
+    <Compile Include="Google\Maps\DirectionsRequest.cs" />
+    <Compile Include="Google\Maps\DirectionsResult.cs" />
+    <Compile Include="Google\Maps\DirectionsRoute.cs" />
+    <Compile Include="Google\Maps\DirectionsService.cs" />
+    <Compile Include="Google\Maps\DirectionsStatus.cs" />
+    <Compile Include="Google\Maps\DirectionsStep.cs" />
+    <Compile Include="Google\Maps\DirectionsWaypoint.cs" />
+    <Compile Include="Google\Maps\Distance.cs" />
+    <Compile Include="Google\Maps\DistanceMatrixElementStatus.cs" />
+    <Compile Include="Google\Maps\DistanceMatrixRequest.cs" />
+    <Compile Include="Google\Maps\DistanceMatrixResponse.cs" />
+    <Compile Include="Google\Maps\DistanceMatrixResponseElement.cs" />
+    <Compile Include="Google\Maps\DistanceMatrixResponseRow.cs" />
+    <Compile Include="Google\Maps\DistanceMatrixService.cs" />
+    <Compile Include="Google\Maps\DistanceMatrixStatus.cs" />
+    <Compile Include="Google\Maps\Drawing\DrawingControlOptions.cs" />
+    <Compile Include="Google\Maps\Drawing\DrawingManager.cs" />
+    <Compile Include="Google\Maps\Drawing\DrawingManagerOptions.cs" />
+    <Compile Include="Google\Maps\Drawing\OverlayCompleteEvent.cs" />
+    <Compile Include="Google\Maps\Drawing\OverlayType.cs" />
+    <Compile Include="Google\Maps\DrivingOptions.cs" />
+    <Compile Include="Google\Maps\Duration.cs" />
+    <Compile Include="Google\Maps\ElevationResult.cs" />
+    <Compile Include="Google\Maps\ElevationService.cs" />
+    <Compile Include="Google\Maps\ElevationStatus.cs" />
+    <Compile Include="Google\Maps\Event.cs" />
+    <Compile Include="Google\Maps\FusionTablesHeatmap.cs" />
+    <Compile Include="Google\Maps\FusionTablesLayer.cs" />
+    <Compile Include="Google\Maps\FusionTablesLayerOptions.cs" />
+    <Compile Include="Google\Maps\FusionTablesMarkerOptions.cs" />
+    <Compile Include="Google\Maps\FusionTablesPolygonOptions.cs" />
+    <Compile Include="Google\Maps\FusionTablesPolylineOptions.cs" />
+    <Compile Include="Google\Maps\FusionTablesQuery.cs" />
+    <Compile Include="Google\Maps\FusionTablesStyle.cs" />
+    <Compile Include="Google\Maps\Geometry\Encoding.cs" />
+    <Compile Include="Google\Maps\Geometry\Poly.cs" />
+    <Compile Include="Google\Maps\Geometry\Spherical.cs" />
+    <Compile Include="Google\Maps\Icon.cs" />
+    <Compile Include="Google\Maps\IconSequence.cs" />
+    <Compile Include="Google\Maps\ImageMapType.cs" />
+    <Compile Include="Google\Maps\ImageMapTypeOptions.cs" />
+    <Compile Include="Google\Maps\InfoWindow.cs" />
+    <Compile Include="Google\Maps\InfoWindowOptions.cs" />
+    <Compile Include="Google\Maps\KmlAuthor.cs" />
+    <Compile Include="Google\Maps\KmlLayer.cs" />
+    <Compile Include="Google\Maps\KmlLayerMetadata.cs" />
+    <Compile Include="Google\Maps\KmlLayerOptions.cs" />
+    <Compile Include="Google\Maps\KmlLayerStatus.cs" />
+    <Compile Include="Google\Maps\LatLngBounds.cs" />
+    <Compile Include="Google\Maps\LatLngBoundsLiteral.cs" />
+    <Compile Include="Google\Maps\LatLng.cs" />
+    <Compile Include="Google\Maps\LatLngLiteral.cs" />
+    <Compile Include="Google\Maps\LocationElevationRequest.cs" />
+    <Compile Include="Google\Maps\MapCanvasProjection.cs" />
+    <Compile Include="Google\Maps\Map.cs" />
+    <Compile Include="Google\Maps\MapOptions.cs" />
+    <Compile Include="Google\Maps\MapPanes.cs" />
+    <Compile Include="Google\Maps\MapsEventListener.cs" />
+    <Compile Include="Google\Maps\MapTypeControlOptions.cs" />
+    <Compile Include="Google\Maps\MapTypeControlStyle.cs" />
+    <Compile Include="Google\Maps\MapType.cs" />
+    <Compile Include="Google\Maps\MapTypeId.cs" />
+    <Compile Include="Google\Maps\MapTypeRegistry.cs" />
+    <Compile Include="Google\Maps\MapTypeStyle.cs" />
+    <Compile Include="Google\Maps\MapTypeStyleElementType.cs" />
+    <Compile Include="Google\Maps\MapTypeStyleFeatureType.cs" />
+    <Compile Include="Google\Maps\MapTypeStyler.cs" />
+    <Compile Include="Google\Maps\Marker.cs" />
+    <Compile Include="Google\Maps\MarkerLabel.cs" />
+    <Compile Include="Google\Maps\MarkerOptions.cs" />
+    <Compile Include="Google\Maps\MarkerPlace.cs" />
+    <Compile Include="Google\Maps\MarkerShape.cs" />
+    <Compile Include="Google\Maps\MouseEvent.cs" />
+    <Compile Include="Google\Maps\MVCArray.cs" />
+    <Compile Include="Google\Maps\MVCObject.cs" />
+    <Compile Include="Google\Maps\OverlayView.cs" />
+    <Compile Include="Google\Maps\OverviewMapControlOptions.cs" />
+    <Compile Include="Google\Maps\PanControlOptions.cs" />
+    <Compile Include="Google\Maps\PathElevationRequest.cs" />
+    <Compile Include="Google\Maps\Place.cs" />
+    <Compile Include="Google\Maps\Places\GeocoderAddressComponent.cs" />
+    <Compile Include="Google\Maps\Places\PhotoOptions.cs" />
+    <Compile Include="Google\Maps\Places\PlaceAspectRating.cs" />
+    <Compile Include="Google\Maps\Places\PlaceGeometry.cs" />
+    <Compile Include="Google\Maps\Places\PlacePhoto.cs" />
+    <Compile Include="Google\Maps\Places\PlaceResult.cs" />
+    <Compile Include="Google\Maps\Places\PlaceReview.cs" />
+    <Compile Include="Google\Maps\Places\SearchBox.cs" />
+    <Compile Include="Google\Maps\Places\SearchBoxOptions.cs" />
+    <Compile Include="Google\Maps\Point.cs" />
+    <Compile Include="Google\Maps\Polygon.cs" />
+    <Compile Include="Google\Maps\PolygonOptions.cs" />
+    <Compile Include="Google\Maps\Polyline.cs" />
+    <Compile Include="Google\Maps\PolylineOptions.cs" />
+    <Compile Include="Google\Maps\PolyMouseEvent.cs" />
+    <Compile Include="Google\Maps\Projection.cs" />
+    <Compile Include="Google\Maps\Rectangle.cs" />
+    <Compile Include="Google\Maps\RectangleOptions.cs" />
+    <Compile Include="Google\Maps\RotateControlOptions.cs" />
+    <Compile Include="Google\Maps\ScaleControlOptions.cs" />
+    <Compile Include="Google\Maps\ScaleControlStyle.cs" />
+    <Compile Include="Google\Maps\Size.cs" />
+    <Compile Include="Google\Maps\StreetViewAddressControlOptions.cs" />
+    <Compile Include="Google\Maps\StreetViewControlOptions.cs" />
+    <Compile Include="Google\Maps\StreetViewCoverageLayer.cs" />
+    <Compile Include="Google\Maps\StreetViewLink.cs" />
+    <Compile Include="Google\Maps\StreetViewLocation.cs" />
+    <Compile Include="Google\Maps\StreetViewLocationRequest.cs" />
+    <Compile Include="Google\Maps\StreetViewPanorama.cs" />
+    <Compile Include="Google\Maps\StreetViewPanoramaData.cs" />
+    <Compile Include="Google\Maps\StreetViewPanoramaOptions.cs" />
+    <Compile Include="Google\Maps\StreetViewPanoRequest.cs" />
+    <Compile Include="Google\Maps\StreetViewPov.cs" />
+    <Compile Include="Google\Maps\StreetViewPreference.cs" />
+    <Compile Include="Google\Maps\StreetViewService.cs" />
+    <Compile Include="Google\Maps\StreetViewSource.cs" />
+    <Compile Include="Google\Maps\StreetViewStatus.cs" />
+    <Compile Include="Google\Maps\StreetViewTileData.cs" />
+    <Compile Include="Google\Maps\StrokePosition.cs" />
+    <Compile Include="Google\Maps\StyledMapType.cs" />
+    <Compile Include="Google\Maps\StyledMapTypeOptions.cs" />
+    <Compile Include="Google\Maps\Symbol.cs" />
+    <Compile Include="Google\Maps\SymbolPath.cs" />
+    <Compile Include="Google\Maps\Time.cs" />
+    <Compile Include="Google\Maps\TrafficModel.cs" />
+    <Compile Include="Google\Maps\TransitDetails.cs" />
+    <Compile Include="Google\Maps\TransitFare.cs" />
+    <Compile Include="Google\Maps\TransitLine.cs" />
+    <Compile Include="Google\Maps\TransitMode.cs" />
+    <Compile Include="Google\Maps\TransitOptions.cs" />
+    <Compile Include="Google\Maps\TransitRoutePreference.cs" />
+    <Compile Include="Google\Maps\TransitStop.cs" />
+    <Compile Include="Google\Maps\TravelMode.cs" />
+    <Compile Include="Google\Maps\UnitSystem.cs" />
+    <Compile Include="Google\Maps\ZoomControlOptions.cs" />
+    <Compile Include="Google\Maps\ZoomControlStyle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\.build\common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>

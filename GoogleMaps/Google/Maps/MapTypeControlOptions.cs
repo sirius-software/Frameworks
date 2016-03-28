@@ -6,7 +6,7 @@ namespace Bridge.Google.Maps
     [ObjectLiteral]
     public class MapTypeControlOptions
     {
-        public string[] MapTypeIds;
+        public Any<string, MapTypeId>[] MapTypeIds;
 
         public ControlPosition Position;
 

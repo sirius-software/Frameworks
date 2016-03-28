@@ -7,7 +7,7 @@ namespace Bridge.Google.Maps
     public class OverlayView : MVCObject
     {
         // TODO depends on usage can be field or method
-        public extern void Draw();
+        public virtual extern void Draw();
 
         public extern Any<Map, StreetViewPanorama> GetMap();
 
@@ -16,10 +16,10 @@ namespace Bridge.Google.Maps
         public extern MapCanvasProjection GetProjection();
 
         // TODO depends on usage can be field or method
-        public extern void OnAdd();
+        public virtual extern void OnAdd();
 
         // TODO depends on usage can be field or method
-        public extern void OnRemove();
+        public virtual extern void OnRemove();
 
         public extern void SetMap(Any<Map, StreetViewPanorama> map);
     }

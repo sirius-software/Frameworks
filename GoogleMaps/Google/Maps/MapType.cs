@@ -4,7 +4,7 @@ namespace Bridge.Google.Maps
     using Bridge.Html5;
 
     [External]
-    public delegate Node GetTileDelegate(Point tileCoord, int zoom, dynamic ownerDocument);
+    public delegate Node GetTileDelegate(Point tileCoord, int zoom, DocumentInstance ownerDocument);
 
     [External]
     public interface MapType

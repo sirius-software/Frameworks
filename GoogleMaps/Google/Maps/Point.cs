@@ -6,11 +6,11 @@ namespace Bridge.Google.Maps
     [Namespace("google.maps")]
     public class Point
     {
-        public int X;
+        public double X;
 
-        public int Y;
+        public double Y;
 
-        public extern Point(int x, int y);
+        public extern Point(double x, double y);
 
         public extern bool Equals(Point other);
 

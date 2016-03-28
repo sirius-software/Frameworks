@@ -27,7 +27,7 @@ namespace Bridge.Google.Maps
 
         public extern double GetHeading();
 
-        public extern MapTypeId GetMapTypeId();
+        public extern Any<string, MapTypeId> GetMapTypeId();
 
         public extern Projection GetProjection();
 

@@ -16,7 +16,7 @@ namespace Bridge.Google.Maps
         [Name("SATELLITE")]
         Satellite,
 
-        [Name("TERRIAN")]
-        Terrian
+        [Name("TERRAIN")]
+        Terrain
     }
 }

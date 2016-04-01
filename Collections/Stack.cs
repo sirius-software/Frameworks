@@ -177,7 +177,9 @@ namespace System.Collections.Generic
             int threshold = (int)(((double)_array.Length) * 0.9);
             if (_size < threshold)
             {
-                Array.Resize(_array, _size);
+                var localArray = _array;
+                Array.Resize(ref localArray, _size);
+                _array = localArray;
                 _version++;
             }
         }
@@ -209,7 +211,9 @@ namespace System.Collections.Generic
         {
             if (_size == _array.Length)
             {
-                Array.Resize(_array, (_array.Length == 0) ? DefaultCapacity : 2 * _array.Length);
+                var localArray = _array;
+                Array.Resize(ref localArray, (_array.Length == 0) ? DefaultCapacity : 2 * _array.Length);
+                _array = localArray;
             }
             _array[_size++] = item;
             _version++;

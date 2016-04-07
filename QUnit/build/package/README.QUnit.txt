@@ -1,3 +1,3 @@
 Project          : Bridge.QUnit
-Release Date     : 2015-11-23
-Current Version  : 1.7.0
+Release Date     : 2016-04-07
+Current Version  : 1.8.0

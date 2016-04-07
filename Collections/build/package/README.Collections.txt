@@ -1,3 +1,3 @@
 Project          : Bridge.Collections
-Release Date     : 2015-11-25
-Current Version  : 1.0.1
+Release Date     : 2016-04-07
+Current Version  : 1.2.0

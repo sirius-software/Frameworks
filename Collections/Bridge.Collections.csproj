@@ -55,14 +55,10 @@
     <Compile Include="Queue.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Readme\Bridge.NET\LICENSE" />
-    <None Include="App_Readme\Bridge.NET\README.md" />
     <None Include="Bridge\bridge.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Readme\Bridge.NET\LICENSE.txt" />
-    <Content Include="App_Readme\Bridge.NET\README.txt" />
     <Content Include="Bridge\output\bridge.collections.js" />
     <Content Include="Bridge\output\bridge.collections.min.js" />
     <Content Include="Bridge\output\bridge.js" />
@@ -80,7 +76,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-    <Error Condition="!Exists('..\packages\Bridge.1.12.0\build\Bridge.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Bridge.1.12.0\build\Bridge.targets'))" />
+    <Error Condition="!Exists('..\packages\Bridge.1.12.1\build\Bridge.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Bridge.1.12.1\build\Bridge.targets'))" />
   </Target>
   <!-- NuGet packaging starts -->
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -97,12 +93,15 @@
   <ItemGroup>
     <Reference Include="Bridge, Version=1.12.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bridge.1.12.0\lib\net40\Bridge.dll</HintPath>
+      <HintPath>..\packages\Bridge.1.12.1\lib\net40\Bridge.dll</HintPath>
     </Reference>
     <Reference Include="Bridge.Html5, Version=1.12.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bridge.1.12.0\lib\net40\Bridge.Html5.dll</HintPath>
+      <HintPath>..\packages\Bridge.1.12.1\lib\net40\Bridge.Html5.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Readme\Bridge.NET\" />
   </ItemGroup>
   <Import Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " Project="$(SolutionDir)\.build\common\NuGet.Build.Package.targets" />
   <Target Name="CleanProjectNuGetOutput" BeforeTargets="Clean">
@@ -112,6 +111,6 @@
     <Message Text="Cleaning NuGet packages in $(ProjectDir)$(OutDir)" Importance="high" />
     <Delete Files="@(FilesToDelete)" ContinueOnError="true" />
   </Target>
-  <Import Project="..\packages\Bridge.1.12.0\build\Bridge.targets" Condition="Exists('..\packages\Bridge.1.12.0\build\Bridge.targets')" />
+  <Import Project="..\packages\Bridge.1.12.1\build\Bridge.targets" Condition="Exists('..\packages\Bridge.1.12.1\build\Bridge.targets')" />
   <!-- NuGet packaging finishes -->
 </Project>

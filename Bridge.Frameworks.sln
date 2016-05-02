@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frameworks", "Frameworks", "{7C762820-1165-4EB4-B7A3-3BB45DF33CE7}"
 EndProject
@@ -44,6 +44,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{105998
 		.build\common\NuGet.Build.Package.targets = .build\common\NuGet.Build.Package.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.Console", "Console\Bridge.Console.csproj", "{49A43430-680D-4704-9105-D4352D105B86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{CFD49E9D-FA2D-46A6-B50D-8D114F07C07C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFD49E9D-FA2D-46A6-B50D-8D114F07C07C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFD49E9D-FA2D-46A6-B50D-8D114F07C07C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49A43430-680D-4704-9105-D4352D105B86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49A43430-680D-4704-9105-D4352D105B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49A43430-680D-4704-9105-D4352D105B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49A43430-680D-4704-9105-D4352D105B86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,5 +93,6 @@ Global
 		{CFD49E9D-FA2D-46A6-B50D-8D114F07C07C} = {7C762820-1165-4EB4-B7A3-3BB45DF33CE7}
 		{C0B01623-3AEA-472E-BD8D-4F2D05378ADC} = {16FF416E-9157-4B8A-80B8-65946FE29CE9}
 		{105998AB-4F7F-48FE-BB97-9E6F330DAC21} = {16FF416E-9157-4B8A-80B8-65946FE29CE9}
+		{49A43430-680D-4704-9105-D4352D105B86} = {7C762820-1165-4EB4-B7A3-3BB45DF33CE7}
 	EndGlobalSection
 EndGlobal

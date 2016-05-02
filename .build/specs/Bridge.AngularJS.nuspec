@@ -15,14 +15,14 @@
     <copyright>Copyright (c) 2008-2016, Object.NET, Inc. (http://object.net/). All rights reserved.</copyright>
     <tags>AngularJS jquery bridge bridge.net bridge js javascript C# csharp mobile ios asp.net aspnet mvc aspnetmvc web transpiler compiler object.net</tags>
     <dependencies>
-      <dependency id="Bridge.jQuery" version="2.9.0" />
+      <dependency id="Bridge.jQuery" version="2.10.0" />
     </dependencies>
     <frameworkAssemblies>
     </frameworkAssemblies>
   </metadata>
   <files>
     <!--content-->
-    <file src="..\..\AngularJS\build\package\README.AngularJS.txt" target="content\App_Readme\Bridge.NET\README.AngularJS.txt"/>
+    <file src="..\..\AngularJS\build\package\README.txt" target="content\App_Readme\Bridge.NET\README.txt"/>
 
     <!--NET40-->
     <file src="..\..\AngularJS\bin\Release\Bridge.AngularJS.dll" target="lib\net40\Bridge.AngularJS.dll"/>

@@ -20,9 +20,6 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <!--content-->
-    <file src="..\..\Collections\build\package\README.txt" target="content\App_Readme\Bridge.NET\README.txt"/>
-
     <!--NET40-->
     <file src="..\..\Collections\bin\Release\Bridge.Collections.dll" target="lib\net40\Bridge.Collections.dll"/>
     <file src="..\..\Collections\bin\Release\Bridge.Collections.pdb" target="lib\net40\pdb\Bridge.Collections.pdb"/>

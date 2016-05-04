@@ -21,9 +21,6 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <!--content-->
-    <file src="..\..\QUnit\build\package\README.txt" target="README.txt"/>
-
     <!--NET40-->
     <file src="..\..\QUnit\bin\Release\Bridge.QUnit.dll" target="lib\net40\Bridge.QUnit.dll"/>
     <file src="..\..\QUnit\bin\Release\Bridge.QUnit.xml" target="lib\net40\Bridge.QUnit.xml"/>

@@ -21,9 +21,6 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <!--content-->
-    <file src="..\..\WebGL\build\package\README.txt" target="README.txt"/>
-
     <!--NET40-->
     <file src="..\..\WebGL\bin\Release\Bridge.WebGL.dll" target="lib\net40\Bridge.WebGL.dll"/>
     <file src="..\..\WebGL\bin\Release\Bridge.WebGL.xml" target="lib\net40\Bridge.WebGL.xml"/>

@@ -21,9 +21,6 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <!--content-->
-    <file src="..\..\Bootstrap3\build\package\README.txt" target="content\App_Readme\Bridge.NET\README.txt"/>
-
     <!--NET40-->
     <file src="..\..\Bootstrap3\bin\Release\Bridge.Bootstrap3.dll" target="lib\net40\Bridge.Bootstrap3.dll"/>
     <file src="..\..\Bootstrap3\bin\Release\Bridge.Bootstrap3.xml" target="lib\net40\Bridge.Bootstrap3.xml"/>

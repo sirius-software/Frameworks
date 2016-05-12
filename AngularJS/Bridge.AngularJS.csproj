@@ -41,7 +41,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
-    <NoStdLib>True</NoStdLib>
+    <NoStdLib>true</NoStdLib>
     <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
     <AdditionalExplicitAssemblyReferences />
   </PropertyGroup>
@@ -171,32 +171,8 @@
     <Compile Include="Directives\View.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Readme\Bridge.NET\LICENSE" />
-    <None Include="App_Readme\Bridge.NET\README.md" />
-    <None Include="Bridge\bridge.json" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Bridge, Version=1.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bridge.1.11.2\lib\net40\Bridge.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Bridge.Html5, Version=1.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bridge.1.11.2\lib\net40\Bridge.Html5.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Readme\Bridge.NET\LICENSE.txt" />
-    <Content Include="Bridge\output\readme.txt" />
-    <Content Include="Bridge\www\demo.html" />
-    <Content Include="build\package\README.AngularJS.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\jQuery2\Bridge.jQuery2.csproj">
-      <Project>{bccfb816-2f7f-4693-a16b-2bc0a7b39085}</Project>
-      <Name>Bridge.jQuery2</Name>
-    </ProjectReference>
+    <Content Include="build\package\README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
@@ -205,7 +181,6 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-    <Error Condition="!Exists('..\packages\Bridge.1.11.2\build\Bridge.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Bridge.1.11.2\build\Bridge.targets'))" />
   </Target>
   <!-- NuGet packaging starts -->
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -216,6 +191,23 @@
       <Path>$(SolutionDir).build\specs\Bridge.AngularJS.nuspec</Path>
     </NuGetPackageSourcePath>
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Bridge, Version=1.13.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bridge.Core.1.13.0\lib\net40\Bridge.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Bridge.Html5, Version=1.13.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bridge.Html5.1.13.0\lib\net40\Bridge.Html5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Bridge.jQuery2, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bridge.jQuery.2.10.0\lib\net40\Bridge.jQuery2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " Project="$(SolutionDir)\.build\common\NuGet.Build.Package.targets" />
   <Target Name="CleanProjectNuGetOutput" BeforeTargets="Clean">
     <ItemGroup>
@@ -224,7 +216,6 @@
     <Message Text="Cleaning NuGet packages in $(ProjectDir)$(OutDir)" Importance="high" />
     <Delete Files="@(FilesToDelete)" ContinueOnError="true" />
   </Target>
-  <Import Project="..\packages\Bridge.1.11.2\build\Bridge.targets" Condition="Exists('..\packages\Bridge.1.11.2\build\Bridge.targets')" />
   <!-- NuGet packaging finishes -->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

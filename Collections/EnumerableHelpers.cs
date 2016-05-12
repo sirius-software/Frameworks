@@ -16,7 +16,7 @@ namespace System.Collections.Generic
         {
             int count;
             T[] results = ToArray(source, out count);
-            Array.Resize(results, count);
+            Array.Resize(ref results, count);
             return results;
         }
 
@@ -65,7 +65,7 @@ namespace System.Collections.Generic
                                 newLength = MaxArrayLength <= count ? count + 1 : MaxArrayLength;
                             }
 
-                            Array.Resize(arr, newLength);
+                            Array.Resize(ref arr, newLength);
                         }
 
                         arr[count++] = en.Current;

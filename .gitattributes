@@ -2,30 +2,28 @@
 * text=auto
 
 # Text files: force them to be committed as native line ending (LF/Unix)
-*.asax text eol=lf
-*.ashx text eol=lf
-*.aspx text eol=lf
-*.bat text eol=lf
+*.asax text
+*.ashx text
+*.aspx text
+*.bat text
 *.config text
-*.cs text eol=lf
-*.cshtml text eol=lf
+*.cs text
+*.cshtml text
 *.csproj text
-*.htm text eol=lf
-*.html text eol=lf
-*.js text eol=lf
+*.htm text
+*.html text
+*.js eol=lf
 *.jsb text
-*.json text eol=lf
-*.md text eol=lf
-*.php text eol=lf
-*.pl text eol=lf
-*.ps1 text eol=lf
-*.py text eol=lf
-*.sh text eol=lf
+*.json text
+*.md text
+*.php text
+*.ps1 text
+*.py text
 *.sln text
-*.sql text eol=lf
-*.d.ts text eol=lf
+*.sql text
+*.d.ts eol=lf
 *.target text
-*.txt text eol=lf
+*.txt eol=lf
 *.xml text
 
 # These are expected to be always treated as binary files.

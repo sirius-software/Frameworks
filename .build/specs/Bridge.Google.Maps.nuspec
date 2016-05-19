@@ -14,13 +14,13 @@
     <summary>Google Maps installation into Bridge.NET projects</summary>
     <copyright>Copyright (c) 2008-2016, Object.NET, Inc. (http://object.net/). All rights reserved.</copyright>
     <tags>google maps bridge bridge.net bridge js javascript C# csharp mobile ios asp.net aspnet mvc aspnetmvc web transpiler compiler object.net</tags>
+    <dependencies>
+      <dependency id="Bridge.Html5" version="1.13.0" />
+    </dependencies>
     <frameworkAssemblies>
     </frameworkAssemblies>
   </metadata>
   <files>
-    <!--content-->
-    <file src="..\..\GoogleMaps\build\package\README.Google.Maps.txt" target="content\App_Readme\Bridge.NET\README.Google.Maps.txt"/>
-
     <!--NET40-->
     <file src="..\..\GoogleMaps\bin\Release\Bridge.Google.Maps.dll" target="lib\net40\Bridge.Google.Maps.dll"/>
     <file src="..\..\GoogleMaps\bin\Release\Bridge.Google.Maps.xml" target="lib\net40\Bridge.Google.Maps.xml"/>

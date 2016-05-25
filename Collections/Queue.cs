@@ -1,13 +1,10 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Bridge;
-
 namespace System.Collections.Generic
 {
     // A simple Queue of generic objects.  Internally it is implemented as a
     // circular buffer, so Enqueue can be O(n).  Dequeue is O(1).
-    [Namespace("Bridge.Collections")]
     public class Queue<T> : IEnumerable<T>, System.Collections.ICollection
     {
         private T[] _array;

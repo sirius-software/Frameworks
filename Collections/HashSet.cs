@@ -1,11 +1,8 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Bridge;
-
 namespace System.Collections.Generic
 {
-    [Namespace("Bridge.Collections")]
     public class HashSet<T> : ICollection<T>, ISet<T>
     {
         private const int Lower31BitMask = 0x7FFFFFFF;

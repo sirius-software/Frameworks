@@ -9,13 +9,10 @@
 **
 =============================================================================*/
 
-using Bridge;
-
 namespace System.Collections.Generic
 {
     // A simple stack of objects.  Internally it is implemented as an array,
     // so Push can be O(n).  Pop is O(1).
-    [Namespace("Bridge.Collections")]
     public class Stack<T> : IEnumerable<T>, System.Collections.ICollection
     {
         private T[] _array;     // Storage for stack elements

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata minClientVersion="2.5">
     <id>Bridge.WebGL</id>
-    <version>1.7.2</version>
+    <version>0.0.0</version>
     <title>Bridge.NET WebGL</title>
     <authors>Object.NET, Inc.</authors>
     <iconUrl>http://speed.bridge.net/identity/bridgedotnet-100x100.png</iconUrl>
@@ -15,7 +15,7 @@
     <copyright>Copyright (c) 2008-2016, Object.NET, Inc. (http://object.net/). All rights reserved.</copyright>
     <tags>webgl bridge.net bridge js javascript C# csharp mobile ios asp.net aspnet mvc aspnetmvc web transpiler compiler object.net</tags>
     <dependencies>
-      <dependency id="Bridge.Html5" version="1.13.0" />
+      <dependency id="Bridge.Html5" version="1.14.0" />
     </dependencies>
     <frameworkAssemblies>
     </frameworkAssemblies>

@@ -38,9 +38,6 @@
     <Compile Include="Console.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -59,10 +56,13 @@
     </NuGetPackageSourcePath>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Bridge, Version=1.13.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bridge.Core.1.13.0\lib\net40\Bridge.dll</HintPath>
+    <Reference Include="Bridge, Version=1.14.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bridge.Core.1.14.0\lib\net40\Bridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " Project="$(SolutionDir)\.build\common\NuGet.Build.Package.targets" />
   <Target Name="CleanProjectNuGetOutput" BeforeTargets="Clean">

@@ -1574,7 +1574,7 @@ namespace Bridge.WebGL
         ///     gl.UNSIGNED_SHORT_4_4_4_4       Represents colors in a Uint16Array where red = 4 bits, green=4 bits, blue=4 bits, and alpha=4 bits.
         ///     gl.UNSIGNED_SHORT_5_5_5_1       Represents colors in a Uint16Array where red = 5 bits, green=5 bits, blue=5 bits and alpha=1 bit.</param>
         /// <param name="pixels">The CanvasElement to use as a data source for the texture. A buffer of sufficient size is automatically allocated and its contents is initialized to 0 if pixels is null.</param>
-        public virtual void TexImage2D(int target, int level, int internalFormat, int format, int type, CanvasElement pixels) { }
+        public virtual void TexImage2D(int target, int level, int internalFormat, int format, int type, HTMLCanvasElement pixels) { }
 
         /// <summary>
         /// Loads the supplied pixel data into a texture.
@@ -1625,7 +1625,7 @@ namespace Bridge.WebGL
         ///     gl.UNSIGNED_SHORT_4_4_4_4       Represents colors in a Uint16Array where red = 4 bits, green=4 bits, blue=4 bits, and alpha=4 bits.
         ///     gl.UNSIGNED_SHORT_5_5_5_1       Represents colors in a Uint16Array where red = 5 bits, green=5 bits, blue=5 bits and alpha=1 bit.</param>
         /// <param name="pixels">The ImageElement to use as a data source for the texture. A buffer of sufficient size is automatically allocated and its contents is initialized to 0 if pixels is null.</param>
-        public virtual void TexImage2D(int target, int level, int internalFormat, int format, int type, ImageElement pixels) { }
+        public virtual void TexImage2D(int target, int level, int internalFormat, int format, int type, HTMLImageElement pixels) { }
 
         /// <summary>
         /// Loads the supplied pixel data into a texture.
@@ -1842,7 +1842,7 @@ namespace Bridge.WebGL
         ///     gl.UNSIGNED_BYTE
         ///     gl.FLOAT            Call getExtension("gl.OES_texture_float") first to enable. This creates 128bit-per-pixel textures instead of 32bit-per-pixel for the image. </param>
         /// <param name="pixels">The CanvasElement to use for the texture.</param>
-        public virtual void TexSubImage2D(int target, int level, int xOffset, int yOffset, int width, int height, int format, int type, CanvasElement pixels) { }
+        public virtual void TexSubImage2D(int target, int level, int xOffset, int yOffset, int width, int height, int format, int type, HTMLCanvasElement pixels) { }
 
         /// <summary>
         /// Replaces a portion of an existing 2D texture image with all of another image.
@@ -1887,7 +1887,7 @@ namespace Bridge.WebGL
         ///     gl.UNSIGNED_BYTE
         ///     gl.FLOAT            Call getExtension("gl.OES_texture_float") first to enable. This creates 128bit-per-pixel textures instead of 32bit-per-pixel for the image. </param>
         /// <param name="pixels">The ImageElement to use for the texture.</param>
-        public virtual void TexSubImage2D(int target, int level, int xOffset, int yOffset, int width, int height, int format, int type, ImageElement pixels) { }
+        public virtual void TexSubImage2D(int target, int level, int xOffset, int yOffset, int width, int height, int format, int type, HTMLImageElement pixels) { }
 
         /// <summary>
         /// Replaces a portion of an existing 2D texture image with all of another image.

@@ -16,7 +16,7 @@ namespace Bridge.WebGL
         /// <summary>
         /// The Canvas element associated with this context. May be null!
         /// </summary>
-        public readonly CanvasElement Canvas;
+        public readonly HTMLCanvasElement Canvas;
 
         /// <summary>
         /// Width of the current drawing buffer. Should match the width of the canvas element associated with this context.

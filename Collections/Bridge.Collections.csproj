@@ -77,9 +77,6 @@
       <Path>$(SolutionDir).build\specs\Bridge.Collections.nuspec</Path>
       <SubType>Designer</SubType>
     </NuGetPackageSourcePath>
-    <NuGetPackageSourcePath Include="$(SolutionDir).build\specs\Bridge.Collections.Dev.nuspec">
-      <Path>$(SolutionDir).build\specs\Bridge.Collections.Dev.nuspec</Path>
-    </NuGetPackageSourcePath>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Bridge, Version=1.14.0.0, Culture=neutral, processorArchitecture=MSIL">

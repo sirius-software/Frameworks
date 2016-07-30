@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Bridge
+namespace Bridge.Html5
 {
     /// <summary>
     /// The console object provides access to the browser's debugging console (e.g. the Web Console in Firefox).

@@ -7,8 +7,8 @@
     <ProjectGuid>{49A43430-680D-4704-9105-D4352D105B86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bridge.Console</RootNamespace>
-    <AssemblyName>Bridge.Console</AssemblyName>
+    <RootNamespace>Bridge.Html5.Console</RootNamespace>
+    <AssemblyName>Bridge.Html5.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NoStdLib>true</NoStdLib>
@@ -51,8 +51,8 @@
     <NuGetBuildPackage>true</NuGetBuildPackage>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <NuGetPackageSourcePath Include="$(SolutionDir).build\specs\Bridge.Console.nuspec">
-      <Path>$(SolutionDir).build\specs\Bridge.Console.nuspec</Path>
+    <NuGetPackageSourcePath Include="$(SolutionDir).build\specs\Bridge.Html5.Console.nuspec">
+      <Path>$(SolutionDir).build\specs\Bridge.Html5.Console.nuspec</Path>
     </NuGetPackageSourcePath>
   </ItemGroup>
   <ItemGroup>

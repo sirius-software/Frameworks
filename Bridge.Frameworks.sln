@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "specs", "specs", "{C0B01623
 		.build\specs\Bridge.AngularJS.nuspec = .build\specs\Bridge.AngularJS.nuspec
 		.build\specs\Bridge.Bootstrap.nuspec = .build\specs\Bridge.Bootstrap.nuspec
 		.build\specs\Bridge.Collections.nuspec = .build\specs\Bridge.Collections.nuspec
-		.build\specs\Bridge.Console.nuspec = .build\specs\Bridge.Console.nuspec
+		.build\specs\Bridge.Html5.Console.nuspec = .build\specs\Bridge.Html5.Console.nuspec
 		.build\specs\Bridge.jQuery.nuspec = .build\specs\Bridge.jQuery.nuspec
 		.build\specs\Bridge.QUnit.Dev.nuspec = .build\specs\Bridge.QUnit.Dev.nuspec
 		.build\specs\Bridge.QUnit.nuspec = .build\specs\Bridge.QUnit.nuspec
@@ -44,7 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{105998
 		.build\common\NuGet.Build.Package.targets = .build\common\NuGet.Build.Package.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.Console", "Console\Bridge.Console.csproj", "{49A43430-680D-4704-9105-D4352D105B86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.Html5.Console", "Html5.Console\Bridge.Html5.Console.csproj", "{49A43430-680D-4704-9105-D4352D105B86}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Collections", "Collections", "{08518112-22DB-4ECA-94D8-3A9ACD8FCCE5}"
 EndProject

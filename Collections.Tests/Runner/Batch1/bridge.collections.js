@@ -1,4 +1,4 @@
-﻿(function (globals) {
+﻿Bridge.initAssembly("Bridge.Collections", function ($asm, globals) {
     "use strict";
 
     Bridge.define('System.Collections.BitArray', {
@@ -43,7 +43,6 @@
         },
         $constructor3: function (length) {
             System.Collections.BitArray.$constructor4.call(this, length, false);
-    
         },
         $constructor4: function (length, defaultValue) {
             this.$initialize();
@@ -555,7 +554,6 @@
         },
         constructor: function () {
             System.Collections.Generic.HashSet$1(T).$constructor3.call(this, new (System.Collections.Generic.EqualityComparer$1(T))());
-    
         },
         $constructor3: function (comparer) {
             this.$initialize();
@@ -570,11 +568,9 @@
         },
         $constructor1: function (collection) {
             System.Collections.Generic.HashSet$1(T).$constructor2.call(this, collection, new (System.Collections.Generic.EqualityComparer$1(T))());
-    
         },
         $constructor2: function (collection, comparer) {
             System.Collections.Generic.HashSet$1(T).$constructor3.call(this, comparer);
-    
             if (collection == null) {
                 throw new System.ArgumentNullException("collection");
             }
@@ -1194,6 +1190,7 @@
     }; });
     
     Bridge.define('System.Collections.Generic.HashSet$1.ElementCount', function (T) { return {
+        $kind: "struct",
         statics: {
             getDefaultValue: function () { return new (System.Collections.Generic.HashSet$1.ElementCount(T))(); }
         },
@@ -1202,7 +1199,6 @@
         constructor: function () {
             this.$initialize();
         },
-        $struct: true,
         getHashCode: function () {
             var hash = 17;
             hash = hash * 23 + 304990520;
@@ -1226,6 +1222,7 @@
     
     Bridge.define('System.Collections.Generic.HashSet$1.Enumerator', function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T)],
+        $kind: "struct",
         statics: {
             getDefaultValue: function () { return new (System.Collections.Generic.HashSet$1.Enumerator(T))(); }
         },
@@ -1284,7 +1281,6 @@
             this._index = 0;
             this._current = Bridge.getDefaultValue(T);
         },
-        $struct: true,
         getHashCode: function () {
             var hash = 17;
             hash = hash * 23 + 2005474994;
@@ -1311,6 +1307,7 @@
     }; });
     
     Bridge.define('System.Collections.Generic.HashSet$1.Slot', function (T) { return {
+        $kind: "struct",
         statics: {
             getDefaultValue: function () { return new (System.Collections.Generic.HashSet$1.Slot(T))(); }
         },
@@ -1320,7 +1317,6 @@
         constructor: function () {
             this.$initialize();
         },
-        $struct: true,
         getHashCode: function () {
             var hash = 17;
             hash = hash * 23 + -1966733860;
@@ -1561,6 +1557,7 @@
     
     Bridge.define('System.Collections.Generic.Queue$1.Enumerator', function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
+        $kind: "struct",
         statics: {
             getDefaultValue: function () { return new (System.Collections.Generic.Queue$1.Enumerator(T))(); }
         },
@@ -1630,7 +1627,6 @@
             this._index = -1;
             this._currentElement = Bridge.getDefaultValue(T);
         },
-        $struct: true,
         getHashCode: function () {
             var hash = 17;
             hash = hash * 23 + 2005474994;
@@ -1833,6 +1829,7 @@
     
     Bridge.define('System.Collections.Generic.Stack$1.Enumerator', function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
+        $kind: "struct",
         statics: {
             getDefaultValue: function () { return new (System.Collections.Generic.Stack$1.Enumerator(T))(); }
         },
@@ -1911,7 +1908,6 @@
             this._index = -2;
             this._currentElement = Bridge.getDefaultValue(T);
         },
-        $struct: true,
         getHashCode: function () {
             var hash = 17;
             hash = hash * 23 + 2005474994;
@@ -1990,4 +1986,4 @@
     });
     
     Bridge.init();
-})(this);
+});

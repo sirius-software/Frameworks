@@ -50,7 +50,7 @@ namespace Bridge.Collections.ClientTest.Collections.Generic
         [Test]
         public void TypePropertiesAreCorrect()
         {
-            Assert.AreEqual("System.Collections.Generic.List$1$System.Int32", typeof(List<int>).GetClassName(), "GetClassName()");
+            Assert.AreEqual("System.Collections.Generic.List$1[[System.Int32, System]]", typeof(List<int>).GetClassName(), "GetClassName()");
             object stack = new Stack<int>();
             Assert.True(stack is Stack<int>, "is Stack<int> should be true");
             Assert.True(stack is ICollection, "is ICollection<int> should be true");

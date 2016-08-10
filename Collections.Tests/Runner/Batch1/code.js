@@ -35,7 +35,7 @@
             return [1, 4, 7, 8];
         },
         typePropertiesAreCorrect: function () {
-            Bridge.Test.Assert.areEqual$1("System.Collections.Generic.List$1[[System.Int32, System]]", Bridge.getTypeName(System.Collections.Generic.List$1(System.Int32)), "GetClassName()");
+            Bridge.Test.Assert.areEqual$1("System.Collections.Generic.List$1[[System.Int32, mscorlib]]", Bridge.getTypeName(System.Collections.Generic.List$1(System.Int32)), "GetClassName()");
             var stack = new (System.Collections.Generic.Stack$1(System.Int32)).$constructor();
             Bridge.Test.Assert.true$1(Bridge.is(stack, System.Collections.Generic.Stack$1(System.Int32)), "is Stack<int> should be true");
             Bridge.Test.Assert.true$1(Bridge.is(stack, System.Collections.ICollection), "is ICollection<int> should be true");

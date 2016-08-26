@@ -6,24 +6,24 @@
             testUseCase1: function () {
                 var $t;
                 var hashSet = new (System.Collections.Generic.HashSet$1(String)).$constructor();
-    
+
                 hashSet.add("a");
                 hashSet.add("b");
                 hashSet.add("c");
-    
+
                 var text = "";
-    
+
                 $t = Bridge.getEnumerator(hashSet);
                 while ($t.moveNext()) {
                     var s = $t.getCurrent();
-                    text += s;
+                    text = System.String.concat(text, s);
                 }
-    
+
                 Bridge.Test.Assert.areEqual$1("abc", text, "Bridge634: foreach works for HashSet");
             }
         }
     });
-    
+
     Bridge.define('Bridge.Collections.ClientTest.Collections.Generic.StackTests', {
         getStack: function () {
             return new (System.Collections.Generic.Stack$1(String)).$constructor1(["x", "y"]);
@@ -112,7 +112,7 @@
         foreachWithListCallbackWorks: function () {
             var result = "";
             Bridge.Linq.Enumerable.from(new (System.Collections.Generic.Stack$1(String)).$constructor1(["a", "b", "c"])).forEach(function (s, i) {
-                result += s + i;
+                result += System.String.concat(s, i);
             });
             Bridge.Test.Assert.areEqual("c0b1a2", result);
         },
@@ -130,15 +130,15 @@
             var l = new (System.Collections.Generic.Stack$1(String)).$constructor();
             l.push("a");
             l.push("b");
-    
+
             var actual = l.toArray();
-    
+
             Bridge.Test.Assert.false(Bridge.referenceEquals(l, actual));
             Bridge.Test.Assert.true(Bridge.is(actual, Array));
             Bridge.Test.Assert.areDeepEqual(["b", "a"], actual);
         }
     });
-    
+
     Bridge.define('Bridge.Collections.ClientTest.Collections.Generic.StackTests.C', {
         i: 0,
         constructor: function (i) {
@@ -152,13 +152,13 @@
             return this.i;
         }
     });
-    
+
     Bridge.define('Bridge.Collections.ClientTest.Constants', {
         statics: {
             BRIDGE_ISSUES: "Bridge Issues",
             COLLECTIONS: "Collections"
         }
     });
-    
+
     Bridge.init();
 });

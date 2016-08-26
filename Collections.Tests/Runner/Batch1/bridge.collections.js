@@ -49,15 +49,15 @@
             if (length < 0) {
                 throw new System.ArgumentOutOfRangeException("length", "Index is less than zero.");
             }
-    
+
             this.m_array = System.Array.init(System.Collections.BitArray.getArrayLength(length, System.Collections.BitArray.BitsPerInt32), 0);
             this.m_length = length;
-    
+
             var fillValue = defaultValue ? (-1) : 0;
             for (var i = 0; i < this.m_array.length; i = (i + 1) | 0) {
                 this.m_array[i] = fillValue;
             }
-    
+
             this._version = 0;
         },
         $constructor1: function (bytes) {
@@ -71,32 +71,32 @@
             if (bytes.length > 268435455) {
                 throw new System.ArgumentException(System.String.format("The input array length must not exceed Int32.MaxValue / {0}. Otherwise BitArray.Length would exceed Int32.MaxValue.", System.Collections.BitArray.BitsPerByte), "bytes");
             }
-    
+
             this.m_array = System.Array.init(System.Collections.BitArray.getArrayLength(bytes.length, System.Collections.BitArray.BytesPerInt32), 0);
             this.m_length = (bytes.length * System.Collections.BitArray.BitsPerByte) | 0;
-    
+
             var i = 0;
             var j = 0;
             while (((bytes.length - j) | 0) >= 4) {
                 this.m_array[Bridge.identity(i, (i = (i + 1) | 0))] = (bytes[j] & 255) | ((bytes[((j + 1) | 0)] & 255) << 8) | ((bytes[((j + 2) | 0)] & 255) << 16) | ((bytes[((j + 3) | 0)] & 255) << 24);
                 j = (j + 4) | 0;
             }
-    
+
             var r = (bytes.length - j) | 0;
             if (r === 3) {
                 this.m_array[i] = ((bytes[((j + 2) | 0)] & 255) << 16);
                 r = 2;
             }
-    
+
             if (r === 2) {
                 this.m_array[i] = this.m_array[i] | ((bytes[((j + 1) | 0)] & 255) << 8);
                 r = 1;
             }
-    
+
             if (r === 1) {
                 this.m_array[i] = this.m_array[i] | (bytes[j] & 255);
             }
-    
+
             this._version = 0;
         },
         constructor: function (values) {
@@ -104,16 +104,16 @@
             if (values == null) {
                 throw new System.ArgumentNullException("values");
             }
-    
+
             this.m_array = System.Array.init(System.Collections.BitArray.getArrayLength(values.length, System.Collections.BitArray.BitsPerInt32), 0);
             this.m_length = values.length;
-    
+
             for (var i = 0; i < values.length; i = (i + 1) | 0) {
                 if (values[i]) {
                     this.m_array[((Bridge.Int.div(i, 32)) | 0)] = this.m_array[((Bridge.Int.div(i, 32)) | 0)] | (1 << (i % 32));
                 }
             }
-    
+
             this._version = 0;
         },
         $constructor5: function (values) {
@@ -125,12 +125,12 @@
             if (values.length > 67108863) {
                 throw new System.ArgumentException(System.String.format("The input array length must not exceed Int32.MaxValue / {0}. Otherwise BitArray.Length would exceed Int32.MaxValue.", System.Collections.BitArray.BitsPerInt32), "values");
             }
-    
+
             this.m_array = System.Array.init(values.length, 0);
             this.m_length = (values.length * System.Collections.BitArray.BitsPerInt32) | 0;
-    
+
             System.Array.copy(values, 0, this.m_array, 0, values.length);
-    
+
             this._version = 0;
         },
         $constructor2: function (bits) {
@@ -138,13 +138,13 @@
             if (bits == null) {
                 throw new System.ArgumentNullException("bits");
             }
-    
+
             var arrayLength = System.Collections.BitArray.getArrayLength(bits.m_length, System.Collections.BitArray.BitsPerInt32);
             this.m_array = System.Array.init(arrayLength, 0);
             this.m_length = bits.m_length;
-    
+
             System.Array.copy(bits.m_array, 0, this.m_array, 0, arrayLength);
-    
+
             this._version = bits._version;
         },
         getItem: function (index) {
@@ -160,7 +160,7 @@
             if (value < 0) {
                 throw new System.ArgumentOutOfRangeException("value", "Non-negative number required.");
             }
-    
+
             var newints = System.Collections.BitArray.getArrayLength(value, System.Collections.BitArray.BitsPerInt32);
             if (newints > this.m_array.length || ((newints + System.Collections.BitArray._ShrinkThreshold) | 0) < this.m_array.length) {
                 // grow or shrink (if wasting more than _ShrinkThreshold ints)
@@ -168,7 +168,7 @@
                 System.Array.copy(this.m_array, 0, newarray, 0, newints > this.m_array.length ? this.m_array.length : newints);
                 this.m_array = newarray;
             }
-    
+
             if (value > this.m_length) {
                 // clear high bit values in the last int
                 var last = (System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32) - 1) | 0;
@@ -176,11 +176,11 @@
                 if (bits > 0) {
                     this.m_array[last] = this.m_array[last] & ((((1 << bits) - 1) | 0));
                 }
-    
+
                 // clear remaining int values
                 System.Array.fill(this.m_array, 0, ((last + 1) | 0), ((((newints - last) | 0) - 1) | 0));
             }
-    
+
             this.m_length = value;
             this._version = (this._version + 1) | 0;
         },
@@ -197,21 +197,20 @@
             if (index < 0 || index >= this.getLength()) {
                 throw new System.ArgumentOutOfRangeException("index", "Index was out of range. Must be non-negative and less than the size of the collection.");
             }
-    
+
             return (this.m_array[((Bridge.Int.div(index, 32)) | 0)] & (1 << (index % 32))) !== 0;
         },
         set: function (index, value) {
             if (index < 0 || index >= this.getLength()) {
                 throw new System.ArgumentOutOfRangeException("index", "Index was out of range. Must be non-negative and less than the size of the collection.");
             }
-    
+
             if (value) {
                 this.m_array[((Bridge.Int.div(index, 32)) | 0)] = this.m_array[((Bridge.Int.div(index, 32)) | 0)] | (1 << (index % 32));
-            }
-            else  {
+            } else {
                 this.m_array[((Bridge.Int.div(index, 32)) | 0)] = this.m_array[((Bridge.Int.div(index, 32)) | 0)] & (~(1 << (index % 32)));
             }
-    
+
             this._version = (this._version + 1) | 0;
         },
         setAll: function (value) {
@@ -220,7 +219,7 @@
             for (var i = 0; i < ints; i = (i + 1) | 0) {
                 this.m_array[i] = fillValue;
             }
-    
+
             this._version = (this._version + 1) | 0;
         },
         and: function (value) {
@@ -230,12 +229,12 @@
             if (this.getLength() !== value.getLength()) {
                 throw new System.ArgumentException("Array lengths must be the same.");
             }
-    
+
             var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
             for (var i = 0; i < ints; i = (i + 1) | 0) {
                 this.m_array[i] = this.m_array[i] & value.m_array[i];
             }
-    
+
             this._version = (this._version + 1) | 0;
             return this;
         },
@@ -246,12 +245,12 @@
             if (this.getLength() !== value.getLength()) {
                 throw new System.ArgumentException("Array lengths must be the same.");
             }
-    
+
             var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
             for (var i = 0; i < ints; i = (i + 1) | 0) {
                 this.m_array[i] = this.m_array[i] | value.m_array[i];
             }
-    
+
             this._version = (this._version + 1) | 0;
             return this;
         },
@@ -262,12 +261,12 @@
             if (this.getLength() !== value.getLength()) {
                 throw new System.ArgumentException("Array lengths must be the same.");
             }
-    
+
             var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
             for (var i = 0; i < ints; i = (i + 1) | 0) {
                 this.m_array[i] = this.m_array[i] ^ value.m_array[i];
             }
-    
+
             this._version = (this._version + 1) | 0;
             return this;
         },
@@ -276,7 +275,7 @@
             for (var i = 0; i < ints; i = (i + 1) | 0) {
                 this.m_array[i] = ~this.m_array[i];
             }
-    
+
             this._version = (this._version + 1) | 0;
             return this;
         },
@@ -290,7 +289,7 @@
             return new System.Collections.BitArray.BitArrayEnumeratorSimple(this);
         }
     });
-    
+
     Bridge.define('System.Collections.BitArray.BitArrayEnumeratorSimple', {
         inherits: [System.Collections.IEnumerator],
         bitarray: null,
@@ -327,11 +326,10 @@
                 this.index = (this.index + 1) | 0;
                 this.currentElement = this.bitarray.get(this.index);
                 return true;
-            }
-            else  {
+            } else {
                 this.index = this.bitarray.getCount();
             }
-    
+
             return false;
         },
         reset: function () {
@@ -341,7 +339,7 @@
             this.index = -1;
         }
     });
-    
+
     Bridge.define('System.Collections.Generic.BitHelper', {
         statics: {
             MarkedBitFlag: 1,
@@ -373,9 +371,9 @@
             return false;
         }
     });
-    
+
     /** @namespace System.Collections.Generic */
-    
+
     /**
      * Internal helper functions for working with enumerables.
      *
@@ -423,7 +421,7 @@
                         }) };
                         arr.v[0] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$getCurrent$1", "getCurrent$1")]();
                         var count = 1;
-    
+
                         while (en.System$Collections$IEnumerator$moveNext()) {
                             if (count === arr.v.length) {
                                 // MaxArrayLength is defined in Array.MaxArrayLength and in gchelpers in CoreCLR.
@@ -431,7 +429,7 @@
                                 // the size of the element is greater than one byte; a separate, slightly larger constant,
                                 // is used when the size of the element is one.
                                 var MaxArrayLength = 2146435071;
-    
+
                                 // This is the same growth logic as in List<T>:
                                 // If the array is currently empty, we make it a default size.  Otherwise, we attempt to
                                 // double the size of the array.  Doubling will overflow once the size of the array reaches
@@ -447,13 +445,13 @@
                                 if ((newLength >>> 0) > MaxArrayLength) {
                                     newLength = MaxArrayLength <= count ? ((count + 1) | 0) : MaxArrayLength;
                                 }
-    
+
                                 System.Array.resize(arr, newLength, null);
                             }
-    
+
                             arr.v[Bridge.identity(count, (count = (count + 1) | 0))] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$getCurrent$1", "getCurrent$1")]();
                         }
-    
+
                         length.v = count;
                         return arr.v;
                     }
@@ -463,7 +461,7 @@
                         en.dispose();
                     }
                 }
-    
+
                 length.v = 0;
                 return System.Array.init(0, function (){
                     return Bridge.getDefaultValue(T);
@@ -471,7 +469,7 @@
             }
         }
     });
-    
+
     Bridge.define('System.Collections.Generic.HashSet$1', function (T) { return {
         inherits: [System.Collections.Generic.ICollection$1(T),System.Collections.Generic.ISet$1(T)],
         statics: {
@@ -481,11 +479,8 @@
                 var $t, $t1, $t2;
                 if (set1 == null) {
                     return (set2 == null);
-                }
-                else  {
-                    if (set2 == null) {
-                        return false;
-                    }
+                } else if (set2 == null) {
+                    return false;
                 }
                 if (System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(set1, set2)) {
                     if (set1.getCount() !== set2.getCount()) {
@@ -499,8 +494,7 @@
                         }
                     }
                     return true;
-                }
-                else  {
+                } else {
                     $t1 = Bridge.getEnumerator(set2);
                     while ($t1.moveNext()) {
                         var set2Item = $t1.getCurrent();
@@ -602,11 +596,11 @@
                 for (var i = 0; i < this._lastIndex; i = (i + 1) | 0) {
                     this._slots[i] = new (System.Collections.Generic.HashSet$1.Slot(T))();
                 }
-    
+
                 for (var i1 = 0; i1 < this._buckets.length; i1 = (i1 + 1) | 0) {
                     this._buckets[i1] = 0;
                 }
-    
+
                 this._lastIndex = 0;
                 this._count = 0;
                 this._freeList = -1;
@@ -662,8 +656,7 @@
                     if (this._slots[i].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[i].value, item)) {
                         if (last < 0) {
                             this._buckets[bucket] = (this._slots[i].next + 1) | 0;
-                        }
-                        else  {
+                        } else {
                             this._slots[last].next = this._slots[i].next;
                         }
                         this._slots[i].hashCode = -1;
@@ -674,8 +667,7 @@
                         if (this._count === 0) {
                             this._lastIndex = 0;
                             this._freeList = -1;
-                        }
-                        else  {
+                        } else {
                             this._freeList = i;
                         }
                         return true;
@@ -758,8 +750,7 @@
             var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
             if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
                 this.symmetricExceptWithUniqueHashSet(otherAsSet);
-            }
-            else  {
+            } else {
                 this.symmetricExceptWithEnumerable(other);
             }
         },
@@ -776,8 +767,7 @@
                     return false;
                 }
                 return this.isSubsetOfHashSetWithSameEC(otherAsSet);
-            }
-            else  {
+            } else {
                 var result = this.checkUniqueAndUnfoundElements(other, false).$clone();
                 return (result.uniqueCount === this._count && result.unfoundCount >= 0);
             }
@@ -870,8 +860,7 @@
                     return false;
                 }
                 return this.containsAllElements(otherAsSet);
-            }
-            else  {
+            } else {
                 var otherAsCollection = Bridge.as(other, System.Collections.Generic.ICollection$1(T));
                 if (otherAsCollection != null) {
                     if (this._count === 0 && System.Array.getCount(otherAsCollection, T) > 0) {
@@ -904,8 +893,7 @@
                 this._buckets = null;
                 this._slots = null;
                 this._version = (this._version + 1) | 0;
-            }
-            else  {
+            } else {
                 var newSize = System.Collections.HashHelpers.getPrime(this._count);
                 var newSlots = System.Array.init(newSize, function (){
                     return new (System.Collections.Generic.HashSet$1.Slot(T))();
@@ -981,8 +969,7 @@
             if (this._freeList >= 0) {
                 index = this._freeList;
                 this._freeList = this._slots[index].next;
-            }
-            else  {
+            } else {
                 if (this._lastIndex === this._slots.length) {
                     this.increaseCapacity();
                     bucket = hashCode % this._buckets.length;
@@ -1087,8 +1074,7 @@
                 var added = this.addOrGetLocation(item, location);
                 if (added) {
                     itemsAddedFromOther.markBit(location.v);
-                }
-                else  {
+                } else {
                     if (location.v < originalLastIndex && !itemsAddedFromOther.isMarked(location.v)) {
                         itemsToRemove.markBit(location.v);
                     }
@@ -1113,8 +1099,7 @@
             if (this._freeList >= 0) {
                 index = this._freeList;
                 this._freeList = this._slots[index].next;
-            }
-            else  {
+            } else {
                 if (this._lastIndex === this._slots.length) {
                     this.increaseCapacity();
                     bucket = hashCode % this._buckets.length;
@@ -1162,8 +1147,7 @@
                         bitHelper.markBit(index);
                         uniqueFoundCount = (uniqueFoundCount + 1) | 0;
                     }
-                }
-                else  {
+                } else {
                     unfoundCount = (unfoundCount + 1) | 0;
                     if (returnIfUnfound) {
                         break;
@@ -1188,7 +1172,7 @@
             return this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$getHashCode2"](item) & System.Collections.Generic.HashSet$1(T).Lower31BitMask;
         }
     }; });
-    
+
     Bridge.define('System.Collections.Generic.HashSet$1.ElementCount', function (T) { return {
         $kind: "struct",
         statics: {
@@ -1219,7 +1203,7 @@
             return s;
         }
     }; });
-    
+
     Bridge.define('System.Collections.Generic.HashSet$1.Enumerator', function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T)],
         $kind: "struct",
@@ -1305,7 +1289,7 @@
             return s;
         }
     }; });
-    
+
     Bridge.define('System.Collections.Generic.HashSet$1.Slot', function (T) { return {
         $kind: "struct",
         statics: {
@@ -1339,7 +1323,7 @@
             return s;
         }
     }; });
-    
+
     Bridge.define('System.Collections.Generic.Queue$1', function (T) { return {
         inherits: [System.Collections.Generic.IEnumerable$1(T),System.Collections.ICollection],
         statics: {
@@ -1378,11 +1362,11 @@
             if (collection == null) {
                 throw new System.ArgumentNullException("collection");
             }
-    
+
             this._array = System.Array.init(System.Collections.Generic.Queue$1(T).DefaultCapacity, function (){
                 return Bridge.getDefaultValue(T);
             });
-    
+
             var en = Bridge.getEnumerator(collection, "$1", T);
             try {
                 while (en.System$Collections$IEnumerator$moveNext()) {
@@ -1401,12 +1385,11 @@
         clear: function () {
             if (this._head < this._tail) {
                 System.Array.fill(this._array, null, this._head, this._size);
-            }
-            else  {
+            } else {
                 System.Array.fill(this._array, null, this._head, ((this._array.length - this._head) | 0));
                 System.Array.fill(this._array, null, 0, this._tail);
             }
-    
+
             this._head = 0;
             this._tail = 0;
             this._size = 0;
@@ -1416,21 +1399,21 @@
             if (array == null) {
                 throw new System.ArgumentNullException("array");
             }
-    
+
             if (arrayIndex < 0 || arrayIndex > array.length) {
                 throw new System.ArgumentOutOfRangeException("arrayIndex", "Index was out of range. Must be non-negative and less than the size of the collection.");
             }
-    
+
             var arrayLen = array.length;
             if (((arrayLen - arrayIndex) | 0) < this._size) {
                 throw new System.ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
             }
-    
+
             var numToCopy = (((arrayLen - arrayIndex) | 0) < this._size) ? (((arrayLen - arrayIndex) | 0)) : this._size;
             if (numToCopy === 0) {
                 return;
             }
-    
+
             var firstPart = (((this._array.length - this._head) | 0) < numToCopy) ? ((this._array.length - this._head) | 0) : numToCopy;
             System.Array.copy(this._array, this._head, array, arrayIndex, firstPart);
             numToCopy = (numToCopy - firstPart) | 0;
@@ -1446,7 +1429,7 @@
                 }
                 this.setCapacity(newcapacity);
             }
-    
+
             this._array[this._tail] = item;
             this._tail = this.moveNext(this._tail);
             this._size = (this._size + 1) | 0;
@@ -1465,7 +1448,7 @@
             if (this._size === 0) {
                 throw new System.InvalidOperationException("Queue empty.");
             }
-    
+
             var removed = this._array[this._head];
             this._array[this._head] = Bridge.getDefaultValue(T);
             this._head = this.moveNext(this._head);
@@ -1477,28 +1460,25 @@
             if (this._size === 0) {
                 throw new System.InvalidOperationException("Queue empty.");
             }
-    
+
             return this._array[this._head];
         },
         contains: function (item) {
             var index = this._head;
             var count = this._size;
-    
+
             var c = new (System.Collections.Generic.EqualityComparer$1(T))();
             while (Bridge.identity(count, (count = (count - 1) | 0)) > 0) {
                 if (item == null) {
                     if (this._array[index] == null) {
                         return true;
                     }
-                }
-                else  {
-                    if (this._array[index] != null && c.equals2(this._array[index], item)) {
-                        return true;
-                    }
+                } else if (this._array[index] != null && c.equals2(this._array[index], item)) {
+                    return true;
                 }
                 index = this.moveNext(index);
             }
-    
+
             return false;
         },
         getElement: function (i) {
@@ -1511,15 +1491,14 @@
             if (this._size === 0) {
                 return arr;
             } // consider replacing with Array.Empty<T>() to be consistent with non-generic Queue
-    
+
             if (this._head < this._tail) {
                 System.Array.copy(this._array, this._head, arr, 0, this._size);
-            }
-            else  {
+            } else {
                 System.Array.copy(this._array, this._head, arr, 0, ((this._array.length - this._head) | 0));
                 System.Array.copy(this._array, 0, arr, ((this._array.length - this._head) | 0), this._tail);
             }
-    
+
             return arr;
         },
         setCapacity: function (capacity) {
@@ -1529,13 +1508,12 @@
             if (this._size > 0) {
                 if (this._head < this._tail) {
                     System.Array.copy(this._array, this._head, newarray, 0, this._size);
-                }
-                else  {
+                } else {
                     System.Array.copy(this._array, this._head, newarray, 0, ((this._array.length - this._head) | 0));
                     System.Array.copy(this._array, 0, newarray, ((this._array.length - this._head) | 0), this._tail);
                 }
             }
-    
+
             this._array = newarray;
             this._head = 0;
             this._tail = (this._size === capacity) ? 0 : this._size;
@@ -1554,7 +1532,7 @@
             }
         }
     }; });
-    
+
     Bridge.define('System.Collections.Generic.Queue$1.Enumerator', function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
         $kind: "struct",
@@ -1586,8 +1564,7 @@
             if (this._index < 0) {
                 if (this._index === -1) {
                     throw new System.InvalidOperationException("Enumeration has not started. Call MoveNext.");
-                }
-                else  {
+                } else {
                     throw new System.InvalidOperationException("Enumeration already finished.");
                 }
             }
@@ -1604,19 +1581,19 @@
             if (this._version !== this._q._version) {
                 throw new System.InvalidOperationException("Collection was modified; enumeration operation may not execute.");
             }
-    
+
             if (this._index === -2) {
                 return false;
             }
-    
+
             this._index = (this._index + 1) | 0;
-    
+
             if (this._index === this._q._size) {
                 this._index = -2;
                 this._currentElement = Bridge.getDefaultValue(T);
                 return false;
             }
-    
+
             this._currentElement = this._q.getElement(this._index);
             return true;
         },
@@ -1651,7 +1628,7 @@
             return s;
         }
     }; });
-    
+
     Bridge.define('System.Collections.Generic.Stack$1', function (T) { return {
         inherits: [System.Collections.Generic.IEnumerable$1(T),System.Collections.ICollection],
         statics: {
@@ -1700,18 +1677,15 @@
         },
         contains: function (item) {
             var count = this._size;
-    
+
             var c = new (System.Collections.Generic.EqualityComparer$1(T))();
             while (Bridge.identity(count, (count = (count - 1) | 0)) > 0) {
                 if (item == null) {
                     if (this._array[count] == null) {
                         return true;
                     }
-                }
-                else  {
-                    if (this._array[count] != null && c.equals2(this._array[count], item)) {
-                        return true;
-                    }
+                } else if (this._array[count] != null && c.equals2(this._array[count], item)) {
+                    return true;
                 }
             }
             return false;
@@ -1720,23 +1694,22 @@
             if (array == null) {
                 throw new System.ArgumentNullException("array");
             }
-    
+
             if (arrayIndex < 0 || arrayIndex > array.length) {
                 throw new System.ArgumentOutOfRangeException("arrayIndex", "Non-negative number required.");
             }
-    
+
             if (((array.length - arrayIndex) | 0) < this._size) {
                 throw new System.ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
             }
-    
+
             if (!Bridge.referenceEquals(array, this._array)) {
                 var srcIndex = 0;
                 var dstIndex = (arrayIndex + this._size) | 0;
                 for (var i = 0; i < this._size; i = (i + 1) | 0) {
                     array[((dstIndex = (dstIndex - 1) | 0))] = this._array[Bridge.identity(srcIndex, (srcIndex = (srcIndex + 1) | 0))];
                 }
-            }
-            else  {
+            } else {
                 // Legacy fallback in case we ever end up copying within the same array.
                 System.Array.copy(this._array, 0, array, arrayIndex, this._size);
                 System.Array.reverse(array, arrayIndex, this._size);
@@ -1746,23 +1719,23 @@
             if (array == null) {
                 throw new System.ArgumentNullException("array");
             }
-    
+
             if (System.Array.getRank(array) !== 1) {
                 throw new System.ArgumentException("Only single dimensional arrays are supported for the requested action.");
             }
-    
+
             if (System.Array.getLower(array, 0) !== 0) {
                 throw new System.ArgumentException("The lower bound of target array must be zero.");
             }
-    
+
             if (arrayIndex < 0 || arrayIndex > array.length) {
                 throw new System.ArgumentOutOfRangeException("arrayIndex", "Non-negative number required.");
             }
-    
+
             if (((array.length - arrayIndex) | 0) < this._size) {
                 throw new System.ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
             }
-    
+
             try {
                 System.Array.copy(this._array, 0, array, arrayIndex, this._size);
                 System.Array.reverse(array, arrayIndex, this._size);
@@ -1826,7 +1799,7 @@
             return objArray;
         }
     }; });
-    
+
     Bridge.define('System.Collections.Generic.Stack$1.Enumerator', function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
         $kind: "struct",
@@ -1891,12 +1864,11 @@
             if (this._index === -1) { // End of enumeration.
                 return false;
             }
-    
+
             retval = (((this._index = (this._index - 1) | 0)) >= 0);
             if (retval) {
                 this._currentElement = this._stack._array[this._index];
-            }
-            else  {
+            } else {
                 this._currentElement = Bridge.getDefaultValue(T);
             }
             return retval;
@@ -1932,7 +1904,7 @@
             return s;
         }
     }; });
-    
+
     Bridge.define('System.Collections.HashHelpers', {
         statics: {
             HashPrime: 101,
@@ -1984,6 +1956,6 @@
             }
         }
     });
-    
+
     Bridge.init();
 });

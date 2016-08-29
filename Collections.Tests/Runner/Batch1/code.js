@@ -24,6 +24,80 @@
         }
     });
 
+    Bridge.define('Bridge.Collections.ClientTest.Collections.Generic.QueueTests', {
+        typePropertiesAreCorrect: function () {
+            Bridge.Test.Assert.areEqual$1("System.Collections.Generic.Queue$1[[System.Int32, mscorlib]]", Bridge.Reflection.getTypeFullName(System.Collections.Generic.Queue$1(System.Int32)), "FullName should be Array");
+            Bridge.Test.Assert.true$1(Bridge.Reflection.isClass(System.Collections.Generic.Queue$1(System.Int32)), "IsClass should be true");
+            var list = new (System.Collections.Generic.Queue$1(System.Int32)).$constructor();
+            Bridge.Test.Assert.true$1(Bridge.is(list, System.Collections.Generic.Queue$1(System.Int32)), "is Queue<int> should be true");
+        },
+        countWorks: function () {
+            var q = new (System.Collections.Generic.Queue$1(System.Int32)).$constructor();
+            Bridge.Test.Assert.areEqual(0, q.getCount());
+            q.enqueue(1);
+            Bridge.Test.Assert.areEqual(1, q.getCount());
+            q.enqueue(10);
+            Bridge.Test.Assert.areEqual(2, q.getCount());
+        },
+        enqueueAndDequeueWork: function () {
+            var q = new (System.Collections.Generic.Queue$1(System.Int32)).$constructor();
+            q.enqueue(10);
+            q.enqueue(2);
+            q.enqueue(4);
+            Bridge.Test.Assert.areEqual(10, q.dequeue());
+            Bridge.Test.Assert.areEqual(2, q.dequeue());
+            Bridge.Test.Assert.areEqual(4, q.dequeue());
+        },
+        peekWorks: function () {
+            var q = new (System.Collections.Generic.Queue$1(System.Int32)).$constructor();
+            q.enqueue(10);
+            Bridge.Test.Assert.areEqual(10, q.peek());
+            q.enqueue(2);
+            Bridge.Test.Assert.areEqual(10, q.peek());
+            q.dequeue();
+            Bridge.Test.Assert.areEqual(2, q.peek());
+        },
+        containsWorks: function () {
+            var q = new (System.Collections.Generic.Queue$1(System.Int32)).$constructor();
+            q.enqueue(10);
+            q.enqueue(2);
+            q.enqueue(4);
+            Bridge.Test.Assert.true(q.contains(10));
+            Bridge.Test.Assert.true(q.contains(2));
+            Bridge.Test.Assert.false(q.contains(11));
+        },
+        containsUsesEqualsMethod: function () {
+            var q = new (System.Collections.Generic.Queue$1(Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C)).$constructor();
+            q.enqueue(new Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C(1));
+            q.enqueue(new Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C(2));
+            q.enqueue(new Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C(3));
+            Bridge.Test.Assert.true(q.contains(new Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C(2)));
+            Bridge.Test.Assert.false(q.contains(new Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C(4)));
+        },
+        clearWorks: function () {
+            var q = new (System.Collections.Generic.Queue$1(System.Int32)).$constructor();
+            q.enqueue(10);
+            q.enqueue(2);
+            q.enqueue(4);
+            q.clear();
+            Bridge.Test.Assert.areEqual(0, q.getCount());
+        }
+    });
+
+    Bridge.define('Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C', {
+        i: 0,
+        constructor: function (i) {
+            this.$initialize();
+            this.i = i;
+        },
+        equals: function (o) {
+            return Bridge.is(o, Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C) && this.i === Bridge.cast(o, Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C).i;
+        },
+        getHashCode: function () {
+            return this.i;
+        }
+    });
+
     Bridge.define('Bridge.Collections.ClientTest.Collections.Generic.StackTests', {
         getStack: function () {
             return new (System.Collections.Generic.Stack$1(String)).$constructor1(["x", "y"]);

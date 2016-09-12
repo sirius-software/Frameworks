@@ -15,15 +15,15 @@
     <copyright>Copyright (c) 2008-2016, Object.NET, Inc. (http://object.net/). All rights reserved.</copyright>
     <tags>webgl bridge.net bridge js javascript C# csharp mobile ios asp.net aspnet mvc aspnetmvc web transpiler compiler object.net</tags>
     <dependencies>
-      <dependency id="Bridge.Html5" version="1.14.0" />
+      <dependency id="Bridge.Html5" version="15.0.0" />
     </dependencies>
     <frameworkAssemblies>
     </frameworkAssemblies>
   </metadata>
   <files>
     <!--NET40-->
-    <file src="..\..\WebGL\bin\Release\Bridge.WebGL.dll" target="lib\net40\Bridge.WebGL.dll"/>
-    <file src="..\..\WebGL\bin\Release\Bridge.WebGL.xml" target="lib\net40\Bridge.WebGL.xml"/>
-    <file src="..\..\WebGL\bin\Release\Bridge.WebGL.pdb" target="lib\net40\pdb\Bridge.WebGL.pdb"/>
+    <file src="..\..\WebGL\bin\Release\Bridge.WebGL.dll" target="lib\net40\Bridge.WebGL.dll" />
+    <file src="..\..\WebGL\bin\Release\Bridge.WebGL.xml" target="lib\net40\Bridge.WebGL.xml" />
+    <file src="..\..\WebGL\bin\Release\Bridge.WebGL.pdb" target="lib\net40\pdb\Bridge.WebGL.pdb" />
   </files>
 </package>

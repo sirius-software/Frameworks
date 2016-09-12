@@ -15,15 +15,15 @@
     <copyright>Copyright (c) 2008-2016, Object.NET, Inc. (http://object.net/). All rights reserved.</copyright>
     <tags>jquery bridge.net bridge js javascript C# csharp mobile ios asp.net aspnet mvc aspnetmvc web transpiler compiler object.net</tags>
     <dependencies>
-      <dependency id="Bridge.Html5" version="1.14.0" />
+      <dependency id="Bridge.Html5" version="15.0.0" />
     </dependencies>
     <frameworkAssemblies>
     </frameworkAssemblies>
   </metadata>
   <files>
     <!--NET40-->
-    <file src="..\..\jQuery2\bin\Release\Bridge.jQuery2.dll" target="lib\net40\Bridge.jQuery2.dll"/>
-    <file src="..\..\jQuery2\bin\Release\Bridge.jQuery2.xml" target="lib\net40\Bridge.jQuery2.xml"/>
-    <file src="..\..\jQuery2\bin\Release\Bridge.jQuery2.pdb" target="lib\net40\pdb\Bridge.jQuery2.pdb"/>
+    <file src="..\..\jQuery2\bin\Release\Bridge.jQuery2.dll" target="lib\net40\Bridge.jQuery2.dll" />
+    <file src="..\..\jQuery2\bin\Release\Bridge.jQuery2.xml" target="lib\net40\Bridge.jQuery2.xml" />
+    <file src="..\..\jQuery2\bin\Release\Bridge.jQuery2.pdb" target="lib\net40\pdb\Bridge.jQuery2.pdb" />
   </files>
 </package>

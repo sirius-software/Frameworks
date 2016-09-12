@@ -1,11 +1,11 @@
-﻿Bridge.initAssembly("Bridge.Collections.ClientTest", function ($asm, globals) {
+﻿Bridge.assembly("Bridge.Collections.ClientTest", function ($asm, globals) {
     "use strict";
 
     Bridge.define('Bridge.Collections.ClientTest.BridgeIssues.Bridge634', {
         statics: {
             testUseCase1: function () {
                 var $t;
-                var hashSet = new (System.Collections.Generic.HashSet$1(String)).$constructor();
+                var hashSet = new (System.Collections.Generic.HashSet$1(String)).ctor();
 
                 hashSet.add("a");
                 hashSet.add("b");
@@ -28,11 +28,11 @@
         typePropertiesAreCorrect: function () {
             Bridge.Test.Assert.areEqual$1("System.Collections.Generic.Queue$1[[System.Int32, mscorlib]]", Bridge.Reflection.getTypeFullName(System.Collections.Generic.Queue$1(System.Int32)), "FullName should be Array");
             Bridge.Test.Assert.true$1(Bridge.Reflection.isClass(System.Collections.Generic.Queue$1(System.Int32)), "IsClass should be true");
-            var list = new (System.Collections.Generic.Queue$1(System.Int32)).$constructor();
+            var list = new (System.Collections.Generic.Queue$1(System.Int32)).ctor();
             Bridge.Test.Assert.true$1(Bridge.is(list, System.Collections.Generic.Queue$1(System.Int32)), "is Queue<int> should be true");
         },
         countWorks: function () {
-            var q = new (System.Collections.Generic.Queue$1(System.Int32)).$constructor();
+            var q = new (System.Collections.Generic.Queue$1(System.Int32)).ctor();
             Bridge.Test.Assert.areEqual(0, q.getCount());
             q.enqueue(1);
             Bridge.Test.Assert.areEqual(1, q.getCount());
@@ -40,7 +40,7 @@
             Bridge.Test.Assert.areEqual(2, q.getCount());
         },
         enqueueAndDequeueWork: function () {
-            var q = new (System.Collections.Generic.Queue$1(System.Int32)).$constructor();
+            var q = new (System.Collections.Generic.Queue$1(System.Int32)).ctor();
             q.enqueue(10);
             q.enqueue(2);
             q.enqueue(4);
@@ -49,7 +49,7 @@
             Bridge.Test.Assert.areEqual(4, q.dequeue());
         },
         peekWorks: function () {
-            var q = new (System.Collections.Generic.Queue$1(System.Int32)).$constructor();
+            var q = new (System.Collections.Generic.Queue$1(System.Int32)).ctor();
             q.enqueue(10);
             Bridge.Test.Assert.areEqual(10, q.peek());
             q.enqueue(2);
@@ -58,7 +58,7 @@
             Bridge.Test.Assert.areEqual(2, q.peek());
         },
         containsWorks: function () {
-            var q = new (System.Collections.Generic.Queue$1(System.Int32)).$constructor();
+            var q = new (System.Collections.Generic.Queue$1(System.Int32)).ctor();
             q.enqueue(10);
             q.enqueue(2);
             q.enqueue(4);
@@ -67,7 +67,7 @@
             Bridge.Test.Assert.false(q.contains(11));
         },
         containsUsesEqualsMethod: function () {
-            var q = new (System.Collections.Generic.Queue$1(Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C)).$constructor();
+            var q = new (System.Collections.Generic.Queue$1(Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C)).ctor();
             q.enqueue(new Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C(1));
             q.enqueue(new Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C(2));
             q.enqueue(new Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C(3));
@@ -75,7 +75,7 @@
             Bridge.Test.Assert.false(q.contains(new Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C(4)));
         },
         clearWorks: function () {
-            var q = new (System.Collections.Generic.Queue$1(System.Int32)).$constructor();
+            var q = new (System.Collections.Generic.Queue$1(System.Int32)).ctor();
             q.enqueue(10);
             q.enqueue(2);
             q.enqueue(4);
@@ -86,7 +86,7 @@
 
     Bridge.define('Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C', {
         i: 0,
-        constructor: function (i) {
+        ctor: function (i) {
             this.$initialize();
             this.i = i;
         },
@@ -100,7 +100,7 @@
 
     Bridge.define('Bridge.Collections.ClientTest.Collections.Generic.StackTests', {
         getStack: function () {
-            return new (System.Collections.Generic.Stack$1(String)).$constructor1(["x", "y"]);
+            return new (System.Collections.Generic.Stack$1(String)).$ctor1(["x", "y"]);
         },
         getArray: function () {
             return [8, 7, 4, 1];
@@ -109,41 +109,41 @@
             return [1, 4, 7, 8];
         },
         typePropertiesAreCorrect: function () {
-            Bridge.Test.Assert.areEqual$1("System.Collections.Generic.List$1[[System.Int32, mscorlib]]", Bridge.getTypeName(System.Collections.Generic.List$1(System.Int32)), "GetClassName()");
-            var stack = new (System.Collections.Generic.Stack$1(System.Int32)).$constructor();
+            Bridge.Test.Assert.areEqual$1("System.Collections.Generic.List$1[[System.Int32, mscorlib]]", Bridge.Reflection.getTypeFullName(System.Collections.Generic.List$1(System.Int32)), "FullName");
+            var stack = new (System.Collections.Generic.Stack$1(System.Int32)).ctor();
             Bridge.Test.Assert.true$1(Bridge.is(stack, System.Collections.Generic.Stack$1(System.Int32)), "is Stack<int> should be true");
             Bridge.Test.Assert.true$1(Bridge.is(stack, System.Collections.ICollection), "is ICollection<int> should be true");
             Bridge.Test.Assert.true$1(Bridge.is(stack, System.Collections.Generic.IEnumerable$1(System.Int32)), "is IEnumerable<int> should be true");
         },
         defaultConstructorWorks: function () {
-            var l = new (System.Collections.Generic.Stack$1(System.Int32)).$constructor();
+            var l = new (System.Collections.Generic.Stack$1(System.Int32)).ctor();
             Bridge.Test.Assert.areEqual(0, l.getCount());
         },
         constructorWithCapacityWorks: function () {
-            var l = new (System.Collections.Generic.Stack$1(System.Int32)).$constructor2(12);
+            var l = new (System.Collections.Generic.Stack$1(System.Int32)).$ctor2(12);
             Bridge.Test.Assert.areEqual(0, l.getCount());
         },
         constructingFromArrayWorks: function () {
             var arr = this.getArray();
-            var l = new (System.Collections.Generic.Stack$1(System.Int32)).$constructor1(arr);
+            var l = new (System.Collections.Generic.Stack$1(System.Int32)).$ctor1(arr);
             Bridge.Test.Assert.false(Bridge.referenceEquals(l, arr));
             Bridge.Test.Assert.areDeepEqual(this.getReversedArray(), l.toArray());
         },
         constructingFromListWorks: function () {
-            var arr = new (System.Collections.Generic.Stack$1(System.Int32)).$constructor1(this.getArray());
-            var l = new (System.Collections.Generic.Stack$1(System.Int32)).$constructor1(arr);
+            var arr = new (System.Collections.Generic.Stack$1(System.Int32)).$ctor1(this.getArray());
+            var l = new (System.Collections.Generic.Stack$1(System.Int32)).$ctor1(arr);
             Bridge.Test.Assert.false(Bridge.referenceEquals(l, arr));
             Bridge.Test.Assert.areDeepEqual(this.getArray(), l.toArray());
         },
         constructingFromIEnumerableWorks: function () {
-            var enm = Bridge.cast(new (System.Collections.Generic.Stack$1(System.Int32)).$constructor1(this.getArray()), System.Collections.Generic.IEnumerable$1(System.Int32));
+            var enm = Bridge.cast(new (System.Collections.Generic.Stack$1(System.Int32)).$ctor1(this.getArray()), System.Collections.Generic.IEnumerable$1(System.Int32));
             var l = new (System.Collections.Generic.List$1(System.Int32))(enm);
             Bridge.Test.Assert.false(Bridge.referenceEquals(l, enm));
             Bridge.Test.Assert.areDeepEqual(this.getReversedArray(), l.toArray());
         },
         countWorks: function () {
-            Bridge.Test.Assert.areEqual(0, new (System.Collections.Generic.Stack$1(String)).$constructor().getCount());
-            Bridge.Test.Assert.areEqual(1, new (System.Collections.Generic.Stack$1(String)).$constructor1(["x"]).getCount());
+            Bridge.Test.Assert.areEqual(0, new (System.Collections.Generic.Stack$1(String)).ctor().getCount());
+            Bridge.Test.Assert.areEqual(1, new (System.Collections.Generic.Stack$1(String)).$ctor1(["x"]).getCount());
             Bridge.Test.Assert.areEqual(2, this.getStack().getCount());
         },
         foreachWorks: function () {
@@ -172,20 +172,20 @@
             Bridge.Test.Assert.false(list.contains("z"));
         },
         containsUsesEqualsMethod: function () {
-            var l = new (System.Collections.Generic.Stack$1(Bridge.Collections.ClientTest.Collections.Generic.StackTests.C)).$constructor1([new Bridge.Collections.ClientTest.Collections.Generic.StackTests.C(1), new Bridge.Collections.ClientTest.Collections.Generic.StackTests.C(2), new Bridge.Collections.ClientTest.Collections.Generic.StackTests.C(3)]);
+            var l = new (System.Collections.Generic.Stack$1(Bridge.Collections.ClientTest.Collections.Generic.StackTests.C)).$ctor1([new Bridge.Collections.ClientTest.Collections.Generic.StackTests.C(1), new Bridge.Collections.ClientTest.Collections.Generic.StackTests.C(2), new Bridge.Collections.ClientTest.Collections.Generic.StackTests.C(3)]);
             Bridge.Test.Assert.true(l.contains(new Bridge.Collections.ClientTest.Collections.Generic.StackTests.C(2)));
             Bridge.Test.Assert.false(l.contains(new Bridge.Collections.ClientTest.Collections.Generic.StackTests.C(4)));
         },
         foreachWithListItemCallbackWorks: function () {
             var result = "";
-            Bridge.Linq.Enumerable.from(new (System.Collections.Generic.Stack$1(String)).$constructor1(["a", "b", "c"])).forEach(function (s) {
+            Bridge.Linq.Enumerable.from(new (System.Collections.Generic.Stack$1(String)).$ctor1(["a", "b", "c"])).forEach(function (s) {
                 result += s;
             });
             Bridge.Test.Assert.areEqual("cba", result);
         },
         foreachWithListCallbackWorks: function () {
             var result = "";
-            Bridge.Linq.Enumerable.from(new (System.Collections.Generic.Stack$1(String)).$constructor1(["a", "b", "c"])).forEach(function (s, i) {
+            Bridge.Linq.Enumerable.from(new (System.Collections.Generic.Stack$1(String)).$ctor1(["a", "b", "c"])).forEach(function (s, i) {
                 result += System.String.concat(s, i);
             });
             Bridge.Test.Assert.areEqual("c0b1a2", result);
@@ -201,7 +201,7 @@
             Bridge.Test.Assert.areDeepEqual(["y", "x"], list.toArray());
         },
         toArrayWorks: function () {
-            var l = new (System.Collections.Generic.Stack$1(String)).$constructor();
+            var l = new (System.Collections.Generic.Stack$1(String)).ctor();
             l.push("a");
             l.push("b");
 
@@ -215,7 +215,7 @@
 
     Bridge.define('Bridge.Collections.ClientTest.Collections.Generic.StackTests.C', {
         i: 0,
-        constructor: function (i) {
+        ctor: function (i) {
             this.$initialize();
             this.i = i;
         },
@@ -234,5 +234,4 @@
         }
     });
 
-    Bridge.init();
 });

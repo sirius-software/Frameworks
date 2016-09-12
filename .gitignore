@@ -117,3 +117,5 @@ UpgradeLog*.XML
 *.nupkg
 **/App_Readme
 **/Bridge/**
+/Collections.Tests/Runner/Batch1/bridge.test.qunit.js
+/Collections.Tests/Runner/Batch1/bridge.js

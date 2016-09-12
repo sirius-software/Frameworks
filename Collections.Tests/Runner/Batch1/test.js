@@ -1,6 +1,6 @@
 ﻿Bridge.assembly("Bridge_Collections_ClientTest_Tests", function ($asm, globals) {
     
-    Bridge.define('Bridge.Test.QUnit.Bridge_Collections_ClientTest_Tests_Runner', {
+    Bridge.define("Bridge.Test.QUnit.Bridge_Collections_ClientTest_Tests_Runner", {
         $main: function () {
             QUnit.module("Bridge Issues");
             QUnit.test("#634 - TestUseCase1", Bridge.Test.QUnit.Bridge_Collections_ClientTest_Tests_Runner.Bridge_Collections_ClientTest_BridgeIssues_Bridge634.testUseCase1);
@@ -32,7 +32,7 @@
         }
     });
 
-    Bridge.define('Bridge.Test.QUnit.Bridge_Collections_ClientTest_Tests_Runner.Bridge_Collections_ClientTest_BridgeIssues_Bridge634', {
+    Bridge.define("Bridge.Test.QUnit.Bridge_Collections_ClientTest_Tests_Runner.Bridge_Collections_ClientTest_BridgeIssues_Bridge634", {
         inherits: [Bridge.Test.QUnit.TestFixture$1(Bridge.Collections.ClientTest.BridgeIssues.Bridge634)],
         statics: {
             testUseCase1: function (assert) {
@@ -42,7 +42,7 @@
         }
     });
 
-    Bridge.define('Bridge.Test.QUnit.Bridge_Collections_ClientTest_Tests_Runner.Bridge_Collections_ClientTest_Collections_Generic_QueueTests', {
+    Bridge.define("Bridge.Test.QUnit.Bridge_Collections_ClientTest_Tests_Runner.Bridge_Collections_ClientTest_Collections_Generic_QueueTests", {
         inherits: [Bridge.Test.QUnit.TestFixture$1(Bridge.Collections.ClientTest.Collections.Generic.QueueTests)],
         statics: {
             typePropertiesAreCorrect: function (assert) {
@@ -76,7 +76,7 @@
         }
     });
 
-    Bridge.define('Bridge.Test.QUnit.Bridge_Collections_ClientTest_Tests_Runner.Bridge_Collections_ClientTest_Collections_Generic_StackTests', {
+    Bridge.define("Bridge.Test.QUnit.Bridge_Collections_ClientTest_Tests_Runner.Bridge_Collections_ClientTest_Collections_Generic_StackTests", {
         inherits: [Bridge.Test.QUnit.TestFixture$1(Bridge.Collections.ClientTest.Collections.Generic.StackTests)],
         statics: {
             typePropertiesAreCorrect: function (assert) {
@@ -149,5 +149,4 @@
             }
         }
     });
-
 });

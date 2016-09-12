@@ -1,7 +1,7 @@
 ﻿Bridge.assembly("Bridge.Collections.ClientTest", function ($asm, globals) {
     "use strict";
 
-    Bridge.define('Bridge.Collections.ClientTest.BridgeIssues.Bridge634', {
+    Bridge.define("Bridge.Collections.ClientTest.BridgeIssues.Bridge634", {
         statics: {
             testUseCase1: function () {
                 var $t;
@@ -24,7 +24,7 @@
         }
     });
 
-    Bridge.define('Bridge.Collections.ClientTest.Collections.Generic.QueueTests', {
+    Bridge.define("Bridge.Collections.ClientTest.Collections.Generic.QueueTests", {
         typePropertiesAreCorrect: function () {
             Bridge.Test.Assert.areEqual$1("System.Collections.Generic.Queue$1[[System.Int32, mscorlib]]", Bridge.Reflection.getTypeFullName(System.Collections.Generic.Queue$1(System.Int32)), "FullName should be Array");
             Bridge.Test.Assert.true$1(Bridge.Reflection.isClass(System.Collections.Generic.Queue$1(System.Int32)), "IsClass should be true");
@@ -84,7 +84,7 @@
         }
     });
 
-    Bridge.define('Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C', {
+    Bridge.define("Bridge.Collections.ClientTest.Collections.Generic.QueueTests.C", {
         i: 0,
         ctor: function (i) {
             this.$initialize();
@@ -98,7 +98,7 @@
         }
     });
 
-    Bridge.define('Bridge.Collections.ClientTest.Collections.Generic.StackTests', {
+    Bridge.define("Bridge.Collections.ClientTest.Collections.Generic.StackTests", {
         getStack: function () {
             return new (System.Collections.Generic.Stack$1(String)).$ctor1(["x", "y"]);
         },
@@ -213,7 +213,7 @@
         }
     });
 
-    Bridge.define('Bridge.Collections.ClientTest.Collections.Generic.StackTests.C', {
+    Bridge.define("Bridge.Collections.ClientTest.Collections.Generic.StackTests.C", {
         i: 0,
         ctor: function (i) {
             this.$initialize();
@@ -227,11 +227,10 @@
         }
     });
 
-    Bridge.define('Bridge.Collections.ClientTest.Constants', {
+    Bridge.define("Bridge.Collections.ClientTest.Constants", {
         statics: {
             BRIDGE_ISSUES: "Bridge Issues",
             COLLECTIONS: "Collections"
         }
     });
-
 });

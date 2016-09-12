@@ -1,7 +1,7 @@
 ﻿Bridge.assembly("Bridge.Collections", function ($asm, globals) {
     "use strict";
 
-    Bridge.define('System.Collections.BitArray', {
+    Bridge.define("System.Collections.BitArray", {
         inherits: [System.Collections.ICollection,System.ICloneable],
         statics: {
             BitsPerInt32: 32,
@@ -290,7 +290,7 @@
         }
     });
 
-    Bridge.define('System.Collections.BitArray.BitArrayEnumeratorSimple', {
+    Bridge.define("System.Collections.BitArray.BitArrayEnumeratorSimple", {
         inherits: [System.Collections.IEnumerator],
         bitarray: null,
         index: 0,
@@ -340,7 +340,7 @@
         }
     });
 
-    Bridge.define('System.Collections.Generic.BitHelper', {
+    Bridge.define("System.Collections.Generic.BitHelper", {
         statics: {
             MarkedBitFlag: 1,
             IntSize: 32,
@@ -381,7 +381,7 @@
      * @abstract
      * @class Bridge.Collections.EnumerableHelpers
      */
-    Bridge.define('Bridge.Collections.EnumerableHelpers', {
+    Bridge.define("Bridge.Collections.EnumerableHelpers", {
         statics: {
             /**
              * Converts an enumerable to an array using the same logic as does List{T}.
@@ -470,7 +470,7 @@
         }
     });
 
-    Bridge.define('System.Collections.Generic.HashSet$1', function (T) { return {
+    Bridge.define("System.Collections.Generic.HashSet$1", function (T) { return {
         inherits: [System.Collections.Generic.ICollection$1(T),System.Collections.Generic.ISet$1(T)],
         statics: {
             Lower31BitMask: 2147483647,
@@ -1173,7 +1173,7 @@
         }
     }; });
 
-    Bridge.define('System.Collections.Generic.HashSet$1.ElementCount', function (T) { return {
+    Bridge.define("System.Collections.Generic.HashSet$1.ElementCount", function (T) { return {
         $kind: "struct",
         statics: {
             getDefaultValue: function () { return new (System.Collections.Generic.HashSet$1.ElementCount(T))(); }
@@ -1204,7 +1204,7 @@
         }
     }; });
 
-    Bridge.define('System.Collections.Generic.HashSet$1.Enumerator', function (T) { return {
+    Bridge.define("System.Collections.Generic.HashSet$1.Enumerator", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T)],
         $kind: "struct",
         statics: {
@@ -1290,7 +1290,7 @@
         }
     }; });
 
-    Bridge.define('System.Collections.Generic.HashSet$1.Slot', function (T) { return {
+    Bridge.define("System.Collections.Generic.HashSet$1.Slot", function (T) { return {
         $kind: "struct",
         statics: {
             getDefaultValue: function () { return new (System.Collections.Generic.HashSet$1.Slot(T))(); }
@@ -1324,7 +1324,7 @@
         }
     }; });
 
-    Bridge.define('System.Collections.Generic.Queue$1', function (T) { return {
+    Bridge.define("System.Collections.Generic.Queue$1", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerable$1(T),System.Collections.ICollection],
         statics: {
             MinimumGrow: 4,
@@ -1533,7 +1533,7 @@
         }
     }; });
 
-    Bridge.define('System.Collections.Generic.Queue$1.Enumerator', function (T) { return {
+    Bridge.define("System.Collections.Generic.Queue$1.Enumerator", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
         $kind: "struct",
         statics: {
@@ -1629,7 +1629,7 @@
         }
     }; });
 
-    Bridge.define('System.Collections.Generic.Stack$1', function (T) { return {
+    Bridge.define("System.Collections.Generic.Stack$1", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerable$1(T),System.Collections.ICollection],
         statics: {
             DefaultCapacity: 4
@@ -1800,7 +1800,7 @@
         }
     }; });
 
-    Bridge.define('System.Collections.Generic.Stack$1.Enumerator', function (T) { return {
+    Bridge.define("System.Collections.Generic.Stack$1.Enumerator", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
         $kind: "struct",
         statics: {
@@ -1905,7 +1905,7 @@
         }
     }; });
 
-    Bridge.define('System.Collections.HashHelpers', {
+    Bridge.define("System.Collections.HashHelpers", {
         statics: {
             HashPrime: 101,
             primes: null,
@@ -1956,5 +1956,4 @@
             }
         }
     });
-
 });

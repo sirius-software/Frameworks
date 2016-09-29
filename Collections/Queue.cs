@@ -59,6 +59,11 @@ namespace System.Collections.Generic
             }
         }
 
+        public bool IsReadOnly
+        {
+            get { return false; }
+        }
+
         // Removes all Objects from the queue.
         public void Clear()
         {

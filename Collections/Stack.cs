@@ -54,6 +54,11 @@ namespace System.Collections.Generic
             }
         }
 
+        public bool IsReadOnly
+        {
+            get { return false; }
+        }
+
         // Removes all Objects from the Stack.
         public void Clear()
         {

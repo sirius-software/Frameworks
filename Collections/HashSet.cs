@@ -165,6 +165,11 @@ namespace System.Collections.Generic
             }
         }
 
+        public bool IsReadOnly
+        {
+            get { return false; }
+        }
+
         #endregion ICollection<T> methods
 
         #region IEnumerable methods

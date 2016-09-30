@@ -38,6 +38,7 @@
             alias: [
             "getCount", "System$Collections$ICollection$getCount",
             "clone", "System$ICloneable$clone",
+            "getIsReadOnly", "System$Collections$ICollection$getIsReadOnly",
             "getEnumerator", "System$Collections$IEnumerable$getEnumerator"
             ]
         },
@@ -530,8 +531,10 @@
             "System$Collections$Generic$ICollection$1$T$add", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$add",
             "clear", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$clear",
             "contains", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$contains",
+            "copyTo", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$copyTo",
             "remove", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$remove",
             "getCount", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$getCount",
+            "getIsReadOnly", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$getIsReadOnly",
             "System$Collections$Generic$IEnumerable$1$T$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator",
             "add", "System$Collections$Generic$ISet$1$" + Bridge.getTypeAlias(T) + "$add",
             "unionWith", "System$Collections$Generic$ISet$1$" + Bridge.getTypeAlias(T) + "$unionWith",
@@ -582,6 +585,9 @@
         getCount: function () {
             return this._count;
         },
+        getIsReadOnly: function () {
+            return false;
+        },
         getComparer: function () {
             return this._comparer;
         },
@@ -620,10 +626,10 @@
             }
             return false;
         },
-        copyTo$1: function (array, arrayIndex) {
+        copyTo: function (array, arrayIndex) {
             this.copyTo$2(array, arrayIndex, this._count);
         },
-        copyTo: function (array) {
+        copyTo$1: function (array) {
             this.copyTo$2(array, 0, this._count);
         },
         copyTo$2: function (array, arrayIndex, count) {
@@ -1162,7 +1168,7 @@
             var newArray = System.Array.init(this.getCount(), function (){
                 return Bridge.getDefaultValue(T);
             });
-            this.copyTo(newArray);
+            this.copyTo$1(newArray);
             return newArray;
         },
         internalGetHashCode: function (item) {
@@ -1339,6 +1345,7 @@
         config: {
             alias: [
             "getCount", "System$Collections$ICollection$getCount",
+            "getIsReadOnly", "System$Collections$ICollection$getIsReadOnly",
             "System$Collections$Generic$IEnumerable$1$T$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"
             ]
         },
@@ -1381,6 +1388,9 @@
         },
         getCount: function () {
             return this._size;
+        },
+        getIsReadOnly: function () {
+            return false;
         },
         clear: function () {
             if (this._head < this._tail) {
@@ -1640,6 +1650,7 @@
         config: {
             alias: [
             "getCount", "System$Collections$ICollection$getCount",
+            "getIsReadOnly", "System$Collections$ICollection$getIsReadOnly",
             "System$Collections$Generic$IEnumerable$1$T$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"
             ]
         },
@@ -1669,6 +1680,9 @@
         },
         getCount: function () {
             return this._size;
+        },
+        getIsReadOnly: function () {
+            return false;
         },
         clear: function () {
             System.Array.fill(this._array, Bridge.getDefaultValue(T), 0, this._size); // Don't need to doc this but we clear the elements so that the gc can reclaim the references.

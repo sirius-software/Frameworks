@@ -408,7 +408,7 @@
              * @memberof Bridge.Collections.EnumerableHelpers
              * @param   {Function}                                    T         
              * @param   {System.Collections.Generic.IEnumerable$1}    source    The enumerable to convert.
-             * @param   {System.Int32&}                               length    The number of items stored in the resulting array, 0-indexed.
+             * @param   {System.Int32}                                length    The number of items stored in the resulting array, 0-indexed.
              * @return  {Array.<T>}                                             The resulting array.  The length of the array may be greater than <b />,
              which is the actual number of elements in the array.
              */
@@ -1190,11 +1190,8 @@
             this.$initialize();
         },
         getHashCode: function () {
-            var hash = 17;
-            hash = hash * 23 + 4920463385;
-            hash = hash * 23 + (this.uniqueCount == null ? 0 : Bridge.getHashCode(this.uniqueCount));
-            hash = hash * 23 + (this.unfoundCount == null ? 0 : Bridge.getHashCode(this.unfoundCount));
-            return hash;
+            var h = Bridge.addHash([4920463385, this.uniqueCount, this.unfoundCount]);
+            return h;
         },
         equals: function (o) {
             if (!Bridge.is(o, System.Collections.Generic.HashSet$1.ElementCount(T))) {
@@ -1272,13 +1269,8 @@
             this._current = Bridge.getDefaultValue(T);
         },
         getHashCode: function () {
-            var hash = 17;
-            hash = hash * 23 + 3788985113;
-            hash = hash * 23 + (this._set == null ? 0 : Bridge.getHashCode(this._set));
-            hash = hash * 23 + (this._index == null ? 0 : Bridge.getHashCode(this._index));
-            hash = hash * 23 + (this._version == null ? 0 : Bridge.getHashCode(this._version));
-            hash = hash * 23 + (this._current == null ? 0 : Bridge.getHashCode(this._current));
-            return hash;
+            var h = Bridge.addHash([3788985113, this._set, this._index, this._version, this._current]);
+            return h;
         },
         equals: function (o) {
             if (!Bridge.is(o, System.Collections.Generic.HashSet$1.Enumerator(T))) {
@@ -1308,12 +1300,8 @@
             this.$initialize();
         },
         getHashCode: function () {
-            var hash = 17;
-            hash = hash * 23 + 1953459283;
-            hash = hash * 23 + (this.hashCode == null ? 0 : Bridge.getHashCode(this.hashCode));
-            hash = hash * 23 + (this.value == null ? 0 : Bridge.getHashCode(this.value));
-            hash = hash * 23 + (this.next == null ? 0 : Bridge.getHashCode(this.next));
-            return hash;
+            var h = Bridge.addHash([1953459283, this.hashCode, this.value, this.next]);
+            return h;
         },
         equals: function (o) {
             if (!Bridge.is(o, System.Collections.Generic.HashSet$1.Slot(T))) {
@@ -1615,13 +1603,8 @@
             this._currentElement = Bridge.getDefaultValue(T);
         },
         getHashCode: function () {
-            var hash = 17;
-            hash = hash * 23 + 3788985113;
-            hash = hash * 23 + (this._q == null ? 0 : Bridge.getHashCode(this._q));
-            hash = hash * 23 + (this._index == null ? 0 : Bridge.getHashCode(this._index));
-            hash = hash * 23 + (this._version == null ? 0 : Bridge.getHashCode(this._version));
-            hash = hash * 23 + (this._currentElement == null ? 0 : Bridge.getHashCode(this._currentElement));
-            return hash;
+            var h = Bridge.addHash([3788985113, this._q, this._index, this._version, this._currentElement]);
+            return h;
         },
         equals: function (o) {
             if (!Bridge.is(o, System.Collections.Generic.Queue$1.Enumerator(T))) {
@@ -1895,13 +1878,8 @@
             this._currentElement = Bridge.getDefaultValue(T);
         },
         getHashCode: function () {
-            var hash = 17;
-            hash = hash * 23 + 3788985113;
-            hash = hash * 23 + (this._stack == null ? 0 : Bridge.getHashCode(this._stack));
-            hash = hash * 23 + (this._index == null ? 0 : Bridge.getHashCode(this._index));
-            hash = hash * 23 + (this._version == null ? 0 : Bridge.getHashCode(this._version));
-            hash = hash * 23 + (this._currentElement == null ? 0 : Bridge.getHashCode(this._currentElement));
-            return hash;
+            var h = Bridge.addHash([3788985113, this._stack, this._index, this._version, this._currentElement]);
+            return h;
         },
         equals: function (o) {
             if (!Bridge.is(o, System.Collections.Generic.Stack$1.Enumerator(T))) {

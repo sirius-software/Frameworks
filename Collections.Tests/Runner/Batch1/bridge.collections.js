@@ -1,4 +1,10 @@
-﻿Bridge.assembly("Bridge.Collections", function ($asm, globals) {
+﻿/**
+ * @version 1.3.2
+ * @author Object.NET, Inc.
+ * @copyright Copyright 2008-2016 Object.NET, Inc.
+ * @compiler Bridge.NET 15.3.0
+ */
+Bridge.assembly("Bridge.Collections", function ($asm, globals) {
     "use strict";
 
     Bridge.define("System.Collections.BitArray", {
@@ -413,7 +419,7 @@
              which is the actual number of elements in the array.
              */
             toArray$1: function (T, source, length) {
-                var en = Bridge.getEnumerator(source, "$1", T);
+                var en = Bridge.getEnumerator(source, null, T);
                 try {
                     if (en.System$Collections$IEnumerator$moveNext()) {
                         var DefaultCapacity = 4;
@@ -696,7 +702,7 @@
             if (other == null) {
                 throw new System.ArgumentNullException("other");
             }
-            $t = Bridge.getEnumerator(other);
+            $t = Bridge.getEnumerator(other, null, T);
             while ($t.moveNext()) {
                 var item = $t.getCurrent();
                 this.addIfNotPresent(item);
@@ -735,7 +741,7 @@
                 this.clear();
                 return;
             }
-            $t = Bridge.getEnumerator(other);
+            $t = Bridge.getEnumerator(other, null, T);
             while ($t.moveNext()) {
                 var element = $t.getCurrent();
                 this.remove(element);
@@ -847,7 +853,7 @@
             if (this._count === 0) {
                 return false;
             }
-            $t = Bridge.getEnumerator(other);
+            $t = Bridge.getEnumerator(other, null, T);
             while ($t.moveNext()) {
                 var element = $t.getCurrent();
                 if (this.contains(element)) {
@@ -993,7 +999,7 @@
         },
         containsAllElements: function (other) {
             var $t;
-            $t = Bridge.getEnumerator(other);
+            $t = Bridge.getEnumerator(other, null, T);
             while ($t.moveNext()) {
                 var element = $t.getCurrent();
                 if (!this.contains(element)) {
@@ -1030,7 +1036,7 @@
             var bitHelper;
             var bitArray = System.Array.init(intArrayLength, 0);
             bitHelper = new System.Collections.Generic.BitHelper(bitArray, intArrayLength);
-            $t = Bridge.getEnumerator(other);
+            $t = Bridge.getEnumerator(other, null, T);
             while ($t.moveNext()) {
                 var item = $t.getCurrent();
                 var index = this.internalIndexOf(item);
@@ -1073,7 +1079,7 @@
             itemsToRemove = new System.Collections.Generic.BitHelper(itemsToRemoveArray, intArrayLength);
             var itemsAddedFromOtherArray = System.Array.init(intArrayLength, 0);
             itemsAddedFromOther = new System.Collections.Generic.BitHelper(itemsAddedFromOtherArray, intArrayLength);
-            $t = Bridge.getEnumerator(other);
+            $t = Bridge.getEnumerator(other, null, T);
             while ($t.moveNext()) {
                 var item = $t.getCurrent();
                 var location = { v : 0 };
@@ -1127,7 +1133,7 @@
             var result = new (System.Collections.Generic.HashSet$1.ElementCount(T))();
             if (this._count === 0) {
                 var numElementsInOther = 0;
-                $t = Bridge.getEnumerator(other);
+                $t = Bridge.getEnumerator(other, null, T);
                 while ($t.moveNext()) {
                     var item = $t.getCurrent();
                     numElementsInOther = (numElementsInOther + 1) | 0;
@@ -1144,7 +1150,7 @@
             bitHelper = new System.Collections.Generic.BitHelper(bitArray, intArrayLength);
             var unfoundCount = 0;
             var uniqueFoundCount = 0;
-            $t1 = Bridge.getEnumerator(other);
+            $t1 = Bridge.getEnumerator(other, null, T);
             while ($t1.moveNext()) {
                 var item1 = $t1.getCurrent();
                 var index = this.internalIndexOf(item1);
@@ -1362,7 +1368,7 @@
                 return Bridge.getDefaultValue(T);
             });
 
-            var en = Bridge.getEnumerator(collection, "$1", T);
+            var en = Bridge.getEnumerator(collection, null, T);
             try {
                 while (en.System$Collections$IEnumerator$moveNext()) {
                     this.enqueue(en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$getCurrent$1", "getCurrent$1")]());

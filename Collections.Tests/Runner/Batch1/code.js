@@ -1,4 +1,10 @@
-﻿Bridge.assembly("Bridge.Collections.ClientTest", function ($asm, globals) {
+﻿/**
+ * Bridge.Collections test library
+ * @author Object.NET, Inc.
+ * @copyright Copyright 2008-2016 Object.NET, Inc.
+ * @compiler Bridge.NET 15.3.0
+ */
+Bridge.assembly("Bridge.Collections.ClientTest", function ($asm, globals) {
     "use strict";
 
     Bridge.define("Bridge.Collections.ClientTest.BridgeIssues.Bridge634", {
@@ -179,15 +185,15 @@
         foreachWithListItemCallbackWorks: function () {
             var result = "";
             Bridge.Linq.Enumerable.from(new (System.Collections.Generic.Stack$1(String)).$ctor1(["a", "b", "c"])).forEach(function (s) {
-                result += s;
-            });
+                    result += s;
+                });
             Bridge.Test.Assert.areEqual("cba", result);
         },
         foreachWithListCallbackWorks: function () {
             var result = "";
             Bridge.Linq.Enumerable.from(new (System.Collections.Generic.Stack$1(String)).$ctor1(["a", "b", "c"])).forEach(function (s, i) {
-                result += System.String.concat(s, i);
-            });
+                    result += System.String.concat(s, i);
+                });
             Bridge.Test.Assert.areEqual("c0b1a2", result);
         },
         popWorks: function () {

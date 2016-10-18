@@ -1,5 +1,6 @@
 ﻿Bridge.assembly("Bridge_Collections_ClientTest_Tests", function ($asm, globals) {
     
+
     Bridge.define("Bridge.Test.QUnit.Bridge_Collections_ClientTest_Tests_Runner", {
         $main: function () {
             QUnit.module("Bridge Issues");

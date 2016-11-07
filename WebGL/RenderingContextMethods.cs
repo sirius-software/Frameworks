@@ -467,7 +467,7 @@ namespace Bridge.WebGL
         /// Return a 0 if an error occurs creating a program object.
         /// </summary>
         /// <returns>A program object or 0 if error</returns>
-        public Any<int, WebGLProgram> CreateProgram()
+        public Union<int, WebGLProgram> CreateProgram()
         {
             return null;
         }
@@ -946,7 +946,7 @@ namespace Bridge.WebGL
         ///     gl.ACTIVE_UNIFORMS        Number
         /// </param>
         /// <returns>The value for a parameter associated with pname, or null if an error occurs.</returns>
-        public virtual Any<bool, int, object> GetProgramParameter(WebGLProgram program, int pName)
+        public virtual Union<bool, int, object> GetProgramParameter(WebGLProgram program, int pName)
         {
             return null;
         }
@@ -1004,7 +1004,7 @@ namespace Bridge.WebGL
         ///     gl.COMPILE_STATUS        Boolean
         /// </param>
         /// <returns>Value of pname.</returns>
-        public virtual Any<int, bool, object> GetShaderParameter(WebGLShader shader, int pName)
+        public virtual Union<int, bool, object> GetShaderParameter(WebGLShader shader, int pName)
         {
             return null;
         }

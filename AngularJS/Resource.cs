@@ -192,7 +192,7 @@ namespace Bridge.AngularJS.Resource
         /// request data is an object and serializes to using angular.toJson.
         /// To prevent this behavior, set transformRequest to an empty array.
         /// </summary>
-        public Any<Func<string, string>, Func<string, string>[]>
+        public Union<Func<string, string>, Func<string, string>[]>
             TransformRequest;
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace Bridge.AngularJS.Resource
         /// angular.fromJson. To prevent this behavior, set transformResponse to
         /// an empty array.
         /// </summary>
-        public Any<Func<object, string>, Func<object, string>[]>
+        public Union<Func<object, string>, Func<object, string>[]>
             TransformResponse;
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace Bridge.AngularJS.Resource
         /// request, otherwise if a cache instance built with $cacheFactory,
         /// this cache will be used for caching.
         /// </summary>
-        public Any<bool, Cache> Cache;
+        public Union<bool, Cache> Cache;
 
         /// <summary>
         /// Timeout in milliseconds before the request should be aborted.

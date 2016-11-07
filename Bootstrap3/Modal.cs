@@ -114,7 +114,7 @@ namespace Bridge.Bootstrap3
         /// It might be the boolean or the string 'static'
         /// Defaults to true.
         /// </summary>
-        public virtual Any<bool, string> Backdrop
+        public virtual Union<bool, string> Backdrop
         {
             get;
             set;
@@ -144,7 +144,7 @@ namespace Bridge.Bootstrap3
         /// If a remote URL is provided, content will be loaded one time via jQuery's load method and injected into the .modal-content div.
         /// Defaults to false.
         /// </summary>
-        public virtual Any<bool, string> Path
+        public virtual Union<bool, string> Path
         {
             get;
             set;

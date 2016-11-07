@@ -8,7 +8,7 @@ namespace Bridge.AngularJS.Services
     /// <summary>
     /// Type shorthand for the Transclude signature.
     /// </summary>
-    public class TranscludeSig : Any<bool, jQry, jqLite>
+    public class TranscludeSig : Union<bool, jQry, jqLite>
     { }
 
     /// <summary>
@@ -79,7 +79,7 @@ namespace Bridge.AngularJS.Services
             /// <see cref="!:https://docs.angularjs.org/api/ng/service/$compile">
             /// Official JavaScript Documentation
             /// </see>
-            public Any<object, bool, string> Scope;
+            public Union<object, bool, string> Scope;
 
             /// <summary>
             /// When an isolate scope is used for a component (see above), and
@@ -114,7 +114,7 @@ namespace Bridge.AngularJS.Services
             /// raised (unless no link function is specified, in which case
             /// error checking is skipped).
             /// </summary>
-            public Any<string, string[]> Require;
+            public Union<string, string[]> Require;
 
             /// <summary>
             /// Identifier name for a reference to the controller in the

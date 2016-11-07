@@ -72,7 +72,7 @@ namespace Bridge.AngularJS.Route
         /// Mapping information to be assigned to $route.current. If called with
         /// a string, the value maps to redirectTo.
         /// </param>
-        public RouteProvider Otherwise(Any<String, MappingInformation> parms)
+        public RouteProvider Otherwise(Union<String, MappingInformation> parms)
         {
             return default(RouteProvider);
         }
@@ -89,7 +89,7 @@ namespace Bridge.AngularJS.Route
         /// Controller fn that should be associated with newly created scope or
         /// the name of a registered controller if passed as a string.
         /// </summary>
-        public Any<string, Action> Controller;
+        public Union<string, Action> Controller;
 
         /// <summary>
         /// An identifier name for a reference to the controller. If present,
@@ -109,7 +109,7 @@ namespace Bridge.AngularJS.Route
         /// {Array.&lt;Object&gt;} - route parameters extracted from the current
         /// $location.path() by applying the current route.
         /// </remarks>
-        public Any<string, Func<string>> Template;
+        public Union<string, Func<string>> Template;
 
         /// <summary>
         /// Path or function that returns a path to an html template that should
@@ -121,7 +121,7 @@ namespace Bridge.AngularJS.Route
         /// {Array.&lt;Object&gt;} - route parameters extracted from the current
         /// $location.path() by applying the current route
         /// </remarks>
-        public Any<string, Func<string>> TemplateUrl;
+        public Union<string, Func<string>> TemplateUrl;
 
         /// <summary>
         /// An optional map of dependencies which should be injected into the
@@ -154,7 +154,7 @@ namespace Bridge.AngularJS.Route
         /// The custom redirectTo function is expected to return a string which
         /// will be used to update $location.path() and $location.search().
         /// </remarks>
-        public Any<string, Func<string, ResolveMap, string, object>> RedirectTo;
+        public Union<string, Func<string, ResolveMap, string, object>> RedirectTo;
 
         /// <summary>
         /// Reload route when only $location.search() or $location.hash()
@@ -199,7 +199,7 @@ namespace Bridge.AngularJS.Route
         /// these resolve functions. Use $route.current.params to access the new
         /// route parameters, instead.
         /// </remarks>
-        public Any<string, Func<object>> Factory;
+        public Union<string, Func<object>> Factory;
     }
 }
 

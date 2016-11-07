@@ -23,7 +23,7 @@ namespace Bridge.AngularJS.Services
         /// Official JavaScript Documentation
         /// </see>
         [Template("$controller({constructor}, {locals})")]
-        public static object DoController(Any<Delegate, string> constructor,
+        public static object DoController(Union<Delegate, string> constructor,
             object locals)
         {
             return default(object);

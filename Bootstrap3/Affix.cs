@@ -68,7 +68,7 @@ namespace Bridge.Bootstrap3
         /// Pixels to offset from screen when calculating position of scroll. If a single number is provided, the offset will be applied in both top and bottom directions. To provide a unique, bottom and top offset just provide an object offset: { top: 10 } or offset: { top: 10, bottom: 5 }. Use a function when you need to dynamically calculate an offset.
         /// Defaults to 10.
         /// </summary>
-        public virtual Any<int, AffixOffset, Delegate, Func<AffixOffset>> Offset
+        public virtual Union<int, AffixOffset, Delegate, Func<AffixOffset>> Offset
         {
             get;
             set;
@@ -78,7 +78,7 @@ namespace Bridge.Bootstrap3
         /// Specifies the target element of the affix. Either a selector string, a DOM element or a jQuery object.
         /// Defaults to the window object.
         /// </summary>
-        public virtual Any<string, Element, jQuery> Target
+        public virtual Union<string, Element, jQuery> Target
         {
             get;
             set;

@@ -160,7 +160,7 @@ namespace Bridge.Bootstrap3
         /// Object structure is: delay: { show: 500, hide: 100 }
         /// Defaults to 0.
         /// </summary>
-        public virtual Any<int, PopupDelay> Delay
+        public virtual Union<int, PopupDelay> Delay
         {
             get;
             set;
@@ -182,7 +182,7 @@ namespace Bridge.Bootstrap3
         /// You can define a function which returns a placement string. The two arguments are passed to a function - a tooltip/popover and a target DOM elements.
         /// Defaults to 'top'.
         /// </summary>
-        public virtual Any<string, PopupPlacement, Delegate, Func<Element, Element, string>> Placement
+        public virtual Union<string, PopupPlacement, Delegate, Func<Element, Element, string>> Placement
         {
             get;
             set;
@@ -205,7 +205,7 @@ namespace Bridge.Bootstrap3
         /// If a function is given, you can access the element that the popover is attached to via the "this" reference (Script.This&lt;Element&gt;()).
         /// Defaults to "".
         /// </summary>
-        public virtual Any<string, Delegate, Func<string>> Title
+        public virtual Union<string, Delegate, Func<string>> Title
         {
             get;
             set;
@@ -215,7 +215,7 @@ namespace Bridge.Bootstrap3
         /// How tooltip/popover is triggered - click | hover | focus | manual. You may pass multiple triggers; separate them with a space.
         /// Defaults to "hover focus" for a tooltip and "click" for a popover.
         /// </summary>
-        public virtual Any<string, PopupTrigger> Trigger
+        public virtual Union<string, PopupTrigger> Trigger
         {
             get;
             set;
@@ -225,7 +225,7 @@ namespace Bridge.Bootstrap3
         /// Keeps the tooltip within the bounds of this element. Example: viewport: '#viewport' or { selector: '#viewport', padding: 0 }
         /// Defaults to { selector: 'body', padding: 0 }.
         /// </summary>
-        public virtual Any<string, PopupViewport> Viewport
+        public virtual Union<string, PopupViewport> Viewport
         {
             get;
             set;
@@ -269,7 +269,7 @@ namespace Bridge.Bootstrap3
         /// If a function is given, you can access the element that the popover is attached to via the "this" reference (Script.This&lt;Element&gt;()).
         /// Defaults to ''.
         /// </summary>
-        public virtual Any<string, Delegate, Func<string>> Content
+        public virtual Union<string, Delegate, Func<string>> Content
         {
             get;
             set;

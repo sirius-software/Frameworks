@@ -49,6 +49,7 @@
   <!-- NuGet packaging starts -->
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <NuGetBuildPackage>true</NuGetBuildPackage>
+    <DocumentationFile>bin\Release\Bridge.Html5.Console.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <NuGetPackageSourcePath Include="$(SolutionDir).build\specs\Bridge.Html5.Console.nuspec">

@@ -10,12 +10,12 @@
     <licenseUrl>https://github.com/bridgedotnet/Bridge/blob/master/LICENSE</licenseUrl>
     <projectUrl>http://bridge.net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Bridge.NET support for the browser's debugging console</description>
+    <description>Bridge.NET support for the developer tools debugging console</description>
     <summary>Bridge.NET support for the browser's debugging console</summary>
     <copyright>Copyright (c) 2008-2016, Object.NET, Inc. (http://object.net/). All rights reserved.</copyright>
     <tags>webgl bridge.net bridge js javascript C# csharp mobile ios asp.net aspnet mvc aspnetmvc web transpiler compiler object.net</tags>
     <dependencies>
-      <dependency id="Bridge.Core" version="15.0.0" />
+      <dependency id="Bridge.Core" version="15.0.3" />
     </dependencies>
     <frameworkAssemblies>
     </frameworkAssemblies>
@@ -23,6 +23,7 @@
   <files>
     <!--NET40-->
     <file src="..\..\Html5.Console\bin\Release\Bridge.Html5.Console.dll" target="lib\net40\Bridge.Html5.Console.dll" />
+    <file src="..\..\Html5.Console\bin\Release\Bridge.Html5.Console.xml" target="lib\net40\Bridge.Html5.Console.xml" />
     <file src="..\..\Html5.Console\bin\Release\Bridge.Html5.Console.pdb" target="lib\net40\pdb\Bridge.Html5.Console.pdb" />
   </files>
 </package>

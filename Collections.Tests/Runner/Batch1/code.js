@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Bridge.Collections test library
  * @author Object.NET, Inc.
  * @copyright Copyright 2008-2016 Object.NET, Inc.

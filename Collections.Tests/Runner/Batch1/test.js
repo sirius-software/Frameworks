@@ -50,7 +50,7 @@ Bridge.assembly("Bridge_Collections_ClientTest_Tests", function ($asm, globals) 
                 this.context = Bridge.merge(new Bridge.Test.QUnit.FixtureContext(), {
                     project: "Batch1",
                     className: "Bridge.Collections.ClientTest.BridgeIssues.Bridge634",
-                    file: "file:///C:/NET/BridgeNew/Frameworks/Collections.Tests/Batch1/BridgeIssues/0600/N634.cs"
+                    file: "Batch1\\BridgeIssues\\0600\\N634.cs"
                 } );
             }
             return this.context;
@@ -116,7 +116,7 @@ Bridge.assembly("Bridge_Collections_ClientTest_Tests", function ($asm, globals) 
                 this.context = Bridge.merge(new Bridge.Test.QUnit.FixtureContext(), {
                     project: "Batch1",
                     className: "Bridge.Collections.ClientTest.Collections.Generic.QueueTests",
-                    file: "file:///C:/NET/BridgeNew/Frameworks/Collections.Tests/Batch1/Collections/Generic/QueueTests.cs"
+                    file: "Batch1\\Collections\\Generic\\QueueTests.cs"
                 } );
             }
             return this.context;
@@ -252,7 +252,7 @@ Bridge.assembly("Bridge_Collections_ClientTest_Tests", function ($asm, globals) 
                 this.context = Bridge.merge(new Bridge.Test.QUnit.FixtureContext(), {
                     project: "Batch1",
                     className: "Bridge.Collections.ClientTest.Collections.Generic.StackTests",
-                    file: "file:///C:/NET/BridgeNew/Frameworks/Collections.Tests/Batch1/Collections/Generic/StackTests.cs"
+                    file: "Batch1\\Collections\\Generic\\StackTests.cs"
                 } );
             }
             return this.context;

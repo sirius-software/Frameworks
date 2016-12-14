@@ -2,7 +2,7 @@
  * Bridge.Collections test library
  * @author Object.NET, Inc.
  * @copyright Copyright 2008-2016 Object.NET, Inc.
- * @compiler Bridge.NET 15.5.0
+ * @compiler Bridge.NET 15.6.0
  */
 Bridge.assembly("Bridge.Collections.ClientTest", function ($asm, globals) {
     "use strict";

@@ -200,6 +200,65 @@ namespace System.Collections
             }
         }
 
+        /// <summary>
+        /// Copies the entire List to a compatible one-dimensional array, starting at the specified index of the target array.
+        /// </summary>
+        /// <param name="array">The one-dimensional Array that is the destination of the elements copied from List.</param>
+        /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+        public void CopyTo(Array array, int index)
+        {
+            if (array == null)
+            {
+                throw new ArgumentNullException("array");
+            }
+
+            if (index < 0)
+            {
+                throw new ArgumentOutOfRangeException("index");
+            }
+
+            if (array.Rank != 1)
+            {
+                throw new ArgumentException("Only single dimensional arrays are supported for the requested action.");
+            }
+
+            if (array is int[])
+            {
+                Array.Copy(m_array, 0, array, index, GetArrayLength(m_length, BitsPerInt32));
+            }
+            else if (array is byte[])
+            {
+                int arrayLength = GetArrayLength(m_length, BitsPerByte);
+                if ((array.Length - index) < arrayLength)
+                {
+                    throw new ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+                }
+
+                byte[] b = (byte[])array;
+                for (int i = 0; i < arrayLength; i++)
+                {
+                    b[index + i] = (byte)((m_array[i / 4] >> ((i % 4) * 8)) & 0x000000FF); // Shift to bring the required byte to LSB, then mask
+                }
+            }
+            else if (array is bool[])
+            {
+                if (array.Length - index < m_length)
+                {
+                    throw new ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+                }
+
+                bool[] b = (bool[])array;
+                for (int i = 0; i < m_length; i++)
+                {
+                    b[index + i] = ((m_array[i / 32] >> (i % 32)) & 0x00000001) != 0;
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Only supported array types for CopyTo on BitArrays are Boolean[], Int32[] and Byte[].");
+            }
+        }
+
         /*=========================================================================
         ** Returns the bit value at position index.
         **
@@ -390,6 +449,9 @@ namespace System.Collections
             }
         }
 
+        /// <summary>
+        /// Gets the number of elements contained in the ICollection.
+        /// </summary>
         public int Count
         {
             get

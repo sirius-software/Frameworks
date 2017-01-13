@@ -64,6 +64,50 @@ namespace System.Collections.Generic
             get { return false; }
         }
 
+        /// <summary>
+        /// Copies the Queue<T> elements to an existing one-dimensional Array, starting at the specified array index.
+        /// </summary>
+        /// <param name="array">The one-dimensional Array that is the destination of the elements copied from Queue<T>. The Array must have zero-based indexing.</param>
+        /// <param name="index">The zero-based index in array at which copying begins.</param>
+        public virtual void CopyTo(Array array, int index)
+        {
+            if (array == null)
+            {
+                throw new ArgumentNullException("array");
+            }
+
+            if (array.Rank != 1)
+            {
+                throw new ArgumentException("Only single dimensional arrays are supported for the requested action.");
+            }
+
+            if (index < 0)
+            {
+                throw new ArgumentOutOfRangeException("index");
+            }
+
+            int arrayLen = array.Length;
+            if (arrayLen - index < _size)
+            {
+                throw new ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+            }
+
+            int numToCopy = _size;
+            if (numToCopy == 0)
+            {
+                return;
+            }
+
+            int firstPart = (_array.Length - _head < numToCopy) ? _array.Length - _head : numToCopy;
+            Array.Copy(_array, _head, array, index, firstPart);
+
+            numToCopy -= firstPart;
+            if (numToCopy > 0)
+            {
+                Array.Copy(_array, 0, array, index + _array.Length - _head, numToCopy);
+            }
+        }
+
         // Removes all Objects from the queue.
         public void Clear()
         {

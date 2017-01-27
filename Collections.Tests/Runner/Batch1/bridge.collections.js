@@ -1,7 +1,7 @@
 /**
- * @version 1.3.3
+ * @version 1.3.4
  * @author Object.NET, Inc.
- * @copyright Copyright 2008-2016 Object.NET, Inc.
+ * @copyright Copyright 2008-2017 Object.NET, Inc.
  * @compiler Bridge.NET 15.7.0
  */
 Bridge.assembly("Bridge.Collections", function ($asm, globals) {

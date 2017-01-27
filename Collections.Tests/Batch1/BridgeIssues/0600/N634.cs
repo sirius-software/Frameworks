@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-using Bridge.Test;
+using Bridge.Test.NUnit;
 
 namespace Bridge.Collections.ClientTest.BridgeIssues
 {
@@ -9,8 +9,8 @@ namespace Bridge.Collections.ClientTest.BridgeIssues
     [TestFixture(TestNameFormat = "#634 - {0}")]
     public class Bridge634
     {
-       [Test(ExpectedCount = 1)]
-       public static void TestUseCase1()
+        [Test(ExpectedCount = 1)]
+        public static void TestUseCase1()
         {
             var hashSet = new HashSet<string>();
 

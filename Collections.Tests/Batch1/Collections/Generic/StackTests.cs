@@ -1,5 +1,5 @@
 ﻿using Bridge.Linq;
-using Bridge.Test;
+using Bridge.Test.NUnit;
 
 using System;
 using System.Collections;
@@ -24,6 +24,7 @@ namespace Bridge.Collections.ClientTest.Collections.Generic
             {
                 return o is C && i == ((C)o).i;
             }
+
             public override int GetHashCode()
             {
                 return i;
@@ -44,8 +45,6 @@ namespace Bridge.Collections.ClientTest.Collections.Generic
         {
             return new[] { 1, 4, 7, 8 };
         }
-
-
 
         [Test]
         public void TypePropertiesAreCorrect()
@@ -102,7 +101,7 @@ namespace Bridge.Collections.ClientTest.Collections.Generic
         public void CountWorks()
         {
             Assert.AreEqual(0, new Stack<string>().Count);
-            Assert.AreEqual(1, new Stack<string>(new []{ "x" }).Count);
+            Assert.AreEqual(1, new Stack<string>(new[] { "x" }).Count);
             Assert.AreEqual(2, GetStack().Count);
         }
 

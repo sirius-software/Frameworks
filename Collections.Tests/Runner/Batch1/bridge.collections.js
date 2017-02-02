@@ -2,7 +2,7 @@
  * @version 1.3.4
  * @author Object.NET, Inc.
  * @copyright Copyright 2008-2017 Object.NET, Inc.
- * @compiler Bridge.NET 15.7.0
+ * @compiler Bridge.NET 15.8.0
  */
 Bridge.assembly("Bridge.Collections", function ($asm, globals) {
     "use strict";
@@ -76,7 +76,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             // m_length is of type int32 and is exposed as a property, so
             // type of m_length can't be changed to accommodate.
             if (bytes.length > 268435455) {
-                throw new System.ArgumentException(System.String.format("The input array length must not exceed Int32.MaxValue / {0}. Otherwise BitArray.Length would exceed Int32.MaxValue.", System.Collections.BitArray.BitsPerByte), "bytes");
+                throw new System.ArgumentException(System.String.format("The input array length must not exceed Int32.MaxValue / {0}. Otherwise BitArray.Length would exceed Int32.MaxValue.", Bridge.box(System.Collections.BitArray.BitsPerByte, System.Int32)), "bytes");
             }
 
             this.m_array = System.Array.init(System.Collections.BitArray.getArrayLength(bytes.length, System.Collections.BitArray.BytesPerInt32), 0, System.Int32);
@@ -130,7 +130,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             }
             // this value is chosen to prevent overflow when computing m_length
             if (values.length > 67108863) {
-                throw new System.ArgumentException(System.String.format("The input array length must not exceed Int32.MaxValue / {0}. Otherwise BitArray.Length would exceed Int32.MaxValue.", System.Collections.BitArray.BitsPerInt32), "values");
+                throw new System.ArgumentException(System.String.format("The input array length must not exceed Int32.MaxValue / {0}. Otherwise BitArray.Length would exceed Int32.MaxValue.", Bridge.box(System.Collections.BitArray.BitsPerInt32, System.Int32)), "values");
             }
 
             this.m_array = System.Array.init(values.length, 0, System.Int32);
@@ -388,7 +388,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             if (this.index >= this.bitarray.getCount()) {
                 throw new System.InvalidOperationException("Enumeration already finished.");
             }
-            return this.currentElement;
+            return Bridge.box(this.currentElement, Boolean, $box_.Boolean.toString);
         },
         moveNext: function () {
             if (this.version !== this.bitarray._version) {
@@ -757,10 +757,10 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             return new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this);
         },
         System$Collections$Generic$IEnumerable$1$T$getEnumerator: function () {
-            return new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this);
+            return Bridge.box(new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this), System.Collections.Generic.HashSet$1.Enumerator(T));
         },
         System$Collections$IEnumerable$getEnumerator: function () {
-            return new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this);
+            return Bridge.box(new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this), System.Collections.Generic.HashSet$1.Enumerator(T));
         },
         unionWith: function (other) {
             var $t;
@@ -1312,7 +1312,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             if (this._index === 0 || this._index === ((this._set._lastIndex + 1) | 0)) {
                 throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
             }
-            return this.getCurrent();
+            return Bridge.box(this.getCurrent(), T);
         },
         dispose: function () {
         },
@@ -1540,10 +1540,10 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             return new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this);
         },
         System$Collections$Generic$IEnumerable$1$T$getEnumerator: function () {
-            return new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this);
+            return Bridge.box(new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this), System.Collections.Generic.Queue$1.Enumerator(T));
         },
         System$Collections$IEnumerable$getEnumerator: function () {
-            return new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this);
+            return Bridge.box(new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this), System.Collections.Generic.Queue$1.Enumerator(T));
         },
         dequeue: function () {
             if (this._size === 0) {
@@ -1672,7 +1672,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             return this._currentElement;
         },
         System$Collections$IEnumerator$getCurrent: function () {
-            return this.getCurrent();
+            return Bridge.box(this.getCurrent(), T);
         },
         dispose: function () {
             this._index = -2;
@@ -1849,10 +1849,10 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             return new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this);
         },
         System$Collections$Generic$IEnumerable$1$T$getEnumerator: function () {
-            return new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this);
+            return Bridge.box(new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this), System.Collections.Generic.Stack$1.Enumerator(T));
         },
         System$Collections$IEnumerable$getEnumerator: function () {
-            return new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this);
+            return Bridge.box(new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this), System.Collections.Generic.Stack$1.Enumerator(T));
         },
         trimExcess: function () {
             var threshold = Bridge.Int.clip32(this._array.length * 0.9);
@@ -1943,7 +1943,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             if (this._index === -1) {
                 throw new System.InvalidOperationException("Enumeration already finished.");
             }
-            return this._currentElement;
+            return Bridge.box(this._currentElement, T);
         },
         dispose: function () {
             this._index = -1;
@@ -2050,5 +2050,13 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 return System.Collections.HashHelpers.getPrime(newSize);
             }
         }
+    });
+
+    var $box_ = {};
+
+    Bridge.ns("Boolean", $box_);
+
+    Bridge.apply($box_.Boolean, {
+        toString: function(obj) {return System.Boolean.toString(obj);}
     });
 });

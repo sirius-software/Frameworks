@@ -57,8 +57,8 @@
     </NuGetPackageSourcePath>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Bridge, Version=15.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bridge.Core.15.7.0\lib\net40\Bridge.dll</HintPath>
+    <Reference Include="Bridge, Version=15.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bridge.Core.15.8.0\lib\net40\Bridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

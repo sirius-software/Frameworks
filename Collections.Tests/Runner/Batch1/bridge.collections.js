@@ -2,7 +2,7 @@
  * @version 1.3.4
  * @author Object.NET, Inc.
  * @copyright Copyright 2008-2017 Object.NET, Inc.
- * @compiler Bridge.NET 15.8.0
+ * @compiler Bridge.NET 16.0.0
  */
 Bridge.assembly("Bridge.Collections", function ($asm, globals) {
     "use strict";
@@ -41,9 +41,69 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         m_length: 0,
         _version: 0,
         config: {
+            properties: {
+                Length: {
+                    get: function () {
+                        return this.m_length;
+                    },
+                    set: function (value) {
+                        if (value < 0) {
+                            throw new System.ArgumentOutOfRangeException("value", "Non-negative number required.");
+                        }
+
+                        var newints = System.Collections.BitArray.getArrayLength(value, System.Collections.BitArray.BitsPerInt32);
+                        if (newints > this.m_array.length || ((newints + System.Collections.BitArray._ShrinkThreshold) | 0) < this.m_array.length) {
+                            // grow or shrink (if wasting more than _ShrinkThreshold ints)
+                            var newarray = System.Array.init(newints, 0, System.Int32);
+                            System.Array.copy(this.m_array, 0, newarray, 0, newints > this.m_array.length ? this.m_array.length : newints);
+                            this.m_array = newarray;
+                        }
+
+                        if (value > this.m_length) {
+                            // clear high bit values in the last int
+                            var last = (System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32) - 1) | 0;
+                            var bits = this.m_length % 32;
+                            if (bits > 0) {
+                                this.m_array[System.Array.index(last, this.m_array)] = this.m_array[System.Array.index(last, this.m_array)] & ((((1 << bits) - 1) | 0));
+                            }
+
+                            // clear remaining int values
+                            System.Array.fill(this.m_array, 0, ((last + 1) | 0), ((((newints - last) | 0) - 1) | 0));
+                        }
+
+                        this.m_length = value;
+                        this._version = (this._version + 1) | 0;
+                    }
+                },
+                /**
+                 * Gets the number of elements contained in the ICollection.
+                 *
+                 * @instance
+                 * @public
+                 * @readonly
+                 * @memberof System.Collections.BitArray
+                 * @function Count
+                 * @type number
+                 */
+                Count: {
+                    get: function () {
+                        return this.m_length;
+                    }
+                },
+                IsReadOnly: {
+                    get: function () {
+                        return false;
+                    }
+                },
+                IsSynchronized: {
+                    get: function () {
+                        return false;
+                    }
+                }
+            },
             alias: [
             "copyTo", "System$Collections$ICollection$copyTo",
-            "getCount", "System$Collections$ICollection$getCount",
+            "Count", "System$Collections$ICollection$Count",
             "clone", "System$ICloneable$clone",
             "getEnumerator", "System$Collections$IEnumerable$getEnumerator"
             ]
@@ -62,7 +122,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
 
             var fillValue = defaultValue ? (-1) : 0;
             for (var i = 0; i < this.m_array.length; i = (i + 1) | 0) {
-                this.m_array[i] = fillValue;
+                this.m_array[System.Array.index(i, this.m_array)] = fillValue;
             }
 
             this._version = 0;
@@ -85,23 +145,23 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             var i = 0;
             var j = 0;
             while (((bytes.length - j) | 0) >= 4) {
-                this.m_array[Bridge.identity(i, (i = (i + 1) | 0))] = (bytes[j] & 255) | ((bytes[((j + 1) | 0)] & 255) << 8) | ((bytes[((j + 2) | 0)] & 255) << 16) | ((bytes[((j + 3) | 0)] & 255) << 24);
+                this.m_array[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), this.m_array)] = (bytes[System.Array.index(j, bytes)] & 255) | ((bytes[System.Array.index(((j + 1) | 0), bytes)] & 255) << 8) | ((bytes[System.Array.index(((j + 2) | 0), bytes)] & 255) << 16) | ((bytes[System.Array.index(((j + 3) | 0), bytes)] & 255) << 24);
                 j = (j + 4) | 0;
             }
 
             var r = (bytes.length - j) | 0;
             if (r === 3) {
-                this.m_array[i] = ((bytes[((j + 2) | 0)] & 255) << 16);
+                this.m_array[System.Array.index(i, this.m_array)] = ((bytes[System.Array.index(((j + 2) | 0), bytes)] & 255) << 16);
                 r = 2;
             }
 
             if (r === 2) {
-                this.m_array[i] = this.m_array[i] | ((bytes[((j + 1) | 0)] & 255) << 8);
+                this.m_array[System.Array.index(i, this.m_array)] = this.m_array[System.Array.index(i, this.m_array)] | ((bytes[System.Array.index(((j + 1) | 0), bytes)] & 255) << 8);
                 r = 1;
             }
 
             if (r === 1) {
-                this.m_array[i] = this.m_array[i] | (bytes[j] & 255);
+                this.m_array[System.Array.index(i, this.m_array)] = this.m_array[System.Array.index(i, this.m_array)] | (bytes[System.Array.index(j, bytes)] & 255);
             }
 
             this._version = 0;
@@ -116,8 +176,8 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             this.m_length = values.length;
 
             for (var i = 0; i < values.length; i = (i + 1) | 0) {
-                if (values[i]) {
-                    this.m_array[((Bridge.Int.div(i, 32)) | 0)] = this.m_array[((Bridge.Int.div(i, 32)) | 0)] | (1 << (i % 32));
+                if (values[System.Array.index(i, values)]) {
+                    this.m_array[System.Array.index(((Bridge.Int.div(i, 32)) | 0), this.m_array)] = this.m_array[System.Array.index(((Bridge.Int.div(i, 32)) | 0), this.m_array)] | (1 << (i % 32));
                 }
             }
 
@@ -160,62 +220,6 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         setItem: function (index, value) {
             this.set(index, value);
         },
-        getLength: function () {
-            return this.m_length;
-        },
-        setLength: function (value) {
-            if (value < 0) {
-                throw new System.ArgumentOutOfRangeException("value", "Non-negative number required.");
-            }
-
-            var newints = System.Collections.BitArray.getArrayLength(value, System.Collections.BitArray.BitsPerInt32);
-            if (newints > this.m_array.length || ((newints + System.Collections.BitArray._ShrinkThreshold) | 0) < this.m_array.length) {
-                // grow or shrink (if wasting more than _ShrinkThreshold ints)
-                var newarray = System.Array.init(newints, 0, System.Int32);
-                System.Array.copy(this.m_array, 0, newarray, 0, newints > this.m_array.length ? this.m_array.length : newints);
-                this.m_array = newarray;
-            }
-
-            if (value > this.m_length) {
-                // clear high bit values in the last int
-                var last = (System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32) - 1) | 0;
-                var bits = this.m_length % 32;
-                if (bits > 0) {
-                    this.m_array[last] = this.m_array[last] & ((((1 << bits) - 1) | 0));
-                }
-
-                // clear remaining int values
-                System.Array.fill(this.m_array, 0, ((last + 1) | 0), ((((newints - last) | 0) - 1) | 0));
-            }
-
-            this.m_length = value;
-            this._version = (this._version + 1) | 0;
-        },
-        /**
-         * Gets the number of elements contained in the ICollection.
-         *
-         * @instance
-         * @public
-         * @this System.Collections.BitArray
-         * @memberof System.Collections.BitArray
-         * @function getCount
-         * @return  {number}
-         */
-        /**
-         * Gets the number of elements contained in the ICollection.
-         *
-         * @instance
-         * @function setCount
-         */
-        getCount: function () {
-            return this.m_length;
-        },
-        getIsReadOnly: function () {
-            return false;
-        },
-        getIsSynchronized: function () {
-            return false;
-        },
         /**
          * Copies the entire List to a compatible one-dimensional array, starting at the specified index of the target array.
          *
@@ -250,37 +254,37 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
 
                 var b = Bridge.cast(array, System.Array.type(System.Byte));
                 for (var i = 0; i < arrayLength; i = (i + 1) | 0) {
-                    b[((index + i) | 0)] = ((this.m_array[((Bridge.Int.div(i, 4)) | 0)] >> ((((i % 4) * 8) | 0))) & 255) & 255; // Shift to bring the required byte to LSB, then mask
+                    b[System.Array.index(((index + i) | 0), b)] = ((this.m_array[System.Array.index(((Bridge.Int.div(i, 4)) | 0), this.m_array)] >> ((((i % 4) * 8) | 0))) & 255) & 255; // Shift to bring the required byte to LSB, then mask
                 }
-            } else if (Bridge.is(array, System.Array.type(Boolean))) {
+            } else if (Bridge.is(array, System.Array.type(System.Boolean))) {
                 if (((array.length - index) | 0) < this.m_length) {
                     throw new System.ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
                 }
 
-                var b1 = Bridge.cast(array, System.Array.type(Boolean));
+                var b1 = Bridge.cast(array, System.Array.type(System.Boolean));
                 for (var i1 = 0; i1 < this.m_length; i1 = (i1 + 1) | 0) {
-                    b1[((index + i1) | 0)] = ((this.m_array[((Bridge.Int.div(i1, 32)) | 0)] >> (i1 % 32)) & 1) !== 0;
+                    b1[System.Array.index(((index + i1) | 0), b1)] = ((this.m_array[System.Array.index(((Bridge.Int.div(i1, 32)) | 0), this.m_array)] >> (i1 % 32)) & 1) !== 0;
                 }
             } else {
                 throw new System.ArgumentException("Only supported array types for CopyTo on BitArrays are Boolean[], Int32[] and Byte[].");
             }
         },
         get: function (index) {
-            if (index < 0 || index >= this.getLength()) {
+            if (index < 0 || index >= this.Length) {
                 throw new System.ArgumentOutOfRangeException("index", "Index was out of range. Must be non-negative and less than the size of the collection.");
             }
 
-            return (this.m_array[((Bridge.Int.div(index, 32)) | 0)] & (1 << (index % 32))) !== 0;
+            return (this.m_array[System.Array.index(((Bridge.Int.div(index, 32)) | 0), this.m_array)] & (1 << (index % 32))) !== 0;
         },
         set: function (index, value) {
-            if (index < 0 || index >= this.getLength()) {
+            if (index < 0 || index >= this.Length) {
                 throw new System.ArgumentOutOfRangeException("index", "Index was out of range. Must be non-negative and less than the size of the collection.");
             }
 
             if (value) {
-                this.m_array[((Bridge.Int.div(index, 32)) | 0)] = this.m_array[((Bridge.Int.div(index, 32)) | 0)] | (1 << (index % 32));
+                this.m_array[System.Array.index(((Bridge.Int.div(index, 32)) | 0), this.m_array)] = this.m_array[System.Array.index(((Bridge.Int.div(index, 32)) | 0), this.m_array)] | (1 << (index % 32));
             } else {
-                this.m_array[((Bridge.Int.div(index, 32)) | 0)] = this.m_array[((Bridge.Int.div(index, 32)) | 0)] & (~(1 << (index % 32)));
+                this.m_array[System.Array.index(((Bridge.Int.div(index, 32)) | 0), this.m_array)] = this.m_array[System.Array.index(((Bridge.Int.div(index, 32)) | 0), this.m_array)] & (~(1 << (index % 32)));
             }
 
             this._version = (this._version + 1) | 0;
@@ -289,7 +293,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             var fillValue = value ? (-1) : 0;
             var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
             for (var i = 0; i < ints; i = (i + 1) | 0) {
-                this.m_array[i] = fillValue;
+                this.m_array[System.Array.index(i, this.m_array)] = fillValue;
             }
 
             this._version = (this._version + 1) | 0;
@@ -298,13 +302,13 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             if (value == null) {
                 throw new System.ArgumentNullException("value");
             }
-            if (this.getLength() !== value.getLength()) {
+            if (this.Length !== value.Length) {
                 throw new System.ArgumentException("Array lengths must be the same.");
             }
 
             var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
             for (var i = 0; i < ints; i = (i + 1) | 0) {
-                this.m_array[i] = this.m_array[i] & value.m_array[i];
+                this.m_array[System.Array.index(i, this.m_array)] = this.m_array[System.Array.index(i, this.m_array)] & value.m_array[System.Array.index(i, value.m_array)];
             }
 
             this._version = (this._version + 1) | 0;
@@ -314,13 +318,13 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             if (value == null) {
                 throw new System.ArgumentNullException("value");
             }
-            if (this.getLength() !== value.getLength()) {
+            if (this.Length !== value.Length) {
                 throw new System.ArgumentException("Array lengths must be the same.");
             }
 
             var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
             for (var i = 0; i < ints; i = (i + 1) | 0) {
-                this.m_array[i] = this.m_array[i] | value.m_array[i];
+                this.m_array[System.Array.index(i, this.m_array)] = this.m_array[System.Array.index(i, this.m_array)] | value.m_array[System.Array.index(i, value.m_array)];
             }
 
             this._version = (this._version + 1) | 0;
@@ -330,13 +334,13 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             if (value == null) {
                 throw new System.ArgumentNullException("value");
             }
-            if (this.getLength() !== value.getLength()) {
+            if (this.Length !== value.Length) {
                 throw new System.ArgumentException("Array lengths must be the same.");
             }
 
             var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
             for (var i = 0; i < ints; i = (i + 1) | 0) {
-                this.m_array[i] = this.m_array[i] ^ value.m_array[i];
+                this.m_array[System.Array.index(i, this.m_array)] = this.m_array[System.Array.index(i, this.m_array)] ^ value.m_array[System.Array.index(i, value.m_array)];
             }
 
             this._version = (this._version + 1) | 0;
@@ -345,7 +349,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         not: function () {
             var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
             for (var i = 0; i < ints; i = (i + 1) | 0) {
-                this.m_array[i] = ~this.m_array[i];
+                this.m_array[System.Array.index(i, this.m_array)] = ~this.m_array[System.Array.index(i, this.m_array)];
             }
 
             this._version = (this._version + 1) | 0;
@@ -369,9 +373,22 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         version: 0,
         currentElement: false,
         config: {
+            properties: {
+                Current: {
+                    get: function () {
+                        if (this.index === -1) {
+                            throw new System.InvalidOperationException("Enumeration has not started. Call MoveNext.");
+                        }
+                        if (this.index >= this.bitarray.Count) {
+                            throw new System.InvalidOperationException("Enumeration already finished.");
+                        }
+                        return Bridge.box(this.currentElement, System.Boolean, $box_.System.Boolean.toString);
+                    }
+                }
+            },
             alias: [
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "getCurrent", "System$Collections$IEnumerator$getCurrent",
+            "Current", "System$Collections$IEnumerator$Current",
             "reset", "System$Collections$IEnumerator$reset"
             ]
         },
@@ -381,25 +398,16 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             this.index = -1;
             this.version = bitarray._version;
         },
-        getCurrent: function () {
-            if (this.index === -1) {
-                throw new System.InvalidOperationException("Enumeration has not started. Call MoveNext.");
-            }
-            if (this.index >= this.bitarray.getCount()) {
-                throw new System.InvalidOperationException("Enumeration already finished.");
-            }
-            return Bridge.box(this.currentElement, Boolean, $box_.Boolean.toString);
-        },
         moveNext: function () {
             if (this.version !== this.bitarray._version) {
                 throw new System.InvalidOperationException("Collection was modified; enumeration operation may not execute.");
             }
-            if (this.index < (((this.bitarray.getCount() - 1) | 0))) {
+            if (this.index < (((this.bitarray.Count - 1) | 0))) {
                 this.index = (this.index + 1) | 0;
                 this.currentElement = this.bitarray.get(this.index);
                 return true;
             } else {
-                this.index = this.bitarray.getCount();
+                this.index = this.bitarray.Count;
             }
 
             return false;
@@ -431,14 +439,14 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             var bitArrayIndex = (Bridge.Int.div(bitPosition, System.Collections.Generic.BitHelper.IntSize)) | 0;
             if (bitArrayIndex < this._length && bitArrayIndex >= 0) {
                 var flag = (System.Collections.Generic.BitHelper.MarkedBitFlag << (bitPosition % System.Collections.Generic.BitHelper.IntSize));
-                this._array[bitArrayIndex] = this._array[bitArrayIndex] | flag;
+                this._array[System.Array.index(bitArrayIndex, this._array)] = this._array[System.Array.index(bitArrayIndex, this._array)] | flag;
             }
         },
         isMarked: function (bitPosition) {
             var bitArrayIndex = (Bridge.Int.div(bitPosition, System.Collections.Generic.BitHelper.IntSize)) | 0;
             if (bitArrayIndex < this._length && bitArrayIndex >= 0) {
                 var flag = (System.Collections.Generic.BitHelper.MarkedBitFlag << (bitPosition % System.Collections.Generic.BitHelper.IntSize));
-                return ((this._array[bitArrayIndex] & flag) !== 0);
+                return ((this._array[System.Array.index(bitArrayIndex, this._array)] & flag) !== 0);
             }
             return false;
         }
@@ -491,7 +499,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                         var arr = { v : System.Array.init(DefaultCapacity, function (){
                             return Bridge.getDefaultValue(T);
                         }, T) };
-                        arr.v[0] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$getCurrent$1", "getCurrent$1")]();
+                        arr.v[System.Array.index(0, arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "Current$1")];
                         var count = 1;
 
                         while (en.System$Collections$IEnumerator$moveNext()) {
@@ -521,7 +529,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                                 System.Array.resize(arr, newLength, Bridge.getDefaultValue(T));
                             }
 
-                            arr.v[Bridge.identity(count, (count = (count + 1) | 0))] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$getCurrent$1", "getCurrent$1")]();
+                            arr.v[System.Array.index(Bridge.identity(count, (count = (count + 1) | 0)), arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "Current$1")];
                         }
 
                         length.v = count;
@@ -555,39 +563,54 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                     return false;
                 }
                 if (System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(set1, set2)) {
-                    if (set1.getCount() !== set2.getCount()) {
+                    if (set1.Count !== set2.Count) {
                         return false;
                     }
                     $t = Bridge.getEnumerator(set2);
-                    while ($t.moveNext()) {
-                        var item = $t.getCurrent();
-                        if (!set1.contains(item)) {
-                            return false;
-                        }
-                    }
-                    return true;
-                } else {
-                    $t1 = Bridge.getEnumerator(set2);
-                    while ($t1.moveNext()) {
-                        var set2Item = $t1.getCurrent();
-                        var found = false;
-                        $t2 = Bridge.getEnumerator(set1);
-                        while ($t2.moveNext()) {
-                            var set1Item = $t2.getCurrent();
-                            if (comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](set2Item, set1Item)) {
-                                found = true;
-                                break;
+                    try {
+                        while ($t.moveNext()) {
+                            var item = $t.Current;
+                            if (!set1.contains(item)) {
+                                return false;
                             }
                         }
-                        if (!found) {
-                            return false;
+                    }finally {
+                        if (Bridge.is($t, System.IDisposable)) {
+                            $t.System$IDisposable$dispose();
                         }
-                    }
-                    return true;
+                    }return true;
+                } else {
+                    $t1 = Bridge.getEnumerator(set2);
+                    try {
+                        while ($t1.moveNext()) {
+                            var set2Item = $t1.Current;
+                            var found = false;
+                            $t2 = Bridge.getEnumerator(set1);
+                            try {
+                                while ($t2.moveNext()) {
+                                    var set1Item = $t2.Current;
+                                    if (comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](set2Item, set1Item)) {
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                            }finally {
+                                if (Bridge.is($t2, System.IDisposable)) {
+                                    $t2.System$IDisposable$dispose();
+                                }
+                            }if (!found) {
+                                return false;
+                            }
+                        }
+                    }finally {
+                        if (Bridge.is($t1, System.IDisposable)) {
+                            $t1.System$IDisposable$dispose();
+                        }
+                    }return true;
                 }
             },
             areEqualityComparersEqual: function (set1, set2) {
-                return Bridge.equals(set1.getComparer(), set2.getComparer());
+                return Bridge.equals(set1.Comparer, set2.Comparer);
             }
         },
         _buckets: null,
@@ -598,14 +621,31 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         _comparer: null,
         _version: 0,
         config: {
+            properties: {
+                Count: {
+                    get: function () {
+                        return this._count;
+                    }
+                },
+                IsReadOnly: {
+                    get: function () {
+                        return false;
+                    }
+                },
+                Comparer: {
+                    get: function () {
+                        return this._comparer;
+                    }
+                }
+            },
             alias: [
             "System$Collections$Generic$ICollection$1$T$add", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$add",
             "clear", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$clear",
             "contains", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$contains",
             "copyTo", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$copyTo",
             "remove", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$remove",
-            "getCount", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$getCount",
-            "getIsReadOnly", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$getIsReadOnly",
+            "Count", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$Count",
+            "IsReadOnly", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$IsReadOnly",
             "System$Collections$Generic$IEnumerable$1$T$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator",
             "add", "System$Collections$Generic$ISet$1$" + Bridge.getTypeAlias(T) + "$add",
             "unionWith", "System$Collections$Generic$ISet$1$" + Bridge.getTypeAlias(T) + "$unionWith",
@@ -653,15 +693,6 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 this.trimExcess();
             }
         },
-        getCount: function () {
-            return this._count;
-        },
-        getIsReadOnly: function () {
-            return false;
-        },
-        getComparer: function () {
-            return this._comparer;
-        },
         System$Collections$Generic$ICollection$1$T$add: function (item) {
             this.addIfNotPresent(item);
         },
@@ -671,11 +702,11 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         clear: function () {
             if (this._lastIndex > 0) {
                 for (var i = 0; i < this._lastIndex; i = (i + 1) | 0) {
-                    this._slots[i] = new (System.Collections.Generic.HashSet$1.Slot(T))();
+                    this._slots[System.Array.index(i, this._slots)] = new (System.Collections.Generic.HashSet$1.Slot(T))();
                 }
 
                 for (var i1 = 0; i1 < this._buckets.length; i1 = (i1 + 1) | 0) {
-                    this._buckets[i1] = 0;
+                    this._buckets[System.Array.index(i1, this._buckets)] = 0;
                 }
 
                 this._lastIndex = 0;
@@ -689,8 +720,8 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         contains: function (item) {
             if (this._buckets != null) {
                 var hashCode = this.internalGetHashCode(item);
-                for (var i = (this._buckets[hashCode % this._buckets.length] - 1) | 0; i >= 0; i = this._slots[i].next) {
-                    if (this._slots[i].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[i].value, item)) {
+                for (var i = (this._buckets[System.Array.index(hashCode % this._buckets.length, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
+                    if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[System.Array.index(i, this._slots)].value, item)) {
                         return true;
                     }
                 }
@@ -718,8 +749,8 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             }
             var numCopied = 0;
             for (var i = 0; i < this._lastIndex && numCopied < count; i = (i + 1) | 0) {
-                if (this._slots[i].hashCode >= 0) {
-                    array[((arrayIndex + numCopied) | 0)] = this._slots[i].value;
+                if (this._slots[System.Array.index(i, this._slots)].hashCode >= 0) {
+                    array[System.Array.index(((arrayIndex + numCopied) | 0), array)] = this._slots[System.Array.index(i, this._slots)].value;
                     numCopied = (numCopied + 1) | 0;
                 }
             }
@@ -729,16 +760,16 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 var hashCode = this.internalGetHashCode(item);
                 var bucket = hashCode % this._buckets.length;
                 var last = -1;
-                for (var i = (this._buckets[bucket] - 1) | 0; i >= 0; last = i, i = this._slots[i].next) {
-                    if (this._slots[i].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[i].value, item)) {
+                for (var i = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0; i >= 0; last = i, i = this._slots[System.Array.index(i, this._slots)].next) {
+                    if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[System.Array.index(i, this._slots)].value, item)) {
                         if (last < 0) {
-                            this._buckets[bucket] = (this._slots[i].next + 1) | 0;
+                            this._buckets[System.Array.index(bucket, this._buckets)] = (this._slots[System.Array.index(i, this._slots)].next + 1) | 0;
                         } else {
-                            this._slots[last].next = this._slots[i].next;
+                            this._slots[System.Array.index(last, this._slots)].next = this._slots[System.Array.index(i, this._slots)].next;
                         }
-                        this._slots[i].hashCode = -1;
-                        this._slots[i].value = Bridge.getDefaultValue(T);
-                        this._slots[i].next = this._freeList;
+                        this._slots[System.Array.index(i, this._slots)].hashCode = -1;
+                        this._slots[System.Array.index(i, this._slots)].value = Bridge.getDefaultValue(T);
+                        this._slots[System.Array.index(i, this._slots)].next = this._freeList;
                         this._count = (this._count - 1) | 0;
                         this._version = (this._version + 1) | 0;
                         if (this._count === 0) {
@@ -757,10 +788,10 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             return new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this);
         },
         System$Collections$Generic$IEnumerable$1$T$getEnumerator: function () {
-            return Bridge.box(new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this), System.Collections.Generic.HashSet$1.Enumerator(T));
+            return new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this).$clone();
         },
         System$Collections$IEnumerable$getEnumerator: function () {
-            return Bridge.box(new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this), System.Collections.Generic.HashSet$1.Enumerator(T));
+            return new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this).$clone();
         },
         unionWith: function (other) {
             var $t;
@@ -768,11 +799,16 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 throw new System.ArgumentNullException("other");
             }
             $t = Bridge.getEnumerator(other, T);
-            while ($t.moveNext()) {
-                var item = $t.getCurrent();
-                this.addIfNotPresent(item);
-            }
-        },
+            try {
+                while ($t.moveNext()) {
+                    var item = $t.Current;
+                    this.addIfNotPresent(item);
+                }
+            }finally {
+                if (Bridge.is($t, System.IDisposable)) {
+                    $t.System$IDisposable$dispose();
+                }
+            }},
         intersectWith: function (other) {
             if (other == null) {
                 throw new System.ArgumentNullException("other");
@@ -807,11 +843,16 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 return;
             }
             $t = Bridge.getEnumerator(other, T);
-            while ($t.moveNext()) {
-                var element = $t.getCurrent();
-                this.remove(element);
-            }
-        },
+            try {
+                while ($t.moveNext()) {
+                    var element = $t.Current;
+                    this.remove(element);
+                }
+            }finally {
+                if (Bridge.is($t, System.IDisposable)) {
+                    $t.System$IDisposable$dispose();
+                }
+            }},
         symmetricExceptWith: function (other) {
             if (other == null) {
                 throw new System.ArgumentNullException("other");
@@ -840,12 +881,12 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             }
             var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
             if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
-                if (this._count > otherAsSet.getCount()) {
+                if (this._count > otherAsSet.Count) {
                     return false;
                 }
                 return this.isSubsetOfHashSetWithSameEC(otherAsSet);
             } else {
-                var result = this.checkUniqueAndUnfoundElements(other, false).$clone();
+                var result = this.checkUniqueAndUnfoundElements(other, false);
                 return (result.uniqueCount === this._count && result.unfoundCount >= 0);
             }
         },
@@ -860,13 +901,13 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 }
                 var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
                 if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
-                    if (this._count >= otherAsSet.getCount()) {
+                    if (this._count >= otherAsSet.Count) {
                         return false;
                     }
                     return this.isSubsetOfHashSetWithSameEC(otherAsSet);
                 }
             }
-            var result = this.checkUniqueAndUnfoundElements(other, false).$clone();
+            var result = this.checkUniqueAndUnfoundElements(other, false);
             return (result.uniqueCount === this._count && result.unfoundCount > 0);
         },
         isSupersetOf: function (other) {
@@ -880,7 +921,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 }
                 var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
                 if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
-                    if (otherAsSet.getCount() > this._count) {
+                    if (otherAsSet.Count > this._count) {
                         return false;
                     }
                 }
@@ -901,13 +942,13 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 }
                 var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
                 if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
-                    if (otherAsSet.getCount() >= this._count) {
+                    if (otherAsSet.Count >= this._count) {
                         return false;
                     }
                     return this.containsAllElements(otherAsSet);
                 }
             }
-            var result = this.checkUniqueAndUnfoundElements(other, true).$clone();
+            var result = this.checkUniqueAndUnfoundElements(other, true);
             return (result.uniqueCount < this._count && result.unfoundCount === 0);
         },
         overlaps: function (other) {
@@ -919,13 +960,18 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 return false;
             }
             $t = Bridge.getEnumerator(other, T);
-            while ($t.moveNext()) {
-                var element = $t.getCurrent();
-                if (this.contains(element)) {
-                    return true;
+            try {
+                while ($t.moveNext()) {
+                    var element = $t.Current;
+                    if (this.contains(element)) {
+                        return true;
+                    }
                 }
-            }
-            return false;
+            }finally {
+                if (Bridge.is($t, System.IDisposable)) {
+                    $t.System$IDisposable$dispose();
+                }
+            }return false;
         },
         setEquals: function (other) {
             if (other == null) {
@@ -933,7 +979,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             }
             var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
             if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
-                if (this._count !== otherAsSet.getCount()) {
+                if (this._count !== otherAsSet.Count) {
                     return false;
                 }
                 return this.containsAllElements(otherAsSet);
@@ -944,7 +990,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                         return false;
                     }
                 }
-                var result = this.checkUniqueAndUnfoundElements(other, true).$clone();
+                var result = this.checkUniqueAndUnfoundElements(other, true);
                 return (result.uniqueCount === this._count && result.unfoundCount === 0);
             }
         },
@@ -954,8 +1000,8 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             }
             var numRemoved = 0;
             for (var i = 0; i < this._lastIndex; i = (i + 1) | 0) {
-                if (this._slots[i].hashCode >= 0) {
-                    var value = this._slots[i].value;
+                if (this._slots[System.Array.index(i, this._slots)].hashCode >= 0) {
+                    var value = this._slots[System.Array.index(i, this._slots)].value;
                     if (match(value)) {
                         if (this.remove(value)) {
                             numRemoved = (numRemoved + 1) | 0;
@@ -978,11 +1024,11 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 var newBuckets = System.Array.init(newSize, 0, System.Int32);
                 var newIndex = 0;
                 for (var i = 0; i < this._lastIndex; i = (i + 1) | 0) {
-                    if (this._slots[i].hashCode >= 0) {
-                        newSlots[newIndex] = this._slots[i].$clone();
-                        var bucket = newSlots[newIndex].hashCode % newSize;
-                        newSlots[newIndex].next = (newBuckets[bucket] - 1) | 0;
-                        newBuckets[bucket] = (newIndex + 1) | 0;
+                    if (this._slots[System.Array.index(i, this._slots)].hashCode >= 0) {
+                        newSlots[System.Array.index(newIndex, newSlots)] = this._slots[System.Array.index(i, this._slots)].$clone();
+                        var bucket = newSlots[System.Array.index(newIndex, newSlots)].hashCode % newSize;
+                        newSlots[System.Array.index(newIndex, newSlots)].next = (newBuckets[System.Array.index(bucket, newBuckets)] - 1) | 0;
+                        newBuckets[System.Array.index(bucket, newBuckets)] = (newIndex + 1) | 0;
                         newIndex = (newIndex + 1) | 0;
                     }
                 }
@@ -1012,21 +1058,21 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             }, System.Collections.Generic.HashSet$1.Slot(T));
             if (this._slots != null) {
                 for (var i = 0; i < this._lastIndex; i = (i + 1) | 0) {
-                    newSlots[i] = this._slots[i].$clone();
+                    newSlots[System.Array.index(i, newSlots)] = this._slots[System.Array.index(i, this._slots)].$clone();
                 }
             }
             if (forceNewHashCodes) {
                 for (var i1 = 0; i1 < this._lastIndex; i1 = (i1 + 1) | 0) {
-                    if (newSlots[i1].hashCode !== -1) {
-                        newSlots[i1].hashCode = this.internalGetHashCode(newSlots[i1].value);
+                    if (newSlots[System.Array.index(i1, newSlots)].hashCode !== -1) {
+                        newSlots[System.Array.index(i1, newSlots)].hashCode = this.internalGetHashCode(newSlots[System.Array.index(i1, newSlots)].value);
                     }
                 }
             }
             var newBuckets = System.Array.init(newSize, 0, System.Int32);
             for (var i2 = 0; i2 < this._lastIndex; i2 = (i2 + 1) | 0) {
-                var bucket = newSlots[i2].hashCode % newSize;
-                newSlots[i2].next = (newBuckets[bucket] - 1) | 0;
-                newBuckets[bucket] = (i2 + 1) | 0;
+                var bucket = newSlots[System.Array.index(i2, newSlots)].hashCode % newSize;
+                newSlots[System.Array.index(i2, newSlots)].next = (newBuckets[System.Array.index(bucket, newBuckets)] - 1) | 0;
+                newBuckets[System.Array.index(bucket, newBuckets)] = (i2 + 1) | 0;
             }
             this._slots = newSlots;
             this._buckets = newBuckets;
@@ -1037,15 +1083,15 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             }
             var hashCode = this.internalGetHashCode(value);
             var bucket = hashCode % this._buckets.length;
-            for (var i = (this._buckets[bucket] - 1) | 0; i >= 0; i = this._slots[i].next) {
-                if (this._slots[i].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[i].value, value)) {
+            for (var i = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
+                if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[System.Array.index(i, this._slots)].value, value)) {
                     return false;
                 }
             }
             var index;
             if (this._freeList >= 0) {
                 index = this._freeList;
-                this._freeList = this._slots[index].next;
+                this._freeList = this._slots[System.Array.index(index, this._slots)].next;
             } else {
                 if (this._lastIndex === this._slots.length) {
                     this.increaseCapacity();
@@ -1054,10 +1100,10 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 index = this._lastIndex;
                 this._lastIndex = (this._lastIndex + 1) | 0;
             }
-            this._slots[index].hashCode = hashCode;
-            this._slots[index].value = value;
-            this._slots[index].next = (this._buckets[bucket] - 1) | 0;
-            this._buckets[bucket] = (index + 1) | 0;
+            this._slots[System.Array.index(index, this._slots)].hashCode = hashCode;
+            this._slots[System.Array.index(index, this._slots)].value = value;
+            this._slots[System.Array.index(index, this._slots)].next = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0;
+            this._buckets[System.Array.index(bucket, this._buckets)] = (index + 1) | 0;
             this._count = (this._count + 1) | 0;
             this._version = (this._version + 1) | 0;
             return true;
@@ -1065,29 +1111,39 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         containsAllElements: function (other) {
             var $t;
             $t = Bridge.getEnumerator(other, T);
-            while ($t.moveNext()) {
-                var element = $t.getCurrent();
-                if (!this.contains(element)) {
-                    return false;
+            try {
+                while ($t.moveNext()) {
+                    var element = $t.Current;
+                    if (!this.contains(element)) {
+                        return false;
+                    }
                 }
-            }
-            return true;
+            }finally {
+                if (Bridge.is($t, System.IDisposable)) {
+                    $t.System$IDisposable$dispose();
+                }
+            }return true;
         },
         isSubsetOfHashSetWithSameEC: function (other) {
             var $t;
             $t = Bridge.getEnumerator(this);
-            while ($t.moveNext()) {
-                var item = $t.getCurrent();
-                if (!other.contains(item)) {
-                    return false;
+            try {
+                while ($t.moveNext()) {
+                    var item = $t.Current;
+                    if (!other.contains(item)) {
+                        return false;
+                    }
                 }
-            }
-            return true;
+            }finally {
+                if (Bridge.is($t, System.IDisposable)) {
+                    $t.System$IDisposable$dispose();
+                }
+            }return true;
         },
         intersectWithHashSetWithSameEC: function (other) {
             for (var i = 0; i < this._lastIndex; i = (i + 1) | 0) {
-                if (this._slots[i].hashCode >= 0) {
-                    var item = this._slots[i].value;
+                if (this._slots[System.Array.index(i, this._slots)].hashCode >= 0) {
+                    var item = this._slots[System.Array.index(i, this._slots)].value;
                     if (!other.contains(item)) {
                         this.remove(item);
                     }
@@ -1102,23 +1158,28 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             var bitArray = System.Array.init(intArrayLength, 0, System.Int32);
             bitHelper = new System.Collections.Generic.BitHelper(bitArray, intArrayLength);
             $t = Bridge.getEnumerator(other, T);
-            while ($t.moveNext()) {
-                var item = $t.getCurrent();
-                var index = this.internalIndexOf(item);
-                if (index >= 0) {
-                    bitHelper.markBit(index);
+            try {
+                while ($t.moveNext()) {
+                    var item = $t.Current;
+                    var index = this.internalIndexOf(item);
+                    if (index >= 0) {
+                        bitHelper.markBit(index);
+                    }
                 }
-            }
-            for (var i = 0; i < originalLastIndex; i = (i + 1) | 0) {
-                if (this._slots[i].hashCode >= 0 && !bitHelper.isMarked(i)) {
-                    this.remove(this._slots[i].value);
+            }finally {
+                if (Bridge.is($t, System.IDisposable)) {
+                    $t.System$IDisposable$dispose();
+                }
+            }for (var i = 0; i < originalLastIndex; i = (i + 1) | 0) {
+                if (this._slots[System.Array.index(i, this._slots)].hashCode >= 0 && !bitHelper.isMarked(i)) {
+                    this.remove(this._slots[System.Array.index(i, this._slots)].value);
                 }
             }
         },
         internalIndexOf: function (item) {
             var hashCode = this.internalGetHashCode(item);
-            for (var i = (this._buckets[hashCode % this._buckets.length] - 1) | 0; i >= 0; i = this._slots[i].next) {
-                if ((this._slots[i].hashCode) === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[i].value, item)) {
+            for (var i = (this._buckets[System.Array.index(hashCode % this._buckets.length, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
+                if ((this._slots[System.Array.index(i, this._slots)].hashCode) === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[System.Array.index(i, this._slots)].value, item)) {
                     return i;
                 }
             }
@@ -1127,13 +1188,18 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         symmetricExceptWithUniqueHashSet: function (other) {
             var $t;
             $t = Bridge.getEnumerator(other);
-            while ($t.moveNext()) {
-                var item = $t.getCurrent();
-                if (!this.remove(item)) {
-                    this.addIfNotPresent(item);
+            try {
+                while ($t.moveNext()) {
+                    var item = $t.Current;
+                    if (!this.remove(item)) {
+                        this.addIfNotPresent(item);
+                    }
                 }
-            }
-        },
+            }finally {
+                if (Bridge.is($t, System.IDisposable)) {
+                    $t.System$IDisposable$dispose();
+                }
+            }},
         symmetricExceptWithEnumerable: function (other) {
             var $t;
             var originalLastIndex = this._lastIndex;
@@ -1145,29 +1211,34 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             var itemsAddedFromOtherArray = System.Array.init(intArrayLength, 0, System.Int32);
             itemsAddedFromOther = new System.Collections.Generic.BitHelper(itemsAddedFromOtherArray, intArrayLength);
             $t = Bridge.getEnumerator(other, T);
-            while ($t.moveNext()) {
-                var item = $t.getCurrent();
-                var location = { v : 0 };
-                var added = this.addOrGetLocation(item, location);
-                if (added) {
-                    itemsAddedFromOther.markBit(location.v);
-                } else {
-                    if (location.v < originalLastIndex && !itemsAddedFromOther.isMarked(location.v)) {
-                        itemsToRemove.markBit(location.v);
+            try {
+                while ($t.moveNext()) {
+                    var item = $t.Current;
+                    var location = { v : 0 };
+                    var added = this.addOrGetLocation(item, location);
+                    if (added) {
+                        itemsAddedFromOther.markBit(location.v);
+                    } else {
+                        if (location.v < originalLastIndex && !itemsAddedFromOther.isMarked(location.v)) {
+                            itemsToRemove.markBit(location.v);
+                        }
                     }
                 }
-            }
-            for (var i = 0; i < originalLastIndex; i = (i + 1) | 0) {
+            }finally {
+                if (Bridge.is($t, System.IDisposable)) {
+                    $t.System$IDisposable$dispose();
+                }
+            }for (var i = 0; i < originalLastIndex; i = (i + 1) | 0) {
                 if (itemsToRemove.isMarked(i)) {
-                    this.remove(this._slots[i].value);
+                    this.remove(this._slots[System.Array.index(i, this._slots)].value);
                 }
             }
         },
         addOrGetLocation: function (value, location) {
             var hashCode = this.internalGetHashCode(value);
             var bucket = hashCode % this._buckets.length;
-            for (var i = (this._buckets[bucket] - 1) | 0; i >= 0; i = this._slots[i].next) {
-                if (this._slots[i].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[i].value, value)) {
+            for (var i = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
+                if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[System.Array.index(i, this._slots)].value, value)) {
                     location.v = i;
                     return false;
                 }
@@ -1175,7 +1246,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             var index;
             if (this._freeList >= 0) {
                 index = this._freeList;
-                this._freeList = this._slots[index].next;
+                this._freeList = this._slots[System.Array.index(index, this._slots)].next;
             } else {
                 if (this._lastIndex === this._slots.length) {
                     this.increaseCapacity();
@@ -1184,10 +1255,10 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 index = this._lastIndex;
                 this._lastIndex = (this._lastIndex + 1) | 0;
             }
-            this._slots[index].hashCode = hashCode;
-            this._slots[index].value = value;
-            this._slots[index].next = (this._buckets[bucket] - 1) | 0;
-            this._buckets[bucket] = (index + 1) | 0;
+            this._slots[System.Array.index(index, this._slots)].hashCode = hashCode;
+            this._slots[System.Array.index(index, this._slots)].value = value;
+            this._slots[System.Array.index(index, this._slots)].next = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0;
+            this._buckets[System.Array.index(bucket, this._buckets)] = (index + 1) | 0;
             this._count = (this._count + 1) | 0;
             this._version = (this._version + 1) | 0;
             location.v = index;
@@ -1199,12 +1270,17 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             if (this._count === 0) {
                 var numElementsInOther = 0;
                 $t = Bridge.getEnumerator(other, T);
-                while ($t.moveNext()) {
-                    var item = $t.getCurrent();
-                    numElementsInOther = (numElementsInOther + 1) | 0;
-                    break;
-                }
-                result.uniqueCount = 0;
+                try {
+                    while ($t.moveNext()) {
+                        var item = $t.Current;
+                        numElementsInOther = (numElementsInOther + 1) | 0;
+                        break;
+                    }
+                }finally {
+                    if (Bridge.is($t, System.IDisposable)) {
+                        $t.System$IDisposable$dispose();
+                    }
+                }result.uniqueCount = 0;
                 result.unfoundCount = numElementsInOther;
                 return result.$clone();
             }
@@ -1216,27 +1292,32 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             var unfoundCount = 0;
             var uniqueFoundCount = 0;
             $t1 = Bridge.getEnumerator(other, T);
-            while ($t1.moveNext()) {
-                var item1 = $t1.getCurrent();
-                var index = this.internalIndexOf(item1);
-                if (index >= 0) {
-                    if (!bitHelper.isMarked(index)) {
-                        bitHelper.markBit(index);
-                        uniqueFoundCount = (uniqueFoundCount + 1) | 0;
-                    }
-                } else {
-                    unfoundCount = (unfoundCount + 1) | 0;
-                    if (returnIfUnfound) {
-                        break;
+            try {
+                while ($t1.moveNext()) {
+                    var item1 = $t1.Current;
+                    var index = this.internalIndexOf(item1);
+                    if (index >= 0) {
+                        if (!bitHelper.isMarked(index)) {
+                            bitHelper.markBit(index);
+                            uniqueFoundCount = (uniqueFoundCount + 1) | 0;
+                        }
+                    } else {
+                        unfoundCount = (unfoundCount + 1) | 0;
+                        if (returnIfUnfound) {
+                            break;
+                        }
                     }
                 }
-            }
-            result.uniqueCount = uniqueFoundCount;
+            }finally {
+                if (Bridge.is($t1, System.IDisposable)) {
+                    $t1.System$IDisposable$dispose();
+                }
+            }result.uniqueCount = uniqueFoundCount;
             result.unfoundCount = unfoundCount;
             return result.$clone();
         },
         toArray: function () {
-            var newArray = System.Array.init(this.getCount(), function (){
+            var newArray = System.Array.init(this.Count, function (){
                 return Bridge.getDefaultValue(T);
             }, T);
             this.copyTo$1(newArray);
@@ -1289,10 +1370,25 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         _version: 0,
         _current: Bridge.getDefaultValue(T),
         config: {
+            properties: {
+                Current: {
+                    get: function () {
+                        return this._current;
+                    }
+                },
+                System$Collections$IEnumerator$Current: {
+                    get: function () {
+                        if (this._index === 0 || this._index === ((this._set._lastIndex + 1) | 0)) {
+                            throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                        }
+                        return this.Current;
+                    }
+                }
+            },
             alias: [
             "dispose", "System$IDisposable$dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "getCurrent", "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$getCurrent$1"
+            "Current", "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1"
             ]
         },
         $ctor1: function (set) {
@@ -1305,24 +1401,16 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         ctor: function () {
             this.$initialize();
         },
-        getCurrent: function () {
-            return this._current;
-        },
-        System$Collections$IEnumerator$getCurrent: function () {
-            if (this._index === 0 || this._index === ((this._set._lastIndex + 1) | 0)) {
-                throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
-            }
-            return Bridge.box(this.getCurrent(), T);
-        },
         dispose: function () {
         },
         moveNext: function () {
+            var $t, $t1;
             if (this._version !== this._set._version) {
                 throw new System.InvalidOperationException("Collection was modified; enumeration operation may not execute.");
             }
             while (this._index < this._set._lastIndex) {
-                if (this._set._slots[this._index].hashCode >= 0) {
-                    this._current = this._set._slots[this._index].value;
+                if (($t = this._set._slots)[System.Array.index(this._index, $t)].hashCode >= 0) {
+                    this._current = ($t1 = this._set._slots)[System.Array.index(this._index, $t1)].value;
                     this._index = (this._index + 1) | 0;
                     return true;
                 }
@@ -1402,8 +1490,20 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         _size: 0,
         _version: 0,
         config: {
+            properties: {
+                Count: {
+                    get: function () {
+                        return this._size;
+                    }
+                },
+                IsReadOnly: {
+                    get: function () {
+                        return false;
+                    }
+                }
+            },
             alias: [
-            "getCount", "System$Collections$ICollection$getCount",
+            "Count", "System$Collections$ICollection$Count",
             "copyTo", "System$Collections$ICollection$copyTo",
             "System$Collections$Generic$IEnumerable$1$T$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"
             ]
@@ -1436,7 +1536,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             var en = Bridge.getEnumerator(collection, T);
             try {
                 while (en.System$Collections$IEnumerator$moveNext()) {
-                    this.enqueue(en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$getCurrent$1", "getCurrent$1")]());
+                    this.enqueue(en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "Current$1")]);
                 }
             }
             finally {
@@ -1444,12 +1544,6 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                     en.dispose();
                 }
             }
-        },
-        getCount: function () {
-            return this._size;
-        },
-        getIsReadOnly: function () {
-            return false;
         },
         
         copyTo: function (array, index) {
@@ -1531,7 +1625,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 this.setCapacity(newcapacity);
             }
 
-            this._array[this._tail] = item;
+            this._array[System.Array.index(this._tail, this._array)] = item;
             this._tail = this.moveNext(this._tail);
             this._size = (this._size + 1) | 0;
             this._version = (this._version + 1) | 0;
@@ -1540,18 +1634,18 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             return new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this);
         },
         System$Collections$Generic$IEnumerable$1$T$getEnumerator: function () {
-            return Bridge.box(new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this), System.Collections.Generic.Queue$1.Enumerator(T));
+            return new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this).$clone();
         },
         System$Collections$IEnumerable$getEnumerator: function () {
-            return Bridge.box(new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this), System.Collections.Generic.Queue$1.Enumerator(T));
+            return new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this).$clone();
         },
         dequeue: function () {
             if (this._size === 0) {
                 throw new System.InvalidOperationException("Queue empty.");
             }
 
-            var removed = this._array[this._head];
-            this._array[this._head] = Bridge.getDefaultValue(T);
+            var removed = this._array[System.Array.index(this._head, this._array)];
+            this._array[System.Array.index(this._head, this._array)] = Bridge.getDefaultValue(T);
             this._head = this.moveNext(this._head);
             this._size = (this._size - 1) | 0;
             this._version = (this._version + 1) | 0;
@@ -1562,7 +1656,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 throw new System.InvalidOperationException("Queue empty.");
             }
 
-            return this._array[this._head];
+            return this._array[System.Array.index(this._head, this._array)];
         },
         contains: function (item) {
             var index = this._head;
@@ -1571,10 +1665,10 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             var c = System.Collections.Generic.EqualityComparer$1(T).def;
             while (Bridge.identity(count, (count = (count - 1) | 0)) > 0) {
                 if (item == null) {
-                    if (this._array[index] == null) {
+                    if (this._array[System.Array.index(index, this._array)] == null) {
                         return true;
                     }
-                } else if (this._array[index] != null && c.equals2(this._array[index], item)) {
+                } else if (this._array[System.Array.index(index, this._array)] != null && c.equals2(this._array[System.Array.index(index, this._array)], item)) {
                     return true;
                 }
                 index = this.moveNext(index);
@@ -1583,7 +1677,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             return false;
         },
         getElement: function (i) {
-            return this._array[(((this._head + i) | 0)) % this._array.length];
+            return this._array[System.Array.index((((this._head + i) | 0)) % this._array.length, this._array)];
         },
         toArray: function () {
             var arr = System.Array.init(this._size, function (){
@@ -1645,10 +1739,29 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         _version: 0,
         _currentElement: Bridge.getDefaultValue(T),
         config: {
+            properties: {
+                Current: {
+                    get: function () {
+                        if (this._index < 0) {
+                            if (this._index === -1) {
+                                throw new System.InvalidOperationException("Enumeration has not started. Call MoveNext.");
+                            } else {
+                                throw new System.InvalidOperationException("Enumeration already finished.");
+                            }
+                        }
+                        return this._currentElement;
+                    }
+                },
+                System$Collections$IEnumerator$Current: {
+                    get: function () {
+                        return this.Current;
+                    }
+                }
+            },
             alias: [
             "dispose", "System$IDisposable$dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "getCurrent", "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$getCurrent$1"
+            "Current", "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1"
             ]
         },
         $ctor1: function (q) {
@@ -1660,19 +1773,6 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         },
         ctor: function () {
             this.$initialize();
-        },
-        getCurrent: function () {
-            if (this._index < 0) {
-                if (this._index === -1) {
-                    throw new System.InvalidOperationException("Enumeration has not started. Call MoveNext.");
-                } else {
-                    throw new System.InvalidOperationException("Enumeration already finished.");
-                }
-            }
-            return this._currentElement;
-        },
-        System$Collections$IEnumerator$getCurrent: function () {
-            return Bridge.box(this.getCurrent(), T);
         },
         dispose: function () {
             this._index = -2;
@@ -1734,8 +1834,20 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         _size: 0,
         _version: 0,
         config: {
+            properties: {
+                Count: {
+                    get: function () {
+                        return this._size;
+                    }
+                },
+                IsReadOnly: {
+                    get: function () {
+                        return false;
+                    }
+                }
+            },
             alias: [
-            "getCount", "System$Collections$ICollection$getCount",
+            "Count", "System$Collections$ICollection$Count",
             "copyTo", "System$Collections$ICollection$copyTo",
             "System$Collections$Generic$IEnumerable$1$T$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"
             ]
@@ -1764,12 +1876,6 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             this._array = Bridge.Collections.EnumerableHelpers.toArray$1(T, collection, length);
             this._size = length.v;
         },
-        getCount: function () {
-            return this._size;
-        },
-        getIsReadOnly: function () {
-            return false;
-        },
         clear: function () {
             System.Array.fill(this._array, Bridge.getDefaultValue(T), 0, this._size); // Don't need to doc this but we clear the elements so that the gc can reclaim the references.
             this._size = 0;
@@ -1781,10 +1887,10 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             var c = System.Collections.Generic.EqualityComparer$1(T).def;
             while (Bridge.identity(count, (count = (count - 1) | 0)) > 0) {
                 if (item == null) {
-                    if (this._array[count] == null) {
+                    if (this._array[System.Array.index(count, this._array)] == null) {
                         return true;
                     }
-                } else if (this._array[count] != null && c.equals2(this._array[count], item)) {
+                } else if (this._array[System.Array.index(count, this._array)] != null && c.equals2(this._array[System.Array.index(count, this._array)], item)) {
                     return true;
                 }
             }
@@ -1807,7 +1913,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 var srcIndex = 0;
                 var dstIndex = (arrayIndex + this._size) | 0;
                 for (var i = 0; i < this._size; i = (i + 1) | 0) {
-                    array[((dstIndex = (dstIndex - 1) | 0))] = this._array[Bridge.identity(srcIndex, (srcIndex = (srcIndex + 1) | 0))];
+                    array[System.Array.index(((dstIndex = (dstIndex - 1) | 0)), array)] = this._array[System.Array.index(Bridge.identity(srcIndex, (srcIndex = (srcIndex + 1) | 0)), this._array)];
                 }
             } else {
                 // Legacy fallback in case we ever end up copying within the same array.
@@ -1849,10 +1955,10 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             return new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this);
         },
         System$Collections$Generic$IEnumerable$1$T$getEnumerator: function () {
-            return Bridge.box(new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this), System.Collections.Generic.Stack$1.Enumerator(T));
+            return new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this).$clone();
         },
         System$Collections$IEnumerable$getEnumerator: function () {
-            return Bridge.box(new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this), System.Collections.Generic.Stack$1.Enumerator(T));
+            return new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this).$clone();
         },
         trimExcess: function () {
             var threshold = Bridge.Int.clip32(this._array.length * 0.9);
@@ -1867,15 +1973,15 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             if (this._size === 0) {
                 throw new System.InvalidOperationException("Stack empty.");
             }
-            return this._array[((this._size - 1) | 0)];
+            return this._array[System.Array.index(((this._size - 1) | 0), this._array)];
         },
         pop: function () {
             if (this._size === 0) {
                 throw new System.InvalidOperationException("Stack empty.");
             }
             this._version = (this._version + 1) | 0;
-            var item = this._array[((this._size = (this._size - 1) | 0))];
-            this._array[this._size] = Bridge.getDefaultValue(T); // Free memory quicker.
+            var item = this._array[System.Array.index(((this._size = (this._size - 1) | 0)), this._array)];
+            this._array[System.Array.index(this._size, this._array)] = Bridge.getDefaultValue(T); // Free memory quicker.
             return item;
         },
         push: function (item) {
@@ -1884,7 +1990,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : ((2 * this._array.length) | 0), Bridge.getDefaultValue(T));
                 this._array = localArray.v;
             }
-            this._array[Bridge.identity(this._size, (this._size = (this._size + 1) | 0))] = item;
+            this._array[System.Array.index(Bridge.identity(this._size, (this._size = (this._size + 1) | 0)), this._array)] = item;
             this._version = (this._version + 1) | 0;
         },
         toArray: function () {
@@ -1893,7 +1999,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             }, T);
             var i = 0;
             while (i < this._size) {
-                objArray[i] = this._array[((((this._size - i) | 0) - 1) | 0)];
+                objArray[System.Array.index(i, objArray)] = this._array[System.Array.index(((((this._size - i) | 0) - 1) | 0), this._array)];
                 i = (i + 1) | 0;
             }
             return objArray;
@@ -1911,10 +2017,34 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         _version: 0,
         _currentElement: Bridge.getDefaultValue(T),
         config: {
+            properties: {
+                Current: {
+                    get: function () {
+                        if (this._index === -2) {
+                            throw new System.InvalidOperationException("Enumeration has not started. Call MoveNext.");
+                        }
+                        if (this._index === -1) {
+                            throw new System.InvalidOperationException("Enumeration already finished.");
+                        }
+                        return this._currentElement;
+                    }
+                },
+                System$Collections$IEnumerator$Current: {
+                    get: function () {
+                        if (this._index === -2) {
+                            throw new System.InvalidOperationException("Enumeration has not started. Call MoveNext.");
+                        }
+                        if (this._index === -1) {
+                            throw new System.InvalidOperationException("Enumeration already finished.");
+                        }
+                        return this._currentElement;
+                    }
+                }
+            },
             alias: [
             "dispose", "System$IDisposable$dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "getCurrent", "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$getCurrent$1"
+            "Current", "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1"
             ]
         },
         $ctor1: function (stack) {
@@ -1927,28 +2057,11 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         ctor: function () {
             this.$initialize();
         },
-        getCurrent: function () {
-            if (this._index === -2) {
-                throw new System.InvalidOperationException("Enumeration has not started. Call MoveNext.");
-            }
-            if (this._index === -1) {
-                throw new System.InvalidOperationException("Enumeration already finished.");
-            }
-            return this._currentElement;
-        },
-        System$Collections$IEnumerator$getCurrent: function () {
-            if (this._index === -2) {
-                throw new System.InvalidOperationException("Enumeration has not started. Call MoveNext.");
-            }
-            if (this._index === -1) {
-                throw new System.InvalidOperationException("Enumeration already finished.");
-            }
-            return Bridge.box(this._currentElement, T);
-        },
         dispose: function () {
             this._index = -1;
         },
         moveNext: function () {
+            var $t, $t1;
             var retval;
             if (this._version !== this._stack._version) {
                 throw new System.InvalidOperationException("Collection was modified; enumeration operation may not execute.");
@@ -1957,7 +2070,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 this._index = (this._stack._size - 1) | 0;
                 retval = (this._index >= 0);
                 if (retval) {
-                    this._currentElement = this._stack._array[this._index];
+                    this._currentElement = ($t = this._stack._array)[System.Array.index(this._index, $t)];
                 }
                 return retval;
             }
@@ -1967,7 +2080,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
 
             retval = (((this._index = (this._index - 1) | 0)) >= 0);
             if (retval) {
-                this._currentElement = this._stack._array[this._index];
+                this._currentElement = ($t1 = this._stack._array)[System.Array.index(this._index, $t1)];
             } else {
                 this._currentElement = Bridge.getDefaultValue(T);
             }
@@ -2027,7 +2140,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                     throw new System.ArgumentException("Hashtable's capacity overflowed and went negative. Check load factor, capacity and the current size of the table.");
                 }
                 for (var i = 0; i < System.Collections.HashHelpers.primes.length; i = (i + 1) | 0) {
-                    var prime = System.Collections.HashHelpers.primes[i];
+                    var prime = System.Collections.HashHelpers.primes[System.Array.index(i, System.Collections.HashHelpers.primes)];
                     if (prime >= min) {
                         return prime;
                     }
@@ -2040,7 +2153,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 return min;
             },
             getMinPrime: function () {
-                return System.Collections.HashHelpers.primes[0];
+                return System.Collections.HashHelpers.primes[System.Array.index(0, System.Collections.HashHelpers.primes)];
             },
             expandPrime: function (oldSize) {
                 var newSize = (2 * oldSize) | 0;
@@ -2054,9 +2167,9 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
 
     var $box_ = {};
 
-    Bridge.ns("Boolean", $box_);
+    Bridge.ns("System.Boolean", $box_);
 
-    Bridge.apply($box_.Boolean, {
+    Bridge.apply($box_.System.Boolean, {
         toString: function(obj) {return System.Boolean.toString(obj);}
     });
 });

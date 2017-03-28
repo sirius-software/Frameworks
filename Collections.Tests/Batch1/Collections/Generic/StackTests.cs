@@ -49,7 +49,7 @@ namespace Bridge.Collections.ClientTest.Collections.Generic
         [Test]
         public void TypePropertiesAreCorrect()
         {
-            Assert.AreEqual("System.Collections.Generic.List$1[[System.Int32, mscorlib]]", typeof(List<int>).FullName, "FullName");
+            Assert.AreEqual("System.Collections.Generic.List`1[[System.Int32, mscorlib]]", typeof(List<int>).FullName, "FullName");
             object stack = new Stack<int>();
             Assert.True(stack is Stack<int>, "is Stack<int> should be true");
             Assert.True(stack is ICollection, "is ICollection<int> should be true");

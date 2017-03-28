@@ -31,7 +31,7 @@ namespace Bridge.Collections.ClientTest.Collections.Generic
         [Test]
         public void TypePropertiesAreCorrect()
         {
-            Assert.AreEqual("System.Collections.Generic.Queue$1[[System.Int32, mscorlib]]", typeof(Queue<int>).FullName, "FullName should be Array");
+            Assert.AreEqual("System.Collections.Generic.Queue`1[[System.Int32, mscorlib]]", typeof(Queue<int>).FullName, "FullName should be Array");
             Assert.True(typeof(Queue<int>).IsClass, "IsClass should be true");
             object list = new Queue<int>();
             Assert.True(list is Queue<int>, "is Queue<int> should be true");

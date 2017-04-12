@@ -538,7 +538,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 }
                 finally {
                     if (Bridge.hasValue(en)) {
-                        en.dispose();
+                        en.System$IDisposable$dispose();
                     }
                 }
 
@@ -1541,7 +1541,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             }
             finally {
                 if (Bridge.hasValue(en)) {
-                    en.dispose();
+                    en.System$IDisposable$dispose();
                 }
             }
         },

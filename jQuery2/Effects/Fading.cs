@@ -14,7 +14,6 @@ namespace Bridge.jQuery2
             return null;
         }
 
-        //[Template("Bridge.Task.fromCallbackOptions({this}, 'fadeIn', 'complete')")]
         [Template("Bridge.Task.fromPromise({this}.fadeIn())")]
         public virtual Task FadeInTask()
         {
@@ -39,7 +38,6 @@ namespace Bridge.jQuery2
             return null;
         }
 
-        //[Template("Bridge.Task.fromCallbackOptions({this}, 'fadeOut', 'complete')")]
         [Template("Bridge.Task.fromPromise({this}.fadeOut())")]
         public virtual Task FadeOutTask()
         {
@@ -387,7 +385,7 @@ namespace Bridge.jQuery2
         /// <param name="duration">A string or number determining how long the animation will run.</param>
         /// <param name="opacity">A number between 0 and 1 denoting the target opacity.</param>
         /// <returns></returns>
-        public virtual jQuery FadeTo(int duration, int opacity)
+        public virtual jQuery FadeTo(int duration, double opacity)
         {
             return null;
         }
@@ -398,19 +396,7 @@ namespace Bridge.jQuery2
         /// <param name="duration">A string or number determining how long the animation will run.</param>
         /// <param name="opacity">A number between 0 and 1 denoting the target opacity.</param>
         /// <returns></returns>
-        public virtual jQuery FadeTo(string duration, int opacity)
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// Adjust the opacity of the matched elements.
-        /// </summary>
-        /// <param name="duration">A string or number determining how long the animation will run.</param>
-        /// <param name="opacity">A number between 0 and 1 denoting the target opacity.</param>
-        /// <param name="complete">A function to call once the animation is complete.</param>
-        /// <returns></returns>
-        public virtual jQuery FadeTo(int duration, int opacity, Delegate complete)
+        public virtual jQuery FadeTo(string duration, double opacity)
         {
             return null;
         }
@@ -422,7 +408,7 @@ namespace Bridge.jQuery2
         /// <param name="opacity">A number between 0 and 1 denoting the target opacity.</param>
         /// <param name="complete">A function to call once the animation is complete.</param>
         /// <returns></returns>
-        public virtual jQuery FadeTo(int duration, int opacity, Action complete)
+        public virtual jQuery FadeTo(int duration, double opacity, Delegate complete)
         {
             return null;
         }
@@ -434,7 +420,7 @@ namespace Bridge.jQuery2
         /// <param name="opacity">A number between 0 and 1 denoting the target opacity.</param>
         /// <param name="complete">A function to call once the animation is complete.</param>
         /// <returns></returns>
-        public virtual jQuery FadeTo(string duration, int opacity, Delegate complete)
+        public virtual jQuery FadeTo(int duration, double opacity, Action complete)
         {
             return null;
         }
@@ -446,7 +432,19 @@ namespace Bridge.jQuery2
         /// <param name="opacity">A number between 0 and 1 denoting the target opacity.</param>
         /// <param name="complete">A function to call once the animation is complete.</param>
         /// <returns></returns>
-        public virtual jQuery FadeTo(string duration, int opacity, Action complete)
+        public virtual jQuery FadeTo(string duration, double opacity, Delegate complete)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Adjust the opacity of the matched elements.
+        /// </summary>
+        /// <param name="duration">A string or number determining how long the animation will run.</param>
+        /// <param name="opacity">A number between 0 and 1 denoting the target opacity.</param>
+        /// <param name="complete">A function to call once the animation is complete.</param>
+        /// <returns></returns>
+        public virtual jQuery FadeTo(string duration, double opacity, Action complete)
         {
             return null;
         }
@@ -458,7 +456,7 @@ namespace Bridge.jQuery2
         /// <param name="opacity">A number between 0 and 1 denoting the target opacity.</param>
         /// <param name="easing">A string indicating which easing function to use for the transition.</param>
         /// <returns></returns>
-        public virtual jQuery FadeTo(int duration, int opacity, string easing)
+        public virtual jQuery FadeTo(int duration, double opacity, string easing)
         {
             return null;
         }
@@ -470,20 +468,7 @@ namespace Bridge.jQuery2
         /// <param name="opacity">A number between 0 and 1 denoting the target opacity.</param>
         /// <param name="easing">A string indicating which easing function to use for the transition.</param>
         /// <returns></returns>
-        public virtual jQuery FadeTo(string duration, int opacity, string easing)
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// Adjust the opacity of the matched elements.
-        /// </summary>
-        /// <param name="duration">A string or number determining how long the animation will run.</param>
-        /// <param name="opacity">A number between 0 and 1 denoting the target opacity.</param>
-        /// <param name="easing">A string indicating which easing function to use for the transition.</param>
-        /// <param name="complete">A function to call once the animation is complete.</param>
-        /// <returns></returns>
-        public virtual jQuery FadeTo(int duration, int opacity, string easing, Delegate complete)
+        public virtual jQuery FadeTo(string duration, double opacity, string easing)
         {
             return null;
         }
@@ -496,7 +481,7 @@ namespace Bridge.jQuery2
         /// <param name="easing">A string indicating which easing function to use for the transition.</param>
         /// <param name="complete">A function to call once the animation is complete.</param>
         /// <returns></returns>
-        public virtual jQuery FadeTo(int duration, int opacity, string easing, Action complete)
+        public virtual jQuery FadeTo(int duration, double opacity, string easing, Delegate complete)
         {
             return null;
         }
@@ -509,7 +494,7 @@ namespace Bridge.jQuery2
         /// <param name="easing">A string indicating which easing function to use for the transition.</param>
         /// <param name="complete">A function to call once the animation is complete.</param>
         /// <returns></returns>
-        public virtual jQuery FadeTo(string duration, int opacity, string easing, Delegate complete)
+        public virtual jQuery FadeTo(int duration, double opacity, string easing, Action complete)
         {
             return null;
         }
@@ -522,7 +507,20 @@ namespace Bridge.jQuery2
         /// <param name="easing">A string indicating which easing function to use for the transition.</param>
         /// <param name="complete">A function to call once the animation is complete.</param>
         /// <returns></returns>
-        public virtual jQuery FadeTo(string duration, int opacity, string easing, Action complete)
+        public virtual jQuery FadeTo(string duration, double opacity, string easing, Delegate complete)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Adjust the opacity of the matched elements.
+        /// </summary>
+        /// <param name="duration">A string or number determining how long the animation will run.</param>
+        /// <param name="opacity">A number between 0 and 1 denoting the target opacity.</param>
+        /// <param name="easing">A string indicating which easing function to use for the transition.</param>
+        /// <param name="complete">A function to call once the animation is complete.</param>
+        /// <returns></returns>
+        public virtual jQuery FadeTo(string duration, double opacity, string easing, Action complete)
         {
             return null;
         }

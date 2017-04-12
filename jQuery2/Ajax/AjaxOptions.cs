@@ -199,6 +199,7 @@ namespace Bridge.jQuery2
         /// <summary>
         /// Override the callback function name in a jsonp request. This value will be used instead of 'callback' in the 'callback=?' part of the query string in the url. So {jsonp:'onJSONPLoad'} would result in 'onJSONPLoad=?' passed to the server.
         /// </summary>
+        [Name("jsonp")]
         public virtual Union<string, bool> JsonP
         {
             get;

@@ -2,7 +2,7 @@
  * @version 1.3.5
  * @author Object.NET, Inc.
  * @copyright Copyright 2008-2017 Object.NET, Inc.
- * @compiler Bridge.NET 16.0.0
+ * @compiler Bridge.NET 16.0.0-beta
  */
 Bridge.assembly("Bridge.Collections", function ($asm, globals) {
     "use strict";

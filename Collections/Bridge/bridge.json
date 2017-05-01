@@ -4,5 +4,6 @@
   "outputBy": "Project",
   "fileName": "bridge.collections.js",
   "injectScriptToAssembly": true,
-  "loggerLevel": "Trace"
+  "loggerLevel": "Trace",
+  "generateTypeScript": true
 }

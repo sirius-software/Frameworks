@@ -200,12 +200,12 @@ namespace System.Collections
             }
         }
 
-        /// <summary>
-        /// Copies the entire List to a compatible one-dimensional array, starting at the specified index of the target array.
-        /// </summary>
-        /// <param name="array">The one-dimensional Array that is the destination of the elements copied from List.</param>
-        /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
-        public void CopyTo(Array array, int index)
+		/// <summary>
+		/// Copies the entire List to a compatible one-dimensional array, starting at the specified index of the target array.
+		/// </summary>
+		/// <param name="array">The one-dimensional Array that is the destination of the elements copied from List.</param>
+		/// <param name="index">The zero-based index in array at which copying begins.</param>
+		public void CopyTo(Array array, int index)
         {
             if (array == null)
             {

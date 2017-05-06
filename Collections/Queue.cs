@@ -65,9 +65,9 @@ namespace System.Collections.Generic
         }
 
         /// <summary>
-        /// Copies the Queue<T> elements to an existing one-dimensional Array, starting at the specified array index.
+        /// Copies the Queue&lt;T> elements to an existing one-dimensional Array, starting at the specified array index.
         /// </summary>
-        /// <param name="array">The one-dimensional Array that is the destination of the elements copied from Queue<T>. The Array must have zero-based indexing.</param>
+        /// <param name="array">The one-dimensional Array that is the destination of the elements copied from Queue&lt;T>. The Array must have zero-based indexing.</param>
         /// <param name="index">The zero-based index in array at which copying begins.</param>
         public virtual void CopyTo(Array array, int index)
         {

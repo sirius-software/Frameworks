@@ -22,8 +22,8 @@
   </metadata>
   <files>
     <!--NET40-->
-    <file src="..\..\Html5.Console\bin\Release\Bridge.Html5.Console.dll" target="lib\net40\Bridge.Html5.Console.dll" />
-    <file src="..\..\Html5.Console\bin\Release\Bridge.Html5.Console.xml" target="lib\net40\Bridge.Html5.Console.xml" />
-    <file src="..\..\Html5.Console\bin\Release\Bridge.Html5.Console.pdb" target="lib\net40\pdb\Bridge.Html5.Console.pdb" />
+    <file src="../../Html5.Console/bin/Release/Bridge.Html5.Console.dll" target="lib/net40/Bridge.Html5.Console.dll" />
+    <file src="../../Html5.Console/bin/Release/Bridge.Html5.Console.xml" target="lib/net40/Bridge.Html5.Console.xml" />
+    <file src="../../Html5.Console/bin/Release/Bridge.Html5.Console.pdb" target="lib/net40/pdb/Bridge.Html5.Console.pdb" />
   </files>
 </package>

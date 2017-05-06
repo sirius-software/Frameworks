@@ -108,6 +108,9 @@
   <!-- NuGet packaging starts -->
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <NuGetBuildPackage>true</NuGetBuildPackage>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <NoWarn>1591, 0626, 0824, 0660, 0661</NoWarn>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <NuGetPackageSourcePath Include="$(SolutionDir).build\specs\Bridge.jQuery.nuspec">

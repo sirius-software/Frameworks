@@ -184,6 +184,10 @@
   <!-- NuGet packaging starts -->
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <NuGetBuildPackage>true</NuGetBuildPackage>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\Bridge.AngularJS.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <NuGetPackageSourcePath Include="$(SolutionDir).build\specs\Bridge.AngularJS.nuspec">

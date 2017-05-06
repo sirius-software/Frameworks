@@ -1,0 +1,21 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Collections/BitArrray.cs">
+    <Files>
+      <File FileName=".build/specs/Bridge.QUnit.nuspec" Line="5" Column="29" />
+      <File FileName=".build/specs/Bridge.jQuery.nuspec" Line="27" Column="5" />
+      <File FileName="packages/Bridge.Min.16.0.0-beta/build/Bridge.Min.targets" Line="18" Column="5" />
+      <File FileName=".build/specs/Bridge.Collections.nuspec" Line="29" Column="11" />
+      <File FileName="Collections/Queue.cs" Line="76" Column="58" />
+      <File FileName="Collections/BitArrray.cs" Line="213" Column="14" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <DisabledProjects>
+    <String>Collections/Bridge.Collections.csproj</String>
+  </DisabledProjects>
+</Properties>

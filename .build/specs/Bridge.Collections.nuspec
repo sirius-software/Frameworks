@@ -22,7 +22,8 @@
   </metadata>
   <files>
     <!--NET40-->
-    <file src="..\..\Collections\bin\Release\Bridge.Collections.dll" target="lib\net40\Bridge.Collections.dll" />
-    <file src="..\..\Collections\bin\Release\Bridge.Collections.pdb" target="lib\net40\pdb\Bridge.Collections.pdb" />
+    <file src="../../Collections/bin/Release/Bridge.Collections.dll" target="lib/net40/Bridge.Collections.dll" />
+    <file src="../../Collections/bin/Release/Bridge.Collections.xml" target="lib/net40/Bridge.Collections.xml" />
+    <file src="../../Collections/bin/Release/Bridge.Collections.pdb" target="lib/net40/pdb/Bridge.Collections.pdb" />
   </files>
 </package>

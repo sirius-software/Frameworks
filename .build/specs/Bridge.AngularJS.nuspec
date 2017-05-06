@@ -22,7 +22,8 @@
   </metadata>
   <files>
     <!--NET40-->
-    <file src="..\..\AngularJS\bin\Release\Bridge.AngularJS.dll" target="lib\net40\Bridge.AngularJS.dll" />
-    <file src="..\..\AngularJS\bin\Release\Bridge.AngularJS.pdb" target="lib\net40\pdb\Bridge.AngularJS.pdb" />
+    <file src="../../AngularJS/bin/Release/Bridge.AngularJS.dll" target="lib/net40/Bridge.AngularJS.dll" />
+    <file src="../../AngularJS/bin/Release/Bridge.AngularJS.xml" target="lib/net40/Bridge.AngularJS.xml" />
+    <file src="../../AngularJS/bin/Release/Bridge.AngularJS.pdb" target="lib/net40/pdb/Bridge.AngularJS.pdb" />
   </files>
 </package>

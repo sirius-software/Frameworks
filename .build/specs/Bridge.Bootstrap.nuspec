@@ -22,8 +22,8 @@
   </metadata>
   <files>
     <!--NET40-->
-    <file src="..\..\Bootstrap3\bin\Release\Bridge.Bootstrap3.dll" target="lib\net40\Bridge.Bootstrap3.dll" />
-    <file src="..\..\Bootstrap3\bin\Release\Bridge.Bootstrap3.xml" target="lib\net40\Bridge.Bootstrap3.xml" />
-    <file src="..\..\Bootstrap3\bin\Release\Bridge.Bootstrap3.pdb" target="lib\net40\pdb\Bridge.Bootstrap3.pdb" />
+    <file src="../../Bootstrap3/bin/Release/Bridge.Bootstrap3.dll" target="lib/net40/Bridge.Bootstrap3.dll" />
+    <file src="../../Bootstrap3/bin/Release/Bridge.Bootstrap3.xml" target="lib/net40/Bridge.Bootstrap3.xml" />
+    <file src="../../Bootstrap3/bin/Release/Bridge.Bootstrap3.pdb" target="lib/net40/pdb/Bridge.Bootstrap3.pdb" />
   </files>
 </package>

@@ -1,9 +1,9 @@
-﻿using Bridge.Linq;
-using Bridge.Test.NUnit;
+﻿using Bridge.Test.NUnit;
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bridge.Collections.ClientTest.Collections.Generic
 {
@@ -163,16 +163,8 @@ namespace Bridge.Collections.ClientTest.Collections.Generic
         public void ForeachWithListItemCallbackWorks()
         {
             string result = "";
-            new Stack<string>(new[] { "a", "b", "c" }).ForEach(s => result += s);
+            new Stack<string>(new[] { "a", "b", "c" }).ToList().ForEach(s => result += s);
             Assert.AreEqual("cba", result);
-        }
-
-        [Test]
-        public void ForeachWithListCallbackWorks()
-        {
-            string result = "";
-            new Stack<string>(new[] { "a", "b", "c" }).ForEach((s, i) => result += s + i);
-            Assert.AreEqual("c0b1a2", result);
         }
 
         [Test]

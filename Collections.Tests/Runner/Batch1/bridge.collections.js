@@ -1,8 +1,8 @@
 /**
- * @version 1.3.5-beta
+ * @version 1.3.5-beta2
  * @author Object.NET, Inc.
  * @copyright Copyright 2008-2017 Object.NET, Inc.
- * @compiler Bridge.NET 16.0.0-beta
+ * @compiler Bridge.NET 16.0.0-beta2
  */
 Bridge.assembly("Bridge.Collections", function ($asm, globals) {
     "use strict";
@@ -536,7 +536,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                             var arr = { v : System.Array.init(DefaultCapacity, function (){
                                 return Bridge.getDefaultValue(T);
                             }, T) };
-                            arr.v[System.Array.index(0, arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "Current$1")];
+                            arr.v[System.Array.index(0, arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
                             var count = 1;
 
                             while (en.System$Collections$IEnumerator$moveNext()) {
@@ -566,7 +566,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                                     System.Array.resize(arr, newLength, Bridge.getDefaultValue(T));
                                 }
 
-                                arr.v[System.Array.index(Bridge.identity(count, (count = (count + 1) | 0)), arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "Current$1")];
+                                arr.v[System.Array.index(Bridge.identity(count, (count = (count + 1) | 0)), arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
                             }
 
                             length.v = count;
@@ -636,7 +636,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                                 try {
                                     while ($t2.moveNext()) {
                                         var set1Item = $t2.Current;
-                                        if (comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](set2Item, set1Item)) {
+                                        if (comparer[Bridge.geti(comparer, "System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](set2Item, set1Item)) {
                                             found = true;
                                             break;
                                         }
@@ -688,14 +688,14 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             }
         },
         alias: [
-            "System$Collections$Generic$ICollection$1$T$add", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$add",
+            "System$Collections$Generic$ICollection$1$add", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$add",
             "clear", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$clear",
             "contains", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$contains",
             "copyTo", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$copyTo",
             "remove", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$remove",
             "Count", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$Count",
             "IsReadOnly", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$IsReadOnly",
-            "System$Collections$Generic$IEnumerable$1$T$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator",
+            "System$Collections$Generic$IEnumerable$1$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator",
             "add", "System$Collections$Generic$ISet$1$" + Bridge.getTypeAlias(T) + "$add",
             "unionWith", "System$Collections$Generic$ISet$1$" + Bridge.getTypeAlias(T) + "$unionWith",
             "intersectWith", "System$Collections$Generic$ISet$1$" + Bridge.getTypeAlias(T) + "$intersectWith",
@@ -744,7 +744,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             }
         },
         methods: {
-            System$Collections$Generic$ICollection$1$T$add: function (item) {
+            System$Collections$Generic$ICollection$1$add: function (item) {
                 this.addIfNotPresent(item);
             },
             add: function (item) {
@@ -766,13 +766,12 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 }
                 this._version = (this._version + 1) | 0;
             },
-            arrayClear: function (array, index, length) {
-            },
+            arrayClear: function (array, index, length) { },
             contains: function (item) {
                 if (this._buckets != null) {
                     var hashCode = this.internalGetHashCode(item);
                     for (var i = (this._buckets[System.Array.index(hashCode % this._buckets.length, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
-                        if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[System.Array.index(i, this._slots)].value, item)) {
+                        if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[Bridge.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, item)) {
                             return true;
                         }
                     }
@@ -812,7 +811,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                     var bucket = hashCode % this._buckets.length;
                     var last = -1;
                     for (var i = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0; i >= 0; last = i, i = this._slots[System.Array.index(i, this._slots)].next) {
-                        if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[System.Array.index(i, this._slots)].value, item)) {
+                        if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[Bridge.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, item)) {
                             if (last < 0) {
                                 this._buckets[System.Array.index(bucket, this._buckets)] = (this._slots[System.Array.index(i, this._slots)].next + 1) | 0;
                             } else {
@@ -838,7 +837,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             getEnumerator: function () {
                 return new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this);
             },
-            System$Collections$Generic$IEnumerable$1$T$getEnumerator: function () {
+            System$Collections$Generic$IEnumerable$1$getEnumerator: function () {
                 return new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this).$clone();
             },
             System$Collections$IEnumerable$getEnumerator: function () {
@@ -1135,7 +1134,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 var hashCode = this.internalGetHashCode(value);
                 var bucket = hashCode % this._buckets.length;
                 for (var i = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
-                    if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[System.Array.index(i, this._slots)].value, value)) {
+                    if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[Bridge.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, value)) {
                         return false;
                     }
                 }
@@ -1230,7 +1229,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             internalIndexOf: function (item) {
                 var hashCode = this.internalGetHashCode(item);
                 for (var i = (this._buckets[System.Array.index(hashCode % this._buckets.length, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
-                    if ((this._slots[System.Array.index(i, this._slots)].hashCode) === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[System.Array.index(i, this._slots)].value, item)) {
+                    if ((this._slots[System.Array.index(i, this._slots)].hashCode) === hashCode && this._comparer[Bridge.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, item)) {
                         return i;
                     }
                 }
@@ -1289,7 +1288,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 var hashCode = this.internalGetHashCode(value);
                 var bucket = hashCode % this._buckets.length;
                 for (var i = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
-                    if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2"](this._slots[System.Array.index(i, this._slots)].value, value)) {
+                    if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[Bridge.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, value)) {
                         location.v = i;
                         return false;
                     }
@@ -1378,7 +1377,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 if (item == null) {
                     return 0;
                 }
-                return this._comparer["System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$getHashCode2"](item) & System.Collections.Generic.HashSet$1(T).Lower31BitMask;
+                return this._comparer[Bridge.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$getHashCode2", "System$Collections$Generic$IEqualityComparer$1$getHashCode2")](item) & System.Collections.Generic.HashSet$1(T).Lower31BitMask;
             }
         }
     }; });
@@ -1451,7 +1450,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         alias: [
             "dispose", "System$IDisposable$dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "Current", "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1"
+            "Current", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
         ctors: {
             $ctor1: function (set) {
@@ -1466,8 +1465,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             }
         },
         methods: {
-            dispose: function () {
-            },
+            dispose: function () { },
             moveNext: function () {
                 var $t, $t1;
                 if (this._version !== this._set._version) {
@@ -1589,7 +1587,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         alias: [
             "Count", "System$Collections$ICollection$Count",
             "copyTo", "System$Collections$ICollection$copyTo",
-            "System$Collections$Generic$IEnumerable$1$T$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"
+            "System$Collections$Generic$IEnumerable$1$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"
         ],
         ctors: {
             ctor: function () {
@@ -1620,7 +1618,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
                 var en = Bridge.getEnumerator(collection, T);
                 try {
                     while (en.System$Collections$IEnumerator$moveNext()) {
-                        this.enqueue(en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "Current$1")]);
+                        this.enqueue(en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
                     }
                 }
                 finally {
@@ -1719,7 +1717,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             getEnumerator: function () {
                 return new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this);
             },
-            System$Collections$Generic$IEnumerable$1$T$getEnumerator: function () {
+            System$Collections$Generic$IEnumerable$1$getEnumerator: function () {
                 return new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this).$clone();
             },
             System$Collections$IEnumerable$getEnumerator: function () {
@@ -1851,7 +1849,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         alias: [
             "dispose", "System$IDisposable$dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "Current", "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1"
+            "Current", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
         ctors: {
             $ctor1: function (q) {
@@ -1950,7 +1948,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         alias: [
             "Count", "System$Collections$ICollection$Count",
             "copyTo", "System$Collections$ICollection$copyTo",
-            "System$Collections$Generic$IEnumerable$1$T$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"
+            "System$Collections$Generic$IEnumerable$1$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"
         ],
         ctors: {
             ctor: function () {
@@ -2057,7 +2055,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
             getEnumerator: function () {
                 return new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this);
             },
-            System$Collections$Generic$IEnumerable$1$T$getEnumerator: function () {
+            System$Collections$Generic$IEnumerable$1$getEnumerator: function () {
                 return new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this).$clone();
             },
             System$Collections$IEnumerable$getEnumerator: function () {
@@ -2151,7 +2149,7 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
         alias: [
             "dispose", "System$IDisposable$dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "Current", "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1"
+            "Current", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
         ctors: {
             $ctor1: function (stack) {
@@ -2286,6 +2284,6 @@ Bridge.assembly("Bridge.Collections", function ($asm, globals) {
     Bridge.ns("System.Boolean", $box_);
 
     Bridge.apply($box_.System.Boolean, {
-        toString: function (obj) {return System.Boolean.toString(obj);}
+        toString: function (obj) { return System.Boolean.toString(obj); }
     });
 });

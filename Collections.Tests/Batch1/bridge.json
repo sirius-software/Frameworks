@@ -1,6 +1,0 @@
-﻿{
-  "output": "../Runner/Batch1",
-  "cleanOutputFolderBeforeBuild": true,
-  "outputFormatting": "Formatted",
-  "fileName": "tests.js"
-}

@@ -1,6 +1,0 @@
-﻿{
-  "output": "Bridge\\output",
-  "cleanOutputFolderBeforeBuild": true,
-  "fileName": "bridge.collections.js",
-  "generateTypeScript": true
-}

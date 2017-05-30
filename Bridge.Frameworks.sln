@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frameworks", "Frameworks", "{7C762820-1165-4EB4-B7A3-3BB45DF33CE7}"
 EndProject
@@ -18,8 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{42D82A
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.Collections", "Collections\Bridge.Collections.csproj", "{2F36A7E8-FC89-49A9-8161-5BBBE8F66A3A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.WebGL", "WebGL\Bridge.WebGL.csproj", "{476C2F05-4770-481C-90D1-8353E5F379DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.AngularJS", "AngularJS\Bridge.AngularJS.csproj", "{CFD49E9D-FA2D-46A6-B50D-8D114F07C07C}"
@@ -30,7 +28,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "specs", "specs", "{C0B01623
 	ProjectSection(SolutionItems) = preProject
 		.build\specs\Bridge.AngularJS.nuspec = .build\specs\Bridge.AngularJS.nuspec
 		.build\specs\Bridge.Bootstrap.nuspec = .build\specs\Bridge.Bootstrap.nuspec
-		.build\specs\Bridge.Collections.nuspec = .build\specs\Bridge.Collections.nuspec
 		.build\specs\Bridge.Html5.Console.nuspec = .build\specs\Bridge.Html5.Console.nuspec
 		.build\specs\Bridge.jQuery.nuspec = .build\specs\Bridge.jQuery.nuspec
 		.build\specs\Bridge.QUnit.Dev.nuspec = .build\specs\Bridge.QUnit.Dev.nuspec
@@ -45,8 +42,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{105998
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.Html5.Console", "Html5.Console\Bridge.Html5.Console.csproj", "{49A43430-680D-4704-9105-D4352D105B86}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Collections", "Collections", "{08518112-22DB-4ECA-94D8-3A9ACD8FCCE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,10 +61,6 @@ Global
 		{96CB97F5-1BAC-433D-B5CE-AD6E7B244F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96CB97F5-1BAC-433D-B5CE-AD6E7B244F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96CB97F5-1BAC-433D-B5CE-AD6E7B244F12}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F36A7E8-FC89-49A9-8161-5BBBE8F66A3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F36A7E8-FC89-49A9-8161-5BBBE8F66A3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F36A7E8-FC89-49A9-8161-5BBBE8F66A3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F36A7E8-FC89-49A9-8161-5BBBE8F66A3A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{476C2F05-4770-481C-90D1-8353E5F379DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{476C2F05-4770-481C-90D1-8353E5F379DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{476C2F05-4770-481C-90D1-8353E5F379DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -90,12 +81,10 @@ Global
 		{BCCFB816-2F7F-4693-A16B-2BC0A7B39085} = {7C762820-1165-4EB4-B7A3-3BB45DF33CE7}
 		{E2C8A4F9-8525-40E6-A076-38F91F602975} = {7C762820-1165-4EB4-B7A3-3BB45DF33CE7}
 		{96CB97F5-1BAC-433D-B5CE-AD6E7B244F12} = {7C762820-1165-4EB4-B7A3-3BB45DF33CE7}
-		{2F36A7E8-FC89-49A9-8161-5BBBE8F66A3A} = {08518112-22DB-4ECA-94D8-3A9ACD8FCCE5}
 		{476C2F05-4770-481C-90D1-8353E5F379DC} = {7C762820-1165-4EB4-B7A3-3BB45DF33CE7}
 		{CFD49E9D-FA2D-46A6-B50D-8D114F07C07C} = {7C762820-1165-4EB4-B7A3-3BB45DF33CE7}
 		{C0B01623-3AEA-472E-BD8D-4F2D05378ADC} = {16FF416E-9157-4B8A-80B8-65946FE29CE9}
 		{105998AB-4F7F-48FE-BB97-9E6F330DAC21} = {16FF416E-9157-4B8A-80B8-65946FE29CE9}
 		{49A43430-680D-4704-9105-D4352D105B86} = {7C762820-1165-4EB4-B7A3-3BB45DF33CE7}
-		{08518112-22DB-4ECA-94D8-3A9ACD8FCCE5} = {7C762820-1165-4EB4-B7A3-3BB45DF33CE7}
 	EndGlobalSection
 EndGlobal

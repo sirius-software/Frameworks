@@ -125,7 +125,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Bridge.Resources.json">
+		<LogicalName>Bridge.Resources.json</LogicalName>
+	</EmbeddedResource>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="jquery-2.2.4.js">
+		<LogicalName>jquery-2.2.4.js</LogicalName>
+	</EmbeddedResource>
+    <EmbeddedResource Include="jquery-2.2.4.min.js">
+		<LogicalName>jquery-2.2.4.min.js</LogicalName>
+	</EmbeddedResource>
   </ItemGroup>
   <Import Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " Project="$(SolutionDir)\.build\common\NuGet.Build.Package.targets" />
   <Target Name="CleanProjectNuGetOutput" BeforeTargets="Clean">

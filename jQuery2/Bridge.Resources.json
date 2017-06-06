@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Name": "jquery-2.2.4.js",
+	  "FileName": "jquery-2.2.4.js"
+  },
+	{
+    "Name": "jquery-2.2.4.min.js",     
+	  "FileName": "jquery-2.2.4.min.js"
+  }
+]

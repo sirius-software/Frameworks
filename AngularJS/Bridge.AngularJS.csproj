@@ -170,9 +170,6 @@
     <Compile Include="Services\XhrFactory.cs" />
     <Compile Include="Directives\View.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="build\package\README.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

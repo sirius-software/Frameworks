@@ -67,9 +67,6 @@
     <Compile Include="TestSuiteBeginCallbackArgs.cs" />
     <Compile Include="TestSuiteDoneCallbackArgs.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="build\package\README.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent />

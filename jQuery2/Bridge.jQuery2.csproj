@@ -115,28 +115,30 @@
     </NuGetPackageSourcePath>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Bridge, Version=16.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bridge.Core.16.0.0-beta2\lib\net40\Bridge.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Bridge.Html5, Version=16.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bridge.Html5.16.0.0-beta2\lib\net40\Bridge.Html5.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Bridge.Resources.json">
-		<LogicalName>Bridge.Resources.json</LogicalName>
-	</EmbeddedResource>
-    <None Include="packages.config" />
+      <LogicalName>Bridge.Resources.json</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="jquery-2.2.4.js">
-		<LogicalName>jquery-2.2.4.js</LogicalName>
-	</EmbeddedResource>
+      <LogicalName>jquery-2.2.4.js</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="jquery-2.2.4.min.js">
-		<LogicalName>jquery-2.2.4.min.js</LogicalName>
-	</EmbeddedResource>
+      <LogicalName>jquery-2.2.4.min.js</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Bridge, Version=16.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bridge.Core.16.0.0-beta3\lib\net40\Bridge.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Bridge.Html5, Version=16.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bridge.Html5.16.0.0-beta3\lib\net40\Bridge.Html5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " Project="$(SolutionDir)\.build\common\NuGet.Build.Package.targets" />
   <Target Name="CleanProjectNuGetOutput" BeforeTargets="Clean">

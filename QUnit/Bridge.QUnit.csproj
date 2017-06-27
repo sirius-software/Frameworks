@@ -92,11 +92,11 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Bridge, Version=16.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bridge.Core.16.0.0-beta3\lib\net40\Bridge.dll</HintPath>
+      <HintPath>..\packages\Bridge.Core.16.0.0-beta4\lib\net40\Bridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Bridge.Html5, Version=16.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bridge.Html5.16.0.0-beta3\lib\net40\Bridge.Html5.dll</HintPath>
+      <HintPath>..\packages\Bridge.Html5.16.0.0-beta4\lib\net40\Bridge.Html5.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

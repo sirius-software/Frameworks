@@ -12,3 +12,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0")]
 [assembly: AssemblyFileVersion("1.0.3")]
 [assembly: AssemblyInformationalVersion("1.0.3-rc")]
+[assembly: Convention(Member = ConventionMember.Field | ConventionMember.Method, Notation = Notation.LowerCamelCase)]

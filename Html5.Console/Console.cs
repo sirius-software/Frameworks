@@ -20,7 +20,6 @@ namespace Bridge.Html5
         /// Outputs a message to the Web Console.
         /// </summary>
         /// <param name="value">Object to output.</param>
-        [Name("log")]
         public static extern void Log(string value);
 
         /// <summary>
@@ -56,14 +55,12 @@ namespace Bridge.Html5
         /// </summary>
         /// <param name="msg">A JavaScript string containing zero or more substitution strings.</param>
         /// <param name="args">JavaScript objects with which to replace substitution strings within msg. This gives you additional control over the format of the output.</param>
-        [Name("log")]
         public static extern void Log(string msg, params object[] args);
 
         /// <summary>
         /// Outputs a message to the Web Console.
         /// </summary>
         /// <param name="args">JavaScript objects with which to replace substitution strings within msg. This gives you additional control over the format of the output.</param>
-        [Name("log")]
         public static extern void Log(params object[] args);
 
         #endregion Log
@@ -74,7 +71,6 @@ namespace Bridge.Html5
         /// Outputs an informational message to the Web Console. In Firefox, a small "i" icon is displayed next to these items in the Web Console's log.
         /// </summary>
         /// <param name="msg">A JavaScript string containing zero or more substitution strings.</param>
-        [Name("info")]
         public static extern void Info(string msg);
 
         /// <summary>
@@ -110,14 +106,12 @@ namespace Bridge.Html5
         /// </summary>
         /// <param name="msg">A JavaScript string containing zero or more substitution strings.</param>
         /// <param name="args">JavaScript objects with which to replace substitution strings within msg. This gives you additional control over the format of the output.</param>
-        [Name("info")]
         public static extern void Info(string msg, params object[] args);
 
         /// <summary>
         /// Outputs an informational message to the Web Console. In Firefox, a small "i" icon is displayed next to these items in the Web Console's log.
         /// </summary>
         /// <param name="args">JavaScript objects with which to replace substitution strings within msg. This gives you additional control over the format of the output.</param>
-        [Name("info")]
         public static extern void Info(params object[] args);
 
         #endregion Info
@@ -128,7 +122,6 @@ namespace Bridge.Html5
         /// Outputs a warning message to the Web Console.
         /// </summary>
         /// <param name="msg">A JavaScript string containing zero or more substitution strings.</param>
-        [Name("warn")]
         public static extern void Warn(string msg);
 
         /// <summary>
@@ -164,14 +157,12 @@ namespace Bridge.Html5
         /// </summary>
         /// <param name="msg">A JavaScript string containing zero or more substitution strings.</param>
         /// <param name="args">JavaScript objects with which to replace substitution strings within msg. This gives you additional control over the format of the output.</param>
-        [Name("warn")]
         public static extern void Warn(string msg, params object[] args);
 
         /// <summary>
         /// Outputs a warning message to the Web Console.
         /// </summary>
         /// <param name="args">JavaScript objects with which to replace substitution strings within msg. This gives you additional control over the format of the output.</param>
-        [Name("warn")]
         public static extern void Warn(params object[] args);
 
         #endregion Warn
@@ -182,7 +173,6 @@ namespace Bridge.Html5
         /// Outputs an error message to the Web Console.
         /// </summary>
         /// <param name="msg">A JavaScript string containing zero or more substitution strings.</param>
-        [Name("error")]
         public static extern void Error(string msg);
 
         /// <summary>
@@ -218,14 +208,12 @@ namespace Bridge.Html5
         /// </summary>
         /// <param name="msg">A JavaScript string containing zero or more substitution strings.</param>
         /// <param name="args">JavaScript objects with which to replace substitution strings within msg. This gives you additional control over the format of the output.</param>
-        [Name("error")]
         public static extern void Error(string msg, params object[] args);
 
         /// <summary>
         /// Outputs an error message to the Web Console.
         /// </summary>
         /// <param name="args">JavaScript objects with which to replace substitution strings within msg. This gives you additional control over the format of the output.</param>
-        [Name("error")]
         public static extern void Error(params object[] args);
 
         #endregion Error
@@ -235,14 +223,12 @@ namespace Bridge.Html5
         /// <summary>
         /// Creates a new inline group, indenting all following output by another level. To move back out a level, call groupEnd().
         /// </summary>
-        [Name("group")]
         public static extern void Group();
 
         /// <summary>
         /// Creates a new inline group, indenting all following output by another level. To move back out a level, call groupEnd().
         /// </summary>
         /// <param name="msg">A message.</param>
-        [Name("group")]
         public static extern void Group(string msg);
 
         /// <summary>
@@ -250,7 +236,6 @@ namespace Bridge.Html5
         /// </summary>
         /// <param name="msg">A message.</param>
         /// <param name="args">JavaScript objects with which to replace substitution strings within msg.</param>
-        [Name("group")]
         public static extern void Group(string msg, params object[] args);
 
         /// <summary>
@@ -258,20 +243,17 @@ namespace Bridge.Html5
         /// </summary>
 
         /// <param name="args">JavaScript objects with which to replace substitution strings within msg.</param>
-        [Name("group")]
         public static extern void Group(params object[] args);
 
         /// <summary>
         /// Creates a new inline group in the Web Console. Unlike console.group(), however, the new group is created collapsed. The user will need to use the disclosure button next to it to expand it, revealing the entries created in the group.
         /// </summary>
-        [Name("groupCollapsed")]
         public static extern void GroupCollapsed();
 
         /// <summary>
         /// Creates a new inline group in the Web Console. Unlike console.group(), however, the new group is created collapsed. The user will need to use the disclosure button next to it to expand it, revealing the entries created in the group.
         /// </summary>
         /// <param name="msg">A message.</param>
-        [Name("groupCollapsed")]
         public static extern void GroupCollapsed(string msg);
 
         /// <summary>
@@ -279,20 +261,17 @@ namespace Bridge.Html5
         /// </summary>
         /// <param name="msg">A message.</param>
         /// <param name="args">An array of objects to write to the group.</param>
-        [Name("groupCollapsed")]
         public static extern void GroupCollapsed(string msg, params object[] args);
 
         /// <summary>
         /// Creates a new inline group in the Web Console. Unlike console.group(), however, the new group is created collapsed. The user will need to use the disclosure button next to it to expand it, revealing the entries created in the group.
         /// </summary>
         /// <param name="args">An array of objects to write to the group.</param>
-        [Name("groupCollapsed")]
         public static extern void GroupCollapsed(params object[] args);
 
         /// <summary>
         /// Exits the current inline group.
         /// </summary>
-        [Name("groupEnd")]
         public static extern void GroupEnd();
 
         #endregion Grouping
@@ -303,7 +282,6 @@ namespace Bridge.Html5
         /// Log a message and stack trace to console if first argument is false.
         /// </summary>
         /// <param name="assertion">If false then message is shown</param>
-        [Name("assert")]
         public static extern void Assert(bool assertion);
 
         /// <summary>
@@ -311,7 +289,6 @@ namespace Bridge.Html5
         /// </summary>
         /// <param name="assertion">If false then message is shown</param>
         /// <param name="msg">A JavaScript string containing zero or more substitution strings.</param>
-        [Name("assert")]
         public static extern void Assert(bool assertion, string msg);
 
         /// <summary>
@@ -320,7 +297,6 @@ namespace Bridge.Html5
         /// <param name="assertion">If false then message is shown</param>
         /// <param name="msg">A JavaScript string containing zero or more substitution strings.</param>
         /// <param name="args">JavaScript objects with which to replace substitution strings within msg. This gives you additional control over the format of the output.</param>
-        [Name("assert")]
         public static extern void Assert(bool assertion, string msg, params object[] args);
 
         #endregion Assert
@@ -330,7 +306,6 @@ namespace Bridge.Html5
         /// <summary>
         /// Outputs a stack trace.
         /// </summary>
-        [Name("trace")]
         public static extern void Trace();
 
         #endregion Utils
@@ -341,21 +316,18 @@ namespace Bridge.Html5
         /// Starts a timer with a name specified as an input parameter. Up to 10,000 simultaneous timers can run on a given page.
         /// </summary>
         /// <param name="name">The name to give the new timer. This will identify the timer; use the same name when calling console.timeEnd() to stop the timer and get the time output to the console.</param>
-        [Name("time")]
         public static extern void Time(object name);
 
         /// <summary>
         /// Stops the specified timer and logs the elapsed time in seconds since its start.
         /// </summary>
         /// <param name="name">The name of the timer to stop. Once stopped, the elapsed time is automatically displayed in the Web Console.</param>
-        [Name("timeEnd")]
         public static extern void TimeEnd(object name);
 
         /// <summary>
         /// This method adds an event to the Timeline during a recording session. This lets you visually correlate your code generated time stamp to other events, such as screen layout and paints, that are automatically added to the Timeline.
         /// </summary>
         /// <param name="name">Stamp name</param>
-        [Name("timeStamp")]
         public static extern void TimeStamp(object name);
 
         #endregion Timer
@@ -365,20 +337,17 @@ namespace Bridge.Html5
         /// <summary>
         /// Starts the JavaScript profiler. You can specify an optional label for the profile.
         /// </summary>
-        [Name("profile")]
         public static extern void Profile();
 
         /// <summary>
         /// Starts the JavaScript profiler. You can specify an optional label for the profile.
         /// </summary>
         /// <param name="profileLabel"></param>
-        [Name("profile")]
         public static extern void Profile(string profileLabel);
 
         /// <summary>
         /// Stops the profiler.
         /// </summary>
-        [Name("profileEnd")]
         public static extern void ProfileEnd();
 
         #endregion Profile
@@ -390,7 +359,6 @@ namespace Bridge.Html5
         /// If label is supplied, this function logs the number of times count() has been called with that particular label.
         /// If label is omitted, the function logs the number of times count() has been called at this particular line.
         /// </summary>
-        [Name("count")]
         public static extern void Count();
 
         /// <summary>
@@ -399,7 +367,6 @@ namespace Bridge.Html5
         /// If label is omitted, the function logs the number of times count() has been called at this particular line.
         /// </summary>
         /// <param name="label">Label value</param>
-        [Name("count")]
         public static extern void Count(string label);
 
         #endregion Count
@@ -410,7 +377,6 @@ namespace Bridge.Html5
         /// Displays an interactive listing of the properties of a specified JavaScript object. This listing lets you use disclosure triangles to examine the contents of child objects.
         /// </summary>
         /// <param name="obj">A JavaScript object whose properties should be output.</param>
-        [Name("dir")]
         public static extern void Dir(object obj);
 
         #endregion Dir
@@ -421,7 +387,6 @@ namespace Bridge.Html5
         /// Displays tabular data as a table.
         /// </summary>
         /// <param name="data">The data to display. This must be either an array or an object.</param>
-        [Name("table")]
         public static extern void Table(object data);
 
         /// <summary>
@@ -429,7 +394,6 @@ namespace Bridge.Html5
         /// </summary>
         /// <param name="data">The data to display. This must be either an array or an object.</param>
         /// <param name="columns">An array containing the names of columns to include in the output.</param>
-        [Name("table")]
         public static extern void Table(object data, string[] columns);
 
         #endregion Table

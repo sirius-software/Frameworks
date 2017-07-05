@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using Bridge;
 
 [assembly: AssemblyTitle("Bridge.Html5.Console")]
 [assembly: AssemblyDescription("")]
